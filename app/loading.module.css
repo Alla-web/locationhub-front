@@ -1,0 +1,61 @@
+:root {
+  --sp-size: 36px;
+  --sp-thickness: 6px;
+  --sp-color: rgb(75, 120, 255);
+}
+
+.loaderContainer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.loadingPharagraph {
+  text-align: center;
+
+  display: block;
+  font-size: 18px;
+  color: #495057;
+  margin-bottom: 16px;
+}
+
+.loading {
+  margin: 16px auto;
+
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+.loadingBtn {
+  margin-top: 16px;
+  background: transparent;
+}
+
+.loader {
+  display: inline-block; /* ВАЖЛИВО: щоб працювали width/height */
+  width: var(--sp-size);
+  height: var(--sp-size);
+  vertical-align: middle; /* вирівнювання з текстом */
+  border: var(--sp-thickness) solid transparent;
+  border-top-color: var(--sp-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
