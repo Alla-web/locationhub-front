@@ -27,7 +27,7 @@ export default function SignUpPage() {
               <span className={styles.label}>Ім&apos;я*</span>
               <input
                 type="text"
-                placeholder="Ваше ім’я"
+                placeholder="Ваше ім'я"
                 className={styles.input}
               />
             </label>
