@@ -1,0 +1,103 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px;
+  border-radius: 12px;
+  background-color: #fffdfb;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  font-size: 20px;
+  line-height: 1;
+  color: #7a6b66;
+}
+
+.title {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #1f1110;
+}
+
+.text {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #7a6b66;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.primaryButton {
+  background-color: #c85a2e;
+  color: #ffffff;
+}
+
+.primaryButton:hover,
+.primaryButton:focus {
+  background-color: #b84e24;
+}
+
+.secondaryButton {
+  border: 1px solid rgba(31, 17, 16, 0.15);
+  background-color: #f8e7df;
+  color: #1f1110;
+}
+
+.secondaryButton:hover,
+.secondaryButton:focus {
+  background-color: #f3ddd3;
+}
+
+@media screen and (min-width: 768px) {
+  .actions {
+    flex-direction: row;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 50%;
+  }
+}

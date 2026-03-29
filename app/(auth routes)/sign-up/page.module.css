@@ -1,0 +1,287 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: #f6f3f1;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  padding: 0 64px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  width: 100%;
+  max-width: 1312px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #1f1110;
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 644px;
+  margin: 0 auto;
+  padding-top: 64px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  width: 100%;
+  max-width: 644px;
+  height: 51px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px;
+  margin-bottom: 24px;
+}
+
+.activeTab {
+  font-size: 14px;
+  line-height: 1.2;
+  color: #7a6b66;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #d7c8c2;
+}
+
+.tabLink {
+  font-size: 14px;
+  line-height: 1.2;
+  color: #7a6b66;
+  text-decoration: none;
+  padding-bottom: 6px;
+}
+
+.tabLink:hover,
+.tabLink:focus {
+  color: #5f514d;
+}
+
+.title {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #1f1110;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  line-height: 1.2;
+  color: #3b2a26;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid rgba(31, 17, 16, 0.15);
+  border-radius: 6px;
+  background-color: #f8e7df;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #1f1110;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #8b7c77;
+}
+
+.input:focus {
+  border-color: #c85a2e;
+}
+
+.submitButton {
+  width: 100%;
+  height: 44px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #c85a2e;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.submitButton:hover,
+.submitButton:focus {
+  background-color: #b84e24;
+}
+
+.footer {
+  width: 100%;
+  max-width: 1312px;
+  height: 72px;
+  margin: auto auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  line-height: 1.2;
+  color: #7a6b66;
+}
+
+/* TABLET */
+@media screen and (max-width: 1023px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+
+  .topBar {
+    max-width: 704px;
+    height: 72px;
+  }
+
+  .formWrapper {
+    max-width: 644px;
+    padding-top: 64px;
+  }
+
+  .tabs {
+  width: 100%;
+  max-width: 644px;
+  min-height: 51px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px;
+  margin-bottom: 24px;
+}
+
+  .title {
+    font-size: 56px;
+    margin-bottom: 24px;
+  }
+
+  .form {
+    max-width: 644px;
+  }
+
+  .footer {
+    max-width: 704px;
+    height: 72px;
+  }
+}
+
+/* MOBILE */
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 375px;
+    padding: 0 20px;
+  }
+
+  .topBar {
+  width: 100%;
+  max-width: 1312px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .formWrapper {
+    max-width: 335px;
+    padding-top: 64px;
+  }
+
+  .tabs {
+    max-width: 335px;
+    height: 51px;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+
+  .activeTab,
+  .tabLink {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .form {
+    max-width: 335px;
+    gap: 16px;
+  }
+
+  .field {
+    gap: 8px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .input {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .submitButton {
+    width: 100%;
+    height: 44px;
+    margin-top: 8px;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+
+  .footer {
+  width: 100%;
+  max-width: 1312px;
+  min-height: 72px;
+  margin: auto auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+}

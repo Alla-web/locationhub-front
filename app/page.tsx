@@ -1,39 +1,61 @@
-import { Metadata } from "next";
+'use client';
 
-import css from "./page.module.css";
+import { useState } from 'react';
+import AuthModal from '@/components/auth-prompt-modal/auth-prompt-modal';
 
-export const metadata: Metadata = {
-  title: "Locationhub home page",
-  description: "Location management website home page",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Locationhub home page",
-    description: "Notes management website home page",
-    url: "/",
-    images: [
-      {
-        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Locationhub",
-      },
-    ],
-  },
-};
+export default function HomePage() {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-export default function Home() {
+  // ❗ пока фейковая авторизация
+  const isAuthenticated = false;
+
+  const handleProtectedAction = () => {
+    if (!isAuthenticated) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+
+    console.log('Protected action');
+  };
+
   return (
-    <div>
-      <main>
-        <div className={css.container}>
-          <h1 className={css.title}>Welcome to Locationhub</h1>
-          <p className={css.description}>
-            Locationhub is a simple and efficient application designed for
-            managing personal notes. It helps keep your thoughts organized and
-            accessible in one place, whether you are at home or on the go.
-          </p>
-        </div>
-      </main>
-    </div>
+    <main
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '24px',
+      }}
+    >
+      <div>
+        <h1>
+          Location – simple and efficient application design
+        </h1>
+
+        <p>
+          Discover locations quickly and manage your experience in a convenient and modern interface.
+        </p>
+
+        <button
+          onClick={handleProtectedAction}
+          style={{
+            marginTop: '20px',
+            padding: '12px 20px',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          Спробувати захищену дію
+        </button>
+      </div>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
+    </main>
   );
 }
