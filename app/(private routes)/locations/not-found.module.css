@@ -1,0 +1,13 @@
+.notFoundContainer {
+  margin: 10px;
+}
+
+.title {
+  font-size: 20px;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 18px;
+}
