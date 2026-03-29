@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Notes",
-  description: "All notes list page",
+  title: "Locations",
+  description: "All locations list page",
 };
 
 export default function Notes() {
