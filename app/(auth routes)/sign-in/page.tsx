@@ -1,57 +1,56 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 
-export default function SignUpPage() {
+export default function SignInPage() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        <div className={styles.topBar}>
-          <Link href="/" className={styles.logo}>
+        <header className={styles.topBar}>
+          <Link href="/" className={styles.logo} aria-label="Relax Map home">
             Relax Map
           </Link>
-        </div>
+        </header>
 
         <section className={styles.formWrapper}>
           <div className={styles.tabs}>
-            <span className={styles.activeTab}>Реєстрація</span>
-
-            <Link href="/sign-in" className={styles.tabLink}>
-              Вхід
+            <Link href="/sign-up" className={styles.tabLink}>
+              Реєстрація
             </Link>
+
+            <span className={styles.activeTab}>Вхід</span>
           </div>
 
-          <h1 className={styles.title}>Реєстрація</h1>
+          <h1 className={styles.title}>Вхід</h1>
 
-          <form className={styles.form}>
-            <label className={styles.field}>
-              <span className={styles.label}>Ім&apos;я*</span>
-              <input
-                type="text"
-                placeholder="Ваше ім'я"
-                className={styles.input}
-              />
-            </label>
-
-            <label className={styles.field}>
+          <form className={styles.form} aria-label="Форма входу">
+            <label className={styles.field} htmlFor="email">
               <span className={styles.label}>Пошта*</span>
               <input
+                id="email"
+                name="email"
                 type="email"
                 placeholder="hello@relaxmap.ua"
                 className={styles.input}
+                autoComplete="email"
+                required
               />
             </label>
 
-            <label className={styles.field}>
+            <label className={styles.field} htmlFor="password">
               <span className={styles.label}>Пароль*</span>
               <input
+                id="password"
+                name="password"
                 type="password"
                 placeholder="******"
                 className={styles.input}
+                autoComplete="current-password"
+                required
               />
             </label>
 
             <button type="submit" className={styles.submitButton}>
-              Зареєструватись
+              Увійти
             </button>
           </form>
         </section>
