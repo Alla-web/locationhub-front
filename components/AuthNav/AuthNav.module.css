@@ -1,41 +1,74 @@
+/* Колонка: ряд табів, під ним лінія — не в один ряд з ul */
 .navAuth {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
 }
 
-.navList{
-    display: flex;
+.navList {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  justify-content: center;
 }
 
-.navLinkRegistration {
-    padding: 12px 24px;
-    width: 167px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 0px;
+.navList > li {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
 }
 
-.navLinkLogin{
-    width: 167px;
-    height: 49px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 8px;
+.navLinkRegistration,
+.navLinkLogin {
+  padding: 12px 24px;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .active {
-    color: #000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    font-weight: 500;
+  color: #000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  font-weight: 500;
 }
 
 .button {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.line {
+  display: none;
+}
+
+/* Планшет: таби на всю ширину колонки 644px */
+@media (min-width: 768px) {
+  .navAuth {
+    max-width: 644px;
+    margin-inline: auto;
+  }
+
+  .navLinkRegistration,
+  .navLinkLogin {
+    max-width: none;
+    width: 100%;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 1440px) {
+  .navLinkRegistration,
+  .navLinkLogin {
+    font-size: 18px;
+    line-height: 1.5;
+    min-height: 51px;
+  }
 }

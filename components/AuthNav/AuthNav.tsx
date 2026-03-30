@@ -36,9 +36,9 @@ const AuthNav = () => {
       <ul className={css.navList}>
         <li>
           <Link
-            href="/sign-up"
+            href="/register"
             className={`${css.navLinkRegistration} ${
-              pathname === '/sign-up' ? css.active : ''
+              pathname === '/register' ? css.active : ''
             }`}
           >
             Реєстрація

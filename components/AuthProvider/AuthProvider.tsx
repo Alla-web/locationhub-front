@@ -3,6 +3,7 @@
 import { checkSession, getMe } from '@/lib/api/api';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 type Props = {
   children: React.ReactNode;
@@ -25,7 +26,12 @@ const AuthProvider = ({ children }: Props) => {
     fetchUser();
   }, [setUser, clearIsAuthenticated]);
 
-  return children;
+  return (
+    <>
+      <Toaster position="top-right" />
+      {children}
+    </>
+  );
 };
 
 export default AuthProvider;

@@ -1,14 +1,42 @@
 .wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff2ec;;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff2ec;
 }
 
 .authContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    padding-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  /* мобільний — компактніше, ніж планшетний макет */
+  gap: 24px;
+  padding-top: 32px;
+  padding-inline: clamp(12px, 4vw, 20px);
 }
+
+/*
+ * Планшет 768px (Figma):
+ * — 64px від хедера до AuthNav (padding-top main)
+ * — 32px між AuthNav і заголовком (gap між дітьми в колонці)
+ * — 62px + 644px + 62px = 768px: бокові поля 62px, контент 644px
+ */
+@media (min-width: 768px) {
+  .authContainer {
+    padding-top: 64px;
+    gap: 32px;
+    padding-inline: 62px;
+    max-width: 768px;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .authContainer {
+    padding-inline: 64px;
+    max-width: 1440px;
+  }
+}
+

@@ -1,7 +1,5 @@
 import AuthHeader from '@/components/AuthHeader/AuthHeader';
 import css from './AuthLayout.module.css';
-import AuthNav from '@/components/AuthNav/AuthNav';
-import LoginForm from '@/components/LoginForm/LoginForm';
 
 export default function AuthLayout({
   children,

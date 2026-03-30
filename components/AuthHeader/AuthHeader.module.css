@@ -1,21 +1,48 @@
 .authHeader {
-    width: 335px;
-    height: 72px;
-    max-width: 1280px;
-    margin: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 72px;
+  padding-inline: 20px;
 }
 
 .logo {
-    height: 72px;
-    display: flex;
-    align-items: center;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.authHeaderText{
-    font-weight: 500;
-    text-decoration: none;
-    font-size: 17px;
-    line-height: 1;
-    letter-spacing: -0.01em;
-    color: #4c2613;
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background-image: url("/icons/map_search.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.authHeaderText {
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #4c2613;
+}
+
+@media (min-width: 768px) {
+  .authHeader {
+    max-width: 768px;
+    margin-inline: auto;
+    padding-inline: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .authHeader {
+    max-width: 1440px;
+    padding-inline: 64px;
+  }
 }
