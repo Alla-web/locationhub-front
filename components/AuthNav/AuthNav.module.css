@@ -1,0 +1,41 @@
+.navAuth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.navList{
+    display: flex;
+}
+
+.navLinkRegistration {
+    padding: 12px 24px;
+    width: 167px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 0px;
+}
+
+.navLinkLogin{
+    width: 167px;
+    height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.active {
+    color: #000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+}
+
+.button {
+    cursor: pointer;
+}
