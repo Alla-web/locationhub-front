@@ -156,7 +156,7 @@ svg {
   font-family: var(--font-montserrat), sans-serif;
   font-weight: 500;
   font-size: 20px;
-  line-height: 150%;
+  line-height: 1.5;
   transition: all var(--transition-fast);
 }
 
@@ -278,4 +278,44 @@ svg {
   opacity: 0.3;
   cursor: not-allowed;
   transform: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+
+  width: 60px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 6px;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
+
+  color: var(--color-neutral-darkest);
+
+  transition: all var(--transition-fast);
+}
+.link:hover,
+.link:focus {
+  border: 1px solid var(--color-scheme-1-text);
+}
+.link:active {
+  border: 1px solid var(--color-scheme-1-text);
+  background: var(--color-neutral-lighter);
+}
+.link--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.link--icon {
+  gap: 6px;
+}
+.link .icon {
+  width: 16px;
+  height: 16px;
 }
