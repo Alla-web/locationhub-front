@@ -8,13 +8,9 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 8px;
   width: 335px;
   height: 72px;
-}
-
-.form label {
-  margin-bottom: 8px;
 }
 
 .formField {

@@ -13,14 +13,10 @@
 }
 
 .icon {
-  display: inline-block;
   width: 24px;
   height: 24px;
   flex-shrink: 0;
-  background-image: url("/icons/map_search.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  fill: #4c2613;
 }
 
 .authHeaderText {

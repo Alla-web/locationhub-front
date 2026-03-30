@@ -73,12 +73,12 @@
 
   .formGroup {
     width: 100%;
-    height: auto;
-    min-height: 72px;
+    height: 72px;
   }
 
   .form label {
     font-size: 18px;
+    line-height: 1.2;
   }
 
   .formField {

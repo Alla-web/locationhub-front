@@ -29,6 +29,7 @@
 @media (min-width: 768px) {
   .loginTitle {
     font-size: 44px;
+    line-height: 1.2;
   }
 }
 
@@ -37,4 +38,3 @@
     font-size: 52px;
   }
 }
-
