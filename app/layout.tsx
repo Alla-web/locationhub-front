@@ -5,6 +5,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Locationhub",
@@ -44,12 +45,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.variable} app`}>
         <TanStackProvider>
-          {/* <AuthProvider> */}
+          <AuthProvider>
+            {/* <Header/> */}
           <main className="content">
             {children}
             {modal}
-          </main>
-          {/* </AuthProvider> */}
+            </main>
+            {/* <Footer/> */}
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
