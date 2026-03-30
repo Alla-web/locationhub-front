@@ -1,5 +1,6 @@
 import AuthHeader from '@/components/AuthHeader/AuthHeader';
 import css from './AuthLayout.module.css';
+// import Footer from '@/components/Footer/Footer';
 
 export default function AuthLayout({
   children,
@@ -12,6 +13,7 @@ export default function AuthLayout({
       <main className={css.authContainer}>
         {children}
       </main>
+      {/* <Footer/> */}
     </div>
   );
 }
