@@ -1,3 +1,4 @@
+/* Вирівняно з LoginForm.module.css — ті самі відступи й поля */
 .form {
   display: flex;
   flex-direction: column;
@@ -7,13 +8,11 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 8px;
   width: 335px;
   height: 72px;
 }
-.form label {
-  margin-bottom: 8px;
-}
+
 .formField {
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -25,7 +24,7 @@
   outline: none;
 }
 
-.loginActions {
+.registerActions {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +32,7 @@
   gap: 8px;
 }
 
-.loginButton {
+.registerButton {
   width: 335px;
   height: 44px;
   font-weight: 500;
@@ -47,8 +46,8 @@
   transition: background-color 0.2s ease;
 }
 
-.loginButton:focus,
-.loginButton:hover {
+.registerButton:focus,
+.registerButton:hover {
   color: #1b391b;
   border: 1px solid rgba(0, 0, 0, 0.15);
   background-color: rgba(0, 0, 0, 0.05);
@@ -73,12 +72,12 @@
 
   .formGroup {
     width: 100%;
-    height: 72px;
+    height: auto;
+    min-height: 72px;
   }
 
   .form label {
     font-size: 18px;
-    line-height: 1.2;
   }
 
   .formField {
@@ -86,7 +85,7 @@
     font-size: 18px;
   }
 
-  .loginButton {
+  .registerButton {
     width: 100%;
   }
 }
