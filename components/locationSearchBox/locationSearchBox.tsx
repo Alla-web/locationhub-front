@@ -43,7 +43,7 @@ export default function LocationSearchBox({
 
         <select
           name="region"
-          value={filters.region}
+          value={filters.regionId}
           onChange={handleSelectChange}
         >
           <option value="">Регіон</option>
@@ -56,7 +56,7 @@ export default function LocationSearchBox({
 
         <select
           name="locationType"
-          value={filters.locationType}
+          value={filters.locationTypeId}
           onChange={handleSelectChange}
         >
           <option value="">Тип локації</option>

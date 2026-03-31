@@ -18,8 +18,8 @@ export interface Location {
 }
 
 export interface LocationFilters {
-  region: string;
-  locationType: string;
+  regionId: string;
+  locationTypeId: string;
   sort: string;
 }
 

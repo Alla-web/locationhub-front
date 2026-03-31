@@ -18,23 +18,19 @@ import type { GetLocationTypesResponse } from "@/types/locationType";
 import type { GetRegionsResponse } from "@/types/region";
 import type { LocationFilters } from "@/types/location";
 import ErrorBox from "@/components/ErrorBox/ErrorBox";
-import { error } from "console";
 
 interface LocationsPageProps {
   initialSearch: string;
-  initialPage: number;
 }
 
-export default function LocationPage({
-  initialSearch,
-  initialPage = 1,
-}: LocationsPageProps) {
-  const [page, setPage] = useState(initialPage);
+export default function LocationPage({ initialSearch }: LocationsPageProps) {
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(9);
   const [search, setSearch] = useState(initialSearch);
   const [debouncedSearch] = useDebounceValue(search, 1000);
   const [filters, setFilters] = useState<LocationFilters>({
-    region: "",
-    locationType: "",
+    regionId: "",
+    locationTypeId: "",
     sort: "",
   });
 
@@ -42,17 +38,19 @@ export default function LocationPage({
     queryKey: [
       "locations",
       page,
+      perPage,
       debouncedSearch,
-      filters.region,
-      filters.locationType,
+      filters.regionId,
+      filters.locationTypeId,
       filters.sort,
     ],
     queryFn: () =>
       getLocations(
         page,
+        perPage,
         debouncedSearch,
-        filters.region,
-        filters.locationType,
+        filters.regionId,
+        filters.locationTypeId,
         filters.sort,
       ),
     placeholderData: keepPreviousData,

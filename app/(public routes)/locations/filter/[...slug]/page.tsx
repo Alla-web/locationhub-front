@@ -5,6 +5,30 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-export default function LocationsFiltered() {
-  return <div>Location filtered list</div>;
+import LocationClient from "./Location.client";
+
+interface FilteredLocationsPageProps {
+  searchParams: Promise<{ search?: string }>;
+  params: Promise<{ slug: string[] }>;
+}
+
+export default async function FilteredLocationsPage({
+  params,
+  searchParams,
+}: FilteredLocationsPageProps) {
+  const sp = await searchParams;
+  const search = sp?.search || "";
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["locations", search],
+    queryFn: () => {}, //доробити!!!
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <LocationClient initialSearch={search} />
+    </HydrationBoundary>
+  );
 }
