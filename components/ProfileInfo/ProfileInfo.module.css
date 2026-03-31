@@ -1,0 +1,50 @@
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.avatarWrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #f0f0f0;
+}
+.avatar {
+  object-fit: cover;
+}
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.userName {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+.userStats {
+  font-size: 14px;
+  color: #666666;
+  margin: 0;
+}
+.loader,
+.error {
+  font-size: 14px;
+  color: #666;
+}
+@media (min-width: 768px) {
+  .profileHeader {
+    gap: 24px;
+  }
+  .avatarWrapper {
+    width: 96px;
+    height: 96px;
+  }
+  .userName {
+    font-size: 24px;
+  }
+}
