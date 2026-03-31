@@ -50,8 +50,19 @@ export default function AuthPromptModal({
   };
 
   return (
-    <div className={styles.backdrop} onClick={handleBackdropClick}>
-      <div className={styles.modal} onClick={handleModalClick}>
+    <div
+      className={styles.backdrop}
+      onClick={handleBackdropClick}
+      role="presentation"
+    >
+      <div
+        className={styles.modal}
+        onClick={handleModalClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-prompt-title"
+        aria-describedby="auth-prompt-description"
+      >
         <button
           type="button"
           className={styles.closeButton}
@@ -61,16 +72,20 @@ export default function AuthPromptModal({
           ×
         </button>
 
-        <h2 className={styles.title}>{title}</h2>
+        <h2 id="auth-prompt-title" className={styles.title}>
+          {title}
+        </h2>
 
-        <p className={styles.text}>{message}</p>
+        <p id="auth-prompt-description" className={styles.text}>
+          {message}
+        </p>
 
         <div className={styles.actions}>
-          <Link href="/sign-in" className={styles.primaryButton}>
+          <Link href="/login" className={styles.primaryButton}>
             Увійти
           </Link>
 
-          <Link href="/sign-up" className={styles.secondaryButton}>
+          <Link href="/register" className={styles.secondaryButton}>
             Зареєструватися
           </Link>
         </div>

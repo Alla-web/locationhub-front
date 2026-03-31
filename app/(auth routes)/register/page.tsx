@@ -1,27 +1,27 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 
-export default function SignUpPage() {
+export default function RegisterPage() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
         <header className={styles.topBar}>
           <Link href="/" className={styles.logo} aria-label="Relax Map home">
-            <span className={styles.logoIcon} aria-hidden="true">
-              ⌂
-            </span>
+            <svg className={styles.logoIcon} aria-hidden="true">
+              <use href="/icons/sprite.svg#icon-logo" />
+            </svg>
             <span className={styles.logoText}>Relax Map</span>
           </Link>
         </header>
 
         <section className={styles.formWrapper}>
-          <div className={styles.tabs}>
+          <nav className={styles.tabs} aria-label="Auth navigation">
             <span className={styles.activeTab}>Реєстрація</span>
 
-            <Link href="/sign-in" className={styles.tabLink}>
+            <Link href="/login" className={styles.tabLink}>
               Вхід
             </Link>
-          </div>
+          </nav>
 
           <h1 className={styles.title}>Реєстрація</h1>
 

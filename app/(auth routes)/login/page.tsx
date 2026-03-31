@@ -1,24 +1,27 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 
-export default function SignInPage() {
+export default function LoginPage() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
         <header className={styles.topBar}>
           <Link href="/" className={styles.logo} aria-label="Relax Map home">
-            Relax Map
+            <svg className={styles.logoIcon} aria-hidden="true">
+              <use href="/icons/sprite.svg#icon-logo" />
+            </svg>
+            <span className={styles.logoText}>Relax Map</span>
           </Link>
         </header>
 
         <section className={styles.formWrapper}>
-          <div className={styles.tabs}>
-            <Link href="/sign-up" className={styles.tabLink}>
+          <nav className={styles.tabs} aria-label="Auth navigation">
+            <Link href="/register" className={styles.tabLink}>
               Реєстрація
             </Link>
 
             <span className={styles.activeTab}>Вхід</span>
-          </div>
+          </nav>
 
           <h1 className={styles.title}>Вхід</h1>
 
@@ -42,7 +45,7 @@ export default function SignInPage() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="******"
+                placeholder="********"
                 className={styles.input}
                 autoComplete="current-password"
                 required

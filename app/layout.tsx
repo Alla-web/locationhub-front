@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-
 import { Montserrat } from "next/font/google";
 
 import "./globals.css";
-
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 export const metadata: Metadata = {
@@ -41,13 +39,11 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${montserrat.variable} app`}>
         <TanStackProvider>
-          {/* <AuthProvider> */}
           <main className="content">{children}</main>
-{modal}
-          {/* </AuthProvider> */}
+          {modal}
         </TanStackProvider>
       </body>
     </html>

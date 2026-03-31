@@ -8,9 +8,9 @@
 
 .container {
   width: 100%;
-  max-width: 1440px;
+  min-width: 320px;
   min-height: 100vh;
-  padding: 0 64px;
+  padding: 0 20px;
   margin: 0 auto;
   box-sizing: border-box;
 
@@ -21,9 +21,8 @@
 
 .topBar {
   width: 100%;
-  max-width: 1312px;
+  max-width: 335px;
   min-height: 72px;
-  margin: 0 auto;
 
   display: flex;
   align-items: center;
@@ -36,20 +35,19 @@
   gap: 8px;
   text-decoration: none;
   color: #1f1110;
+  cursor: pointer;
 }
 
 .logoIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  font-size: 14px;
-  line-height: 1;
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+  color: #1f1110;
 }
 
 .logoText {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.2;
   color: #1f1110;
@@ -57,8 +55,7 @@
 
 .formWrapper {
   width: 100%;
-  max-width: 644px;
-  margin: 0 auto;
+  max-width: 335px;
   padding-top: 64px;
   box-sizing: border-box;
 
@@ -69,14 +66,13 @@
 
 .tabs {
   width: 100%;
-  max-width: 644px;
   min-height: 51px;
   margin-bottom: 24px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 64px;
+  gap: 32px;
 }
 
 .activeTab {
@@ -95,6 +91,7 @@
   color: #7a6b66;
   text-decoration: none;
   padding-bottom: 6px;
+  cursor: pointer;
 }
 
 .tabLink:hover,
@@ -105,7 +102,7 @@
 .title {
   margin: 0 0 24px;
   text-align: center;
-  font-size: 64px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.1;
   color: #1f1110;
@@ -113,7 +110,6 @@
 
 .form {
   width: 100%;
-  max-width: 644px;
 
   display: flex;
   flex-direction: column;
@@ -187,7 +183,7 @@
 
 .footer {
   width: 100%;
-  max-width: 1312px;
+  max-width: 335px;
   min-height: 72px;
   margin: auto auto 0;
 
@@ -201,8 +197,25 @@
   color: #7a6b66;
 }
 
-/* TABLET */
-@media screen and (max-width: 1023px) {
+@media screen and (min-width: 375px) {
+  .container {
+    max-width: 375px;
+  }
+
+  .topBar {
+    max-width: 335px;
+  }
+
+  .formWrapper {
+    max-width: 335px;
+  }
+
+  .footer {
+    max-width: 335px;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .container {
     max-width: 768px;
     padding: 0 32px;
@@ -210,7 +223,6 @@
 
   .topBar {
     max-width: 704px;
-    min-height: 72px;
   }
 
   .logoText {
@@ -219,84 +231,44 @@
 
   .formWrapper {
     max-width: 644px;
-    padding-top: 64px;
   }
 
   .tabs {
-    max-width: 644px;
     gap: 56px;
   }
 
   .title {
     font-size: 48px;
-    margin-bottom: 24px;
   }
 
   .footer {
     max-width: 704px;
-    min-height: 72px;
   }
 }
 
-/* MOBILE */
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 1440px) {
   .container {
-    max-width: 375px;
-    padding: 0 20px;
+    max-width: 1440px;
+    padding: 0 64px;
   }
 
   .topBar {
-    max-width: 335px;
-    min-height: 72px;
-  }
-
-  .logoText {
-    font-size: 18px;
+    max-width: 1312px;
   }
 
   .formWrapper {
-    max-width: 335px;
-    padding-top: 64px;
+    max-width: 644px;
   }
 
   .tabs {
-    max-width: 335px;
-    gap: 32px;
-    margin-bottom: 24px;
-  }
-
-  .activeTab,
-  .tabLink {
-    font-size: 14px;
+    gap: 64px;
   }
 
   .title {
-    font-size: 24px;
-    margin-bottom: 24px;
-  }
-
-  .form {
-    max-width: 335px;
-    gap: 16px;
-  }
-
-  .label {
-    font-size: 14px;
-  }
-
-  .input {
-    height: 40px;
-    font-size: 14px;
-  }
-
-  .submitButton {
-    height: 44px;
-    font-size: 16px;
+    font-size: 64px;
   }
 
   .footer {
-    max-width: 335px;
-    min-height: 72px;
-    font-size: 12px;
+    max-width: 1312px;
   }
 }
