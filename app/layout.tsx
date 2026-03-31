@@ -6,8 +6,8 @@ import "./globals.css";
 
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
-import AuthHeader from "@/components/AuthHeader/AuthHeader";
 import Footer from "@/components/Footer/Footer";
+import Header from "@/components/AdvantagesBlock/Header/Header";
 
 export const metadata: Metadata = {
   title: "Locationhub",
@@ -48,7 +48,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} app`}>
         <TanStackProvider>
           <AuthProvider>
-            <AuthHeader />
+            <Header />
             <main className="content">
               {children}
               {modal}
