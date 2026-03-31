@@ -1,23 +1,21 @@
-'use client';
+"use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import toast from 'react-hot-toast';
-import { isAxiosError } from 'axios';
+import { useRouter, useSearchParams } from "next/navigation";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { isAxiosError } from "axios";
 
-import { register } from '@/lib/api/api';
-import { useAuthStore } from '@/lib/store/authStore';
+import { register } from "@/lib/api/api";
+import { useAuthStore } from "@/lib/store/authStore";
 
-import css from './RegistrationForm.module.css';
+import css from "./RegistrationForm.module.css";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().required("Обов'язкове поле"),
-  email: Yup.string()
-    .email('Некоректна пошта')
-    .required("Обов'язкове поле"),
+  email: Yup.string().email("Некоректна пошта").required("Обов'язкове поле"),
   password: Yup.string()
-    .min(8, 'Мінімум 8 символів')
+    .min(8, "Мінімум 8 символів")
     .required("Обов'язкове поле"),
 });
 
@@ -35,14 +33,9 @@ function apiErrorMessage(err: unknown): string {
       errors?: Array<{ message?: string }>;
     };
     if (data?.errors?.[0]?.message) return data.errors[0].message;
-    return (
-      data?.message ??
-      data?.error ??
-      err.message ??
-      'Помилка реєстрації'
-    );
+    return data?.message ?? data?.error ?? err.message ?? "Помилка реєстрації";
   }
-  return 'Помилка реєстрації';
+  return "Помилка реєстрації";
 }
 
 const RegistrationForm = () => {
@@ -50,21 +43,20 @@ const RegistrationForm = () => {
   const searchParams = useSearchParams();
   const setUser = useAuthStore((state) => state.setUser);
 
-  const returnUrl = searchParams.get('returnUrl');
+  const returnUrl = searchParams.get("returnUrl");
 
   const handleSubmit = async (values: RegisterFormValues) => {
     try {
       const user = await register({
+        name: values.name,
         email: values.email,
         password: values.password,
       });
       setUser(user);
       const safe =
-        returnUrl &&
-        returnUrl.startsWith('/') &&
-        !returnUrl.startsWith('//')
+        returnUrl && returnUrl.startsWith("/") && !returnUrl.startsWith("//")
           ? returnUrl
-          : '/';
+          : "/";
       router.push(safe);
     } catch (error: unknown) {
       toast.error(apiErrorMessage(error));
@@ -73,7 +65,7 @@ const RegistrationForm = () => {
 
   return (
     <Formik<RegisterFormValues>
-      initialValues={{ name: '', email: '', password: '' }}
+      initialValues={{ name: "", email: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
@@ -88,7 +80,7 @@ const RegistrationForm = () => {
               autoComplete="name"
               placeholder="Ваше ім'я"
               className={`${css.formField} ${
-                errors.name && touched.name ? css.errorField : ''
+                errors.name && touched.name ? css.errorField : ""
               }`}
             />
             <ErrorMessage name="name" component="p" className={css.error} />
@@ -103,7 +95,7 @@ const RegistrationForm = () => {
               autoComplete="email"
               placeholder="hello@relaxmap.ua"
               className={`${css.formField} ${
-                errors.email && touched.email ? css.errorField : ''
+                errors.email && touched.email ? css.errorField : ""
               }`}
             />
             <ErrorMessage name="email" component="p" className={css.error} />
@@ -118,14 +110,10 @@ const RegistrationForm = () => {
               autoComplete="new-password"
               placeholder="********"
               className={`${css.formField} ${
-                errors.password && touched.password ? css.errorField : ''
+                errors.password && touched.password ? css.errorField : ""
               }`}
             />
-            <ErrorMessage
-              name="password"
-              component="p"
-              className={css.error}
-            />
+            <ErrorMessage name="password" component="p" className={css.error} />
           </div>
 
           <div className={css.registerActions}>

@@ -42,8 +42,8 @@ const AuthNav = ({ onLinkClick }: Props) => {
         {isAuthenticated && (
           <li>
             <Link
-              href="/pro"
-              className={getLinkClass("/pro")}
+              href="/profile"
+              className={getLinkClass("/profile")}
               onClick={onLinkClick}
             >
               Мій профіль
