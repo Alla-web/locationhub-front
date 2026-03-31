@@ -1,0 +1,142 @@
+.footer {
+  background: var(--color-scheme-2-foreground);
+  padding: 48px 0;
+}
+
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.topRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoIcon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: var(--color-neutral-darkest);
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-scheme-2-text);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.socialLink:hover,
+.socialLink:focus {
+  transform: translateY(-2px);
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: var(--color-scheme-2-text);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.footerLink {
+  color: var(--color-neutral-darkest);
+  transition: all var(--transition-fast);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+}
+
+.bottomRow {
+  border-top: 1px solid var(--opacity-neutral-darkest-15);
+  padding-top: 16px;
+}
+
+.copy {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-scheme-2-text);
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .topRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo socials"
+      "nav nav";
+    align-items: center;
+    gap: 24px;
+  }
+
+  .logo {
+    grid-area: logo;
+    justify-self: start;
+  }
+
+  .socials {
+    grid-area: socials;
+    justify-self: end;
+  }
+
+  .nav {
+    grid-area: nav;
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .footer {
+    padding: 60px 0;
+  }
+
+  .topRow {
+    gap: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .socials {
+    gap: 20px;
+  }
+
+  .nav {
+    gap: 32px;
+    flex-direction: row;
+    justify-content: center;
+  }
+}

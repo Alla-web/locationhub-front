@@ -1,74 +1,44 @@
-/* Колонка: ряд табів, під ним лінія — не в один ряд з ul */
-.navAuth {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: 100%;
+.nav {
+  display: block;
 }
 
 .navList {
   display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
 }
 
-.navList > li {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  min-width: 0;
-}
-
-.navLinkRegistration,
-.navLinkLogin {
-  padding: 12px 24px;
-  width: 100%;
-  min-height: 48px;
-  display: flex;
+.navLink {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  box-sizing: border-box;
+  padding: 0 8px;
+  min-height: 30px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  color: var(--color-neutral-darkest);
+  transition: all var(--transition-fast);
+}
+
+.navLink:hover,
+.navLink:focus {
+  border: 1px solid var(--color-scheme-1-text);
+}
+
+.navLink:active {
+  border: 1px solid var(--color-scheme-1-text);
+  background: var(--color-neutral-lighter);
 }
 
 .active {
-  color: #000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  font-weight: 500;
-}
-
-.button {
-  cursor: pointer;
-}
-
-.line {
-  display: none;
-}
-
-/* Планшет: таби на всю ширину колонки 644px */
-@media (min-width: 768px) {
-  .navAuth {
-    max-width: 644px;
-    margin-inline: auto;
-  }
-
-  .navLinkRegistration,
-  .navLinkLogin {
-    max-width: none;
-    width: 100%;
-    font-size: 18px;
-    min-height: 49px;
-  }
+  border: 1px solid var(--color-scheme-1-text);
+  background: var(--color-neutral-lighter);
 }
 
 @media (min-width: 1440px) {
-  .navLinkRegistration,
-  .navLinkLogin {
-    font-size: 18px;
-    line-height: 1.5;
-    min-height: 51px;
+  .navList {
+    flex-direction: row;
+    gap: 32px;
   }
 }
