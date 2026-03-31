@@ -149,9 +149,7 @@ svg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 95px;
-  height: 48px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 6px;
   font-family: var(--font-montserrat), sans-serif;
   font-weight: 500;
@@ -285,9 +283,6 @@ svg {
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-
-  width: 60px;
-  height: 30px;
   padding: 0 8px;
   border-radius: 6px;
 

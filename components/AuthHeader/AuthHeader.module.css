@@ -1,21 +1,195 @@
-.authHeader {
-    width: 335px;
-    height: 72px;
-    max-width: 1280px;
-    margin: 0 20px;
+.header {
+  background-color: var(--color-coral-lightest);
+  border-bottom: 1px solid var(--opacity-neutral-darkest-15);
+}
+
+.headerContainer {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .logo {
-    height: 72px;
-    display: flex;
-    align-items: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
 }
 
-.authHeaderText{
-    font-weight: 500;
-    text-decoration: none;
-    font-size: 17px;
-    line-height: 1;
-    letter-spacing: -0.01em;
-    color: #4c2613;
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  border-radius: 2px;
+  stroke: var(--color-scheme-1-text);
+  stroke-width: 0.5;
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-scheme-2-text);
+}
+
+.desktopNav {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profileBox {
+  display: none;
+}
+
+.btn {
+  padding: 4px 10px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-neutral-light);
+}
+
+.userName {
+  font-size: 14px;
+  color: var(--color-neutral-darkest);
+}
+
+.burgerBtn,
+.closeBtn {
+  display: inline-flex;
+  background-color: var(--opacity-neutral-darkest-5);
+  padding: 7px;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-scheme-2-border);
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: var(--color-coral-lightest);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileMenuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.mobileMenuContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mobileBottom {
+  margin-top: auto;
+}
+
+.mobileAuthButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileFullBtn {
+  width: 100%;
+}
+
+.mobileProfile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mobileMenuTopActions {
+  display: none;
+}
+
+.desktopActions {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .headerContainer {
+    min-height: 80px;
+  }
+
+  .desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .profileBox {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mobileMenu {
+    padding: 20px 32px;
+  }
+
+  .mobileMenuHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobileMenuHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .desktopNav {
+    display: block;
+    margin-left: auto;
+    margin-right: 24px;
+  }
+
+  .profileBox {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .mobileMenuTopActions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mobileAuthButtons {
+    display: none;
+  }
+
+  .mobileBottom {
+    margin-top: 0;
+  }
 }

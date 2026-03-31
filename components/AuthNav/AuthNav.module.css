@@ -1,41 +1,44 @@
-.navAuth {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+.nav {
+  display: block;
 }
 
-.navList{
-    display: flex;
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
 }
 
-.navLinkRegistration {
-    padding: 12px 24px;
-    width: 167px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 0px;
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  min-height: 30px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  color: var(--color-neutral-darkest);
+  transition: all var(--transition-fast);
 }
 
-.navLinkLogin{
-    width: 167px;
-    height: 49px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 8px;
+.navLink:hover,
+.navLink:focus {
+  border: 1px solid var(--color-scheme-1-text);
+}
+
+.navLink:active {
+  border: 1px solid var(--color-scheme-1-text);
+  background: var(--color-neutral-lighter);
 }
 
 .active {
-    color: #000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    font-weight: 500;
+  border: 1px solid var(--color-scheme-1-text);
+  background: var(--color-neutral-lighter);
 }
 
-.button {
-    cursor: pointer;
+@media (min-width: 1440px) {
+  .navList {
+    flex-direction: row;
+    gap: 32px;
+  }
 }
