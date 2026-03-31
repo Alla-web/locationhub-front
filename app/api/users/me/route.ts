@@ -2,26 +2,31 @@ import { NextResponse } from 'next/server';
 import { api, ApiError } from '../../api';
 import { cookies } from 'next/headers';
 
-
-export async function GET() {
-  const cookieStore = await cookies();
-
-
+export async function POST() {
   try {
-    const { data } = await api.get('/auth/me', {
+    const cookieStore = cookies();
+
+    const { data } = await api.get('/users/me', {
       headers: {
         Cookie: cookieStore.toString(),
       },
     });
 
-
     return NextResponse.json(data);
+
   } catch (error) {
+    const err = error as ApiError;
+
     return NextResponse.json(
       {
-        error: (error as ApiError).response?.data?.error ?? (error as ApiError).message,
+        error:
+          err.response?.data?.error ??
+          err.message ??
+          'Something went wrong',
       },
-      { status: (error as ApiError).status }
-    )
+      {
+        status: err.status ?? 500,
+      }
+    );
   }
 }
