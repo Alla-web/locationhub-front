@@ -7,7 +7,7 @@ import { AxiosResponse } from "axios";
 
 export const checkSession = async (): Promise<AxiosResponse<User>> => {
   const cookieStore = await cookies();
-  const res = await nextServer.get<User>('/auth/session', {
+  const res = await nextServer.get<User>('/auth/refresh', {
     headers: {
       Cookie: cookieStore.toString(),
     },

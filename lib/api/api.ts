@@ -5,7 +5,7 @@ import axios from "axios";
 export const nextServer = axios.create({
   // baseURL: "/api",
   baseURL: `${process.env.NEXT_PUBLIC_API_URL ?? ""}/api`,
-  withCredentials: true, // дозволяє axios працювати з cookie
+  withCredentials: true, 
 });
 
 function mapUserFromApi(raw: Record<string, unknown>): User {
@@ -39,12 +39,12 @@ export const login = async (data: LoginRequest):Promise<User> => {
 };
 
 export const checkSession = async () => {
-  const res = await nextServer.get<SessionResponse>('/auth/session');
+  const res = await nextServer.get<SessionResponse>('/auth/refresh');
   return res.data.success;
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await nextServer.get<Record<string, unknown>>('/auth/me');
+  const { data } = await nextServer.get<Record<string, unknown>>('/users/me');
   return mapUserFromApi(data);
 };
 
