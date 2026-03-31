@@ -1,0 +1,31 @@
+.pageSection {
+  padding-top: 32px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.contentGrid {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .pageSection {
+    padding-top: 40px;
+  }
+
+  .contentGrid {
+    gap: 32px;
+    margin-top: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .contentGrid {
+    gap: 36px;
+  }
+}

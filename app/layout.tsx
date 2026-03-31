@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Montserrat } from "next/font/google";
+import "modern-normalize/modern-normalize.css";
 
 import "./globals.css";
 
