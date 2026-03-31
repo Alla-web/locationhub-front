@@ -1,5 +1,5 @@
 import { LoginRequest, SessionResponse } from "@/types/auth";
-import { RegisterPayload } from "@/types/user";
+import { RegisterPayload, User } from "@/types/user";
 import axios from "axios";
 
 export const nextServer = axios.create({
@@ -8,8 +8,8 @@ export const nextServer = axios.create({
   withCredentials: true,
 });
 
-export const login = async (data: LoginRequest): Promise<RegisterPayload> => {
-  const res = await nextServer.post<RegisterPayload>("/auth/login", data);
+export const login = async (data: LoginRequest): Promise<User> => {
+  const res = await nextServer.post<User>("/auth/login", data);
   return res.data;
 };
 
@@ -18,8 +18,8 @@ export const checkSession = async () => {
   return res.data.success;
 };
 
-export const getMe = async (): Promise<RegisterPayload> => {
-  const { data } = await nextServer.get<RegisterPayload>("/users/me");
+export const getMe = async (): Promise<User> => {
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 
