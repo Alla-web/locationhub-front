@@ -5,6 +5,6 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-export default function LocationFilter() {
+export default function LocationsFiltered() {
   return <div>Location filtered list</div>;
 }
