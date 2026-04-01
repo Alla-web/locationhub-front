@@ -31,7 +31,7 @@ const AuthNav = ({ onLinkClick }: Props) => {
 
         <li>
           <Link
-            href="/locations"
+            href="/locations/filter/all"
             className={getLinkClass("/locations")}
             onClick={onLinkClick}
           >

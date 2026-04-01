@@ -2,6 +2,7 @@ import { nextServer } from "./api"; // Або імпортуй api, якщо nex
 import { cookies } from "next/headers";
 import { RegisterPayload } from "@/types/user";
 import { AxiosResponse } from "axios";
+import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
 
 export const checkSession =
   async (): Promise<AxiosResponse<RegisterPayload> | null> => {
@@ -24,3 +25,12 @@ export const checkSession =
       return null;
     }
   };
+
+export async function getLocations(params: GetLocationsParams) {
+  const response = await nextServer.get<GetLocationsResponse>("/locations", {
+    params,
+    withCredentials: false,
+  });
+
+  return response.data;
+}
