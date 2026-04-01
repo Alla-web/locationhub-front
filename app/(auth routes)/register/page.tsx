@@ -1,78 +1,18 @@
-import Link from 'next/link';
-import styles from './page.module.css';
+import { Suspense } from 'react';
+
+import AuthNav from '@/components/AuthNav/AuthNav';
+import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
+
+import css from './page.module.css';
 
 export default function RegisterPage() {
   return (
-    <main className={styles.page}>
-      <div className={styles.container}>
-        <header className={styles.topBar}>
-          <Link href="/" className={styles.logo} aria-label="Relax Map home">
-            <svg className={styles.logoIcon} aria-hidden="true">
-              <use href="/icons/sprite.svg#icon-logo" />
-            </svg>
-            <span className={styles.logoText}>Relax Map</span>
-          </Link>
-        </header>
-
-        <section className={styles.formWrapper}>
-          <nav className={styles.tabs} aria-label="Auth navigation">
-            <span className={styles.activeTab}>Реєстрація</span>
-
-            <Link href="/login" className={styles.tabLink}>
-              Вхід
-            </Link>
-          </nav>
-
-          <h1 className={styles.title}>Реєстрація</h1>
-
-          <form className={styles.form} aria-label="Форма реєстрації">
-            <label className={styles.field} htmlFor="name">
-              <span className={styles.label}>Ім&apos;я*</span>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Ваше ім'я"
-                className={styles.input}
-                autoComplete="name"
-                required
-              />
-            </label>
-
-            <label className={styles.field} htmlFor="email">
-              <span className={styles.label}>Пошта*</span>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="hello@relaxmap.ua"
-                className={styles.input}
-                autoComplete="email"
-                required
-              />
-            </label>
-
-            <label className={styles.field} htmlFor="password">
-              <span className={styles.label}>Пароль*</span>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="********"
-                className={styles.input}
-                autoComplete="new-password"
-                required
-              />
-            </label>
-
-            <button type="submit" className={styles.submitButton}>
-              Зареєструватись
-            </button>
-          </form>
-        </section>
-
-        <footer className={styles.footer}>© 2025 Relax Map</footer>
-      </div>
-    </main>
+    <>
+      <AuthNav />
+      <h1 className={css.loginTitle}>Реєстрація</h1>
+      <Suspense fallback={null}>
+        <RegistrationForm />
+      </Suspense>
+    </>
   );
 }

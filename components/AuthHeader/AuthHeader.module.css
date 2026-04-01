@@ -1,0 +1,35 @@
+.header {
+  background-color: var(--color-coral-lightest);
+}
+
+.headerContainer {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: var(--color-scheme-1-text);
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-neutral-darkest);
+}
+
+@media (min-width: 768px) {
+  .headerContainer {
+    min-height: 80px;
+  }
+}
