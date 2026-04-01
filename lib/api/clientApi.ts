@@ -1,6 +1,7 @@
+import { RegisterPayload } from "@/types/user";
 import { nextServer } from "./api";
 
-import { Location, GetLocationsResponse } from "@/types/location";
+import { GetLocationsResponse } from "@/types/location";
 import { User } from "@/types/user";
 import { GetRegionsResponse } from "@/types/region";
 import { GetLocationTypesResponse } from "@/types/locationType";
@@ -31,18 +32,17 @@ export async function getLocations(
   return response.data;
 }
 
-export async function getRegions() {
-  const response = await nextServer.get<GetRegionsResponse>(
-    "/categories/regions",
+export async function getLocationTypes() {
+  const response = await nextServer.get<GetLocationTypesResponse>(
+    "/categories/location-types",
     { withCredentials: false },
   );
   return response.data;
 }
 
-export async function getLocationTypes() {
-  const response = await nextServer.get<GetLocationTypesResponse>(
-    "/categories/location-types",
-    { withCredentials: false },
+export async function getRegions() {
+  const response = await nextServer.get<GetRegionsResponse>(
+    "/api/categories/regions",
   );
   return response.data;
 }
@@ -52,8 +52,10 @@ interface LoginPayload {
   password: string;
 }
 
-export const login = async (payload: LoginPayload): Promise<User> => {
-  const res = await nextServer.post<User>("/auth/login", payload);
+export const login = async (
+  payload: LoginPayload,
+): Promise<RegisterPayload> => {
+  const res = await nextServer.post<RegisterPayload>("/auth/login", payload);
   return res.data;
 };
 
@@ -62,6 +64,12 @@ export const logout = async () => {
 };
 
 export const checkSession = async () => {
-  const res = await nextServer.get<User>("/auth/session");
-  return res.data;
+  try {
+    await nextServer.post("/auth/refresh", {});
+
+    return true;
+  } catch (error) {
+    console.warn("Сесія відсутня (користувач гість)");
+    return false;
+  }
 };

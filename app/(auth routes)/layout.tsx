@@ -1,5 +1,5 @@
-import AuthHeader from '@/components/AuthHeader/AuthHeader';
-import css from './AuthLayout.module.css';
+import AuthHeader from "@/components/AuthHeader/AuthHeader";
+import css from "./AuthLayout.module.css";
 // import Footer from '@/components/Footer/Footer';
 
 export default function AuthLayout({
@@ -10,9 +10,7 @@ export default function AuthLayout({
   return (
     <div className={css.wrapper}>
       <AuthHeader />
-      <main className={css.authContainer}>
-        {children}
-      </main>
+      <main className={css.authContainer}>{children}</main>
       {/* <Footer/> */}
     </div>
   );

@@ -18,7 +18,17 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "ftp.goit.study",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
         pathname: "/**",
       },
     ],

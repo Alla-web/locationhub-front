@@ -1,0 +1,156 @@
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Налаштування сітки (Mobile -> Tablet -> Desktop) */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Мобілка: 1 колонка */
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* Планшет: 2 колонки */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr); /* Десктоп: 3 колонки */
+  }
+}
+
+/* Стилі самої картки */
+.card {
+  background-color: #feece5; /* Світло-бежевий фон карток з макету */
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* Пропорція 4:3 для фотографій */
+}
+
+.image {
+  object-fit: cover;
+}
+
+.cardContent {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.category {
+  font-size: 12px;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.rating {
+  font-size: 14px;
+}
+
+.starActive {
+  color: #1a1a1a; /* Або жовтий, залежно від дизайну зірочок */
+}
+
+.starMuted {
+  color: #cccccc;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  flex-grow: 1;
+}
+
+/* Кнопки знизу картки */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.viewBtn {
+  flex-grow: 1;
+  background-color: rgba(211, 106, 67, 0.1); /* Прозорий помаранчевий */
+  color: #d36a43;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.viewBtn:hover {
+  background-color: rgba(211, 106, 67, 0.2);
+}
+
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(211, 106, 67, 0.1);
+  color: #d36a43;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.editBtn:hover {
+  background-color: rgba(211, 106, 67, 0.2);
+}
+
+/* Кнопка "Показати ще" */
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.loadMoreBtn {
+  background-color: #d36a43;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.loadMoreBtn:hover:not(:disabled) {
+  background-color: #b85a38;
+}
+
+.loadMoreBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loader {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+}

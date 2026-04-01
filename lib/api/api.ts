@@ -1,53 +1,38 @@
-import { LoginRequest, RegisterRequest, SessionResponse } from "@/types/auth";
-import { User } from "@/types/user";
+import { LoginRequest, SessionResponse } from "@/types/auth";
+import { RegisterPayload, User } from "@/types/user";
 import axios from "axios";
 
 export const nextServer = axios.create({
   // baseURL: "/api",
   baseURL: `${process.env.NEXT_PUBLIC_API_URL ?? ""}/api`,
-  withCredentials: true, // дозволяє axios працювати з cookie
+  withCredentials: true,
 });
 
-function mapUserFromApi(raw: Record<string, unknown>): User {
-  const email = String(raw.email ?? "");
-  const name = raw.name ?? raw.username;
-  const avatar = raw.avatarUrl ?? raw.avatar;
-  return {
-    email,
-    username:
-      typeof name === "string" && name.length > 0
-        ? name
-        : email.split("@")[0] ?? "",
-    avatar:
-      typeof avatar === "string" && avatar.length > 0
-        ? avatar
-        : "https://ac.goit.global/fullstack/react/default-avatar.jpg",
-  };
-}
-
-export const register = async (data: RegisterRequest): Promise<User> => {
-  const res = await nextServer.post<Record<string, unknown>>(
-    "/auth/register",
-    data,
-  );
-  return mapUserFromApi(res.data);
-};
-
-export const login = async (data: LoginRequest):Promise<User> => {
-  const res = await nextServer.post<Record<string, unknown>>('/auth/login', data);
-  return mapUserFromApi(res.data);
+export const login = async (data: LoginRequest): Promise<User> => {
+  const res = await nextServer.post<User>("/auth/login", data);
+  return res.data;
 };
 
 export const checkSession = async () => {
-  const res = await nextServer.get<SessionResponse>('/auth/session');
+  const res = await nextServer.post<SessionResponse>("/auth/refresh");
   return res.data.success;
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await nextServer.get<Record<string, unknown>>('/auth/me');
-  return mapUserFromApi(data);
+  const { data } = await nextServer.get<User>("/users/me");
+  return data;
 };
 
 export const logout = async (): Promise<void> => {
-  await nextServer.post('/auth/logout')
+  await nextServer.post("/auth/logout");
+};
+
+export const register = async (userData: RegisterPayload) => {
+  try {
+    const response = await nextServer.post("/auth/register", userData);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка під час реєстрації:", error);
+    throw error;
+  }
 };
