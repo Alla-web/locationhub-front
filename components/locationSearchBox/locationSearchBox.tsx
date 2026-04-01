@@ -21,6 +21,9 @@ export default function LocationSearchBox({
   onSearchChange,
   onFiltersChange,
 }: LocationSearchBoxProps) {
+  console.log("regions in SB: ", regions);
+  console.log("locationTypes in SB: ", locationTypes);
+
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
 
@@ -31,16 +34,16 @@ export default function LocationSearchBox({
   };
 
   return (
-    <div>
-      <div>
-        <input
-          value={search}
-          onChange={(event) => onSearchChange(event.target.value)}
-          name="search"
-          type="text"
-          placeholder="Пошук"
-        />
+    <div className={css.searchBoxContainer}>
+      <input
+        value={search}
+        onChange={(event) => onSearchChange(event.target.value)}
+        name="search"
+        type="text"
+        placeholder="Пошук"
+      />
 
+      <div className={css.searchRegionContainer}>
         <select
           name="region"
           value={filters.regionId}

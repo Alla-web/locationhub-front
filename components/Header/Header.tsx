@@ -72,7 +72,7 @@ const Header = () => {
                   Вхід
                 </Link>
 
-                <Link href="/sign-up" className="btn-base btn">
+                <Link href="/register" className="btn-base btn">
                   Реєстрація
                 </Link>
               </>

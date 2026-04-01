@@ -17,8 +17,8 @@ import type {
   GetLocationsParams,
   GetLocationsResponse,
 } from "@/types/location";
-import type { GetLocationTypesResponse } from "@/types/locationType";
-import type { GetRegionsResponse } from "@/types/region";
+import type { LocationType } from "@/types/locationType";
+import type { Region } from "@/types/region";
 import type { LocationFilters } from "@/types/location";
 import ErrorBox from "@/components/ErrorBox/ErrorBox";
 
@@ -53,13 +53,13 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     staleTime: 60 * 1000,
   });
 
-  const regionsQuery = useQuery<GetRegionsResponse>({
+  const regionsQuery = useQuery<Region[]>({
     queryKey: ["regions"],
     queryFn: getRegions,
     staleTime: 30 * 60 * 1000,
   });
 
-  const locationTypesQuery = useQuery<GetLocationTypesResponse>({
+  const locationTypesQuery = useQuery<LocationType[]>({
     queryKey: ["locationTypes"],
     queryFn: getLocationTypes,
     staleTime: 30 * 60 * 1000,
@@ -92,16 +92,26 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
   }
 
   return (
-    <div>
-      <LocationSearchBox
-        search={search}
-        regions={regionsQuery.data?.data ?? []}
-        locationTypes={locationTypesQuery.data?.data ?? []}
-        filters={filters}
-        onSearchChange={setSearch}
-        onFiltersChange={setFilters}
-      />
-      <LocationsList locations={locationsQuery.data?.locations ?? []} />
+    <div className={css.locationsPage}>
+      <h1 className={css.pageTitle}>Усі місця відпочинку</h1>
+
+      {locationTypesQuery.data &&
+        regionsQuery.data &&
+        !locationTypesQuery.isLoading &&
+        !regionsQuery.isLoading && (
+          <LocationSearchBox
+            search={search}
+            regions={regionsQuery.data || []}
+            locationTypes={locationTypesQuery.data || []}
+            filters={filters}
+            onSearchChange={setSearch}
+            onFiltersChange={setFilters}
+          />
+        )}
+
+      {locationsQuery.data && !locationsQuery.isLoading && (
+        <LocationsList locations={locationsQuery.data.locations} />
+      )}
     </div>
   );
 }
