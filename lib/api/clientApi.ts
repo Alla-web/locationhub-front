@@ -16,6 +16,6 @@ export const logout = async () => {
 };
 
 export const checkSession = async () => {
-    const res = await nextServer.get<User>("/auth/session");
+    const res = await nextServer.get<User>("/auth/refresh");
     return res.data;
 };

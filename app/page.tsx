@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import css from "./page.module.css";
+// import css from "./page.module.css";
 import HeroBlock from "@/components/HeroBlock/HeroBlock";
 
 export const metadata: Metadata = {
