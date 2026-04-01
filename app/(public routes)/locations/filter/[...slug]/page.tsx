@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 
 import LocationClient from "./Location.client";
+import { geеLocations } from "@/lib/api/serverApi";
 
 interface FilteredLocationsPageProps {
   searchParams: Promise<{ search?: string }>;
@@ -23,7 +24,7 @@ export default async function FilteredLocationsPage({
 
   await queryClient.prefetchQuery({
     queryKey: ["locations", search],
-    queryFn: () => {}, //доробити!!!
+    queryFn: () => geеLocations(search), //доробити!!!
   });
 
   return (
