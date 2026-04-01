@@ -3,8 +3,8 @@ import { nextServer } from "./api";
 
 import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
 import { User } from "@/types/user";
-import { GetRegionsResponse } from "@/types/region";
-import { GetLocationTypesResponse } from "@/types/locationType";
+import { Region } from "@/types/region";
+import { LocationType } from "@/types/locationType";
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
@@ -15,7 +15,7 @@ export async function getLocations(params: GetLocationsParams) {
 }
 
 export async function getLocationTypes() {
-  const response = await nextServer.get<GetLocationTypesResponse>(
+  const response = await nextServer.get<LocationType[]>(
     "/categories/location-types",
     { withCredentials: false },
   );
@@ -23,10 +23,9 @@ export async function getLocationTypes() {
 }
 
 export async function getRegions() {
-  const response = await nextServer.get<GetRegionsResponse>(
-    "/categories/regions",
-    { withCredentials: false },
-  );
+  const response = await nextServer.get<Region[]>("/categories/regions", {
+    withCredentials: false,
+  });
   return response.data;
 }
 

@@ -5,7 +5,3 @@ export interface Region {
   createdAt: string;
   updatedAt?: string;
 }
-
-export interface GetRegionsResponse {
-  data: Region[];
-}

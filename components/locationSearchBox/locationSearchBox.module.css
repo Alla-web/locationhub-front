@@ -1,0 +1,13 @@
+.searchBoxContainer {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.searchRegionContainer {
+  display: flex;
+  gap: 16px;
+}

@@ -5,7 +5,3 @@ export interface LocationType {
   createdAt: Date;
   updatedAt?: Date;
 }
-
-export interface GetLocationTypesResponse {
-  data: LocationType[];
-}

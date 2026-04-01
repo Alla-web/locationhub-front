@@ -31,16 +31,16 @@ export default function LocationSearchBox({
   };
 
   return (
-    <div>
-      <div>
-        <input
-          value={search}
-          onChange={(event) => onSearchChange(event.target.value)}
-          name="search"
-          type="text"
-          placeholder="Пошук"
-        />
+    <div className={css.searchBoxContainer}>
+      <input
+        value={search}
+        onChange={(event) => onSearchChange(event.target.value)}
+        name="search"
+        type="text"
+        placeholder="Пошук"
+      />
 
+      <div className={css.searchRegionContainer}>
         <select
           name="region"
           value={filters.regionId}
