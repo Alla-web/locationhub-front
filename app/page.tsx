@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 
-import css from "./page.module.css";
+// import css from "./page.module.css";
 import HeroBlock from "@/components/HeroBlock/HeroBlock";
+import AdvantagesBlock from "@/components/AdvantagesBlock/AdvantagesBlock";
 
 export const metadata: Metadata = {
   title: "Locationhub home page",
@@ -26,8 +27,8 @@ export default function HomePage() {
   return (
     <main>
       <HeroBlock />
-      {/* <AdvantagesBlock />
-      <PopularLocationsBlock />
+      <AdvantagesBlock />
+      {/* <PopularLocationsBlock />
       <ReviewsBlock /> */}
     </main>
   );

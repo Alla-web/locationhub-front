@@ -7,7 +7,7 @@ import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import Footer from "@/components/Footer/Footer";
-import Header from "@/components/AdvantagesBlock/Header/Header";
+import Header from "@/components/Header/Header";
 
 export const metadata: Metadata = {
   title: "Locationhub",
