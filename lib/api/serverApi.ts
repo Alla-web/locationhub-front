@@ -2,7 +2,7 @@ import { nextServer } from "./api"; // Або імпортуй api, якщо nex
 import { cookies } from "next/headers";
 import { RegisterPayload } from "@/types/user";
 import { AxiosResponse } from "axios";
-import { GetLocationsResponse } from "@/types/location";
+import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
 
 export const checkSession =
   async (): Promise<AxiosResponse<RegisterPayload> | null> => {
@@ -26,24 +26,7 @@ export const checkSession =
     }
   };
 
-export async function getLocations(
-  page?: number,
-  perPage?: number,
-  search?: string,
-  regionId?: string,
-  locationTypeId?: string,
-  sort?: string,
-) {
-  const params: Record<string, string | number> = {
-    page: page ?? 1,
-  };
-
-  if (perPage) params.perPage = perPage;
-  if (search?.trim()) params.search = search.trim();
-  if (regionId) params.regionId = regionId;
-  if (locationTypeId) params.locationTypeId = locationTypeId;
-  if (sort) params.sort = sort;
-
+export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
     params,
     withCredentials: false,

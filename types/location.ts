@@ -23,6 +23,15 @@ export interface LocationFilters {
   sort: string;
 }
 
+export interface GetLocationsParams {
+  page?: number;
+  perPage?: number;
+  search?: string;
+  regionId?: string;
+  locationTypeId?: string;
+  sort?: string;
+}
+
 export interface GetLocationsResponse {
   page: number;
   perPage: number;

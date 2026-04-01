@@ -13,7 +13,10 @@ import {
   getLocationTypes,
   getRegions,
 } from "@/lib/api/clientApi";
-import type { GetLocationsResponse } from "@/types/location";
+import type {
+  GetLocationsParams,
+  GetLocationsResponse,
+} from "@/types/location";
 import type { GetLocationTypesResponse } from "@/types/locationType";
 import type { GetRegionsResponse } from "@/types/region";
 import type { LocationFilters } from "@/types/location";
@@ -34,25 +37,18 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     sort: "",
   });
 
+  const locationsParams: GetLocationsParams = {
+    page,
+    perPage,
+    search: debouncedSearch,
+    regionId: filters.regionId,
+    locationTypeId: filters.locationTypeId,
+    sort: filters.sort,
+  };
+
   const locationsQuery = useQuery<GetLocationsResponse>({
-    queryKey: [
-      "locations",
-      page,
-      perPage,
-      debouncedSearch,
-      filters.regionId,
-      filters.locationTypeId,
-      filters.sort,
-    ],
-    queryFn: () =>
-      getLocations(
-        page,
-        perPage,
-        debouncedSearch,
-        filters.regionId,
-        filters.locationTypeId,
-        filters.sort,
-      ),
+    queryKey: ["locations"],
+    queryFn: () => getLocations(locationsParams),
     placeholderData: keepPreviousData,
     staleTime: 60 * 1000,
   });

@@ -7,6 +7,7 @@ import {
 
 import LocationClient from "./Location.client";
 import { getLocations } from "@/lib/api/serverApi";
+import { GetLocationsParams } from "@/types/location";
 
 interface FilteredLocationsPageProps {
   searchParams: Promise<{ search?: string }>;
@@ -20,11 +21,15 @@ export default async function FilteredLocationsPage({
   const sp = await searchParams;
   const search = sp?.search || "";
 
+  const locationsParams: GetLocationsParams = {
+    search,
+  };
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ["locations", search],
-    queryFn: () => getLocations(search), //доробити!!!
+    queryFn: () => getLocations(locationsParams),
   });
 
   return (
