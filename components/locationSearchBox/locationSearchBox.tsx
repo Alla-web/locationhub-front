@@ -21,9 +21,6 @@ export default function LocationSearchBox({
   onSearchChange,
   onFiltersChange,
 }: LocationSearchBoxProps) {
-  console.log("regions in SB: ", regions);
-  console.log("locationTypes in SB: ", locationTypes);
-
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
 
