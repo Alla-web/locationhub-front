@@ -25,7 +25,7 @@ export async function getLocations(
 
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
     params,
-    // withCredentials: false,
+    withCredentials: false,
   });
 
   return response.data;
@@ -34,6 +34,7 @@ export async function getLocations(
 export async function getRegions() {
   const response = await nextServer.get<GetRegionsResponse>(
     "/categories/regions",
+    { withCredentials: false },
   );
   return response.data;
 }
@@ -41,6 +42,7 @@ export async function getRegions() {
 export async function getLocationTypes() {
   const response = await nextServer.get<GetLocationTypesResponse>(
     "/categories/location-types",
+    { withCredentials: false },
   );
   return response.data;
 }

@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         hostname: "ac.goit.global",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
 };
