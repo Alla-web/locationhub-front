@@ -13,8 +13,8 @@ export default function HeroBlock() {
   };
 
   return (
-    <section className={css.hero}>
-      <div className="container section">
+    <section className={`section ${css.hero} ${css.section}`}>
+      <div className="container">
         <h1 className={css.title}>
           Відкрий для себе Україну. Знайди ідеальне місце для відпочинку
         </h1>
@@ -22,9 +22,9 @@ export default function HeroBlock() {
           Тисячі перевірених локацій з реальними фото та відгуками від
           мандрівників.
         </p>
-        <div className={css.search}>
+        <div className={css.searchBox}>
           <input
-            className={`input ${css.inputResearch}`}
+            className={`input ${css.input}`}
             type="text"
             placeholder="Введіть назву, тип або регіон..."
             value={query}
