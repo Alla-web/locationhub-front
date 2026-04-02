@@ -20,8 +20,7 @@ export const checkSession =
       );
 
       return res;
-    } catch (error) {
-      console.log("Серверна перевірка: Сесія відсутня (користувач гість)");
+    } catch {
       return null;
     }
   };

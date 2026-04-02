@@ -69,6 +69,20 @@ function getReviewAuthor(review: LocationFeedback) {
   return review.ownerId.name || review.ownerId.email || "Користувач";
 }
 
+function getLocationAuthor(location: LocationDetails) {
+  const authorName = location.ownerId?.name?.trim();
+  const authorEmail = location.ownerId?.email?.trim().toLowerCase();
+
+  if (
+    authorName === "Seed User" ||
+    authorEmail === "seed@locationhub.local"
+  ) {
+    return "Автор не вказаний";
+  }
+
+  return authorName || location.ownerId?.email || "Профіль автора";
+}
+
 function ReviewsBlock({
   reviews,
   railRef,
@@ -174,9 +188,7 @@ export function LocationDetailsView({
                 href={`/profile/${location.ownerId?._id}`}
                 className={css.authorLink}
               >
-                {location.ownerId?.name ||
-                  location.ownerId?.email ||
-                  "Профіль автора"}
+                {getLocationAuthor(location)}
               </Link>
             </p>
           </div>
