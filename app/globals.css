@@ -38,6 +38,10 @@
   --transition-fast: 200ms ease-in-out;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100vh;
@@ -51,10 +55,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-color: var(--color-background);
-}
-
-* {
-  box-sizing: border-box;
 }
 
 h1,
@@ -140,7 +140,6 @@ svg {
   }
 
   .container {
-    max-width: 1280px;
     padding: 0 64px;
   }
 }

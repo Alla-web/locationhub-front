@@ -1,13 +1,41 @@
+import { User } from "./user";
+import { LocationType } from "./locationType";
+import { Region } from "./region";
+import { Feedback } from "./feedback";
+
 export interface Location {
-  id: string;
+  _id: string;
   image: string;
   name: string;
-  locationTypeId: string;
-  regionId: string;
+  locationTypeId: LocationType;
+  regionId: Region;
   rate: number;
   description: string;
-  ownerId: string;
-  feedbacksId: [];
-  createdAt: string;
-  updatedAt: string;
+  ownerId: User;
+  feedbacksId: Feedback[];
+  createdAt: Date;
+  updatedAt?: Date;
+}
+
+export interface LocationFilters {
+  regionId: string;
+  locationTypeId: string;
+  sort: string;
+}
+
+export interface GetLocationsParams {
+  page?: number;
+  perPage?: number;
+  search?: string;
+  regionId?: string;
+  locationTypeId?: string;
+  sort?: string;
+}
+
+export interface GetLocationsResponse {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalLocations: number;
+  locations: Location[];
 }
