@@ -14,22 +14,26 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 3px;
   flex-shrink: 0;
 }
 
 .icon {
   width: 24px;
   height: 24px;
-  display: inline-block;
-  border-radius: 2px;
+  display: block;
+  fill: var(--color-scheme-1-text);
+}
+
+.iconClose {
   stroke: var(--color-scheme-1-text);
-  stroke-width: 0.5;
 }
 
 .logoText {
-  font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: -0.01em;
   color: var(--color-scheme-2-text);
 }
 
@@ -67,7 +71,7 @@
 .closeBtn {
   display: inline-flex;
   background-color: var(--opacity-neutral-darkest-5);
-  padding: 7px;
+  padding: 4px;
   border-radius: 6px;
   align-items: center;
   justify-content: center;
@@ -79,7 +83,7 @@
   inset: 0;
   z-index: 50;
   background-color: var(--color-coral-lightest);
-  padding: 16px 20px;
+  padding: 19px 20px;
   display: flex;
   flex-direction: column;
 }
@@ -144,7 +148,7 @@
   }
 
   .mobileMenu {
-    padding: 20px 32px;
+    padding: 23px 32px;
   }
 
   .mobileMenuHeader {

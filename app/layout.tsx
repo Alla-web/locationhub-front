@@ -34,10 +34,8 @@ const montserrat = Montserrat({
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
     <html lang="uk">
@@ -45,7 +43,7 @@ export default function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             {children}
-            {modal}
+            {/* {modal} */}
           </AuthProvider>
         </TanStackProvider>
       </body>
