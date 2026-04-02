@@ -114,7 +114,7 @@ const Header = () => {
                   </Link>
 
                   <Link
-                    href="/sign-up"
+                    href="/register"
                     className="btn-base btn"
                     onClick={closeMenu}
                   >
@@ -179,7 +179,7 @@ const Header = () => {
                   </Link>
 
                   <Link
-                    href="/sign-up"
+                    href="/register"
                     className={`btn-base btn ${css.mobileFullBtn}`}
                     onClick={closeMenu}
                   >
