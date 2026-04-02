@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-
 import { Montserrat } from "next/font/google";
 
 import "./globals.css";
-
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
@@ -40,10 +38,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${montserrat.variable} app`}>
         <TanStackProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children}
+            {modal}
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>

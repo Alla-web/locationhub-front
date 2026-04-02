@@ -180,7 +180,7 @@ const Header = () => {
 
                   <Link
                     href="/register"
-                    className="btn-base btn"
+                    className={`btn-base btn ${css.mobileFullBtn}`}
                     onClick={closeMenu}
                   >
                     Реєстрація
