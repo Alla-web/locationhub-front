@@ -7,7 +7,55 @@
   gap: 16px;
 }
 
+.searchRegionLocationTypeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .searchRegionContainer {
   display: flex;
   gap: 16px;
+}
+
+.inputSelects {
+  padding: 8px;
+
+  width: 100%;
+  /* width: 335px; */
+  height: 40px;
+
+  background: var(--color-scheme-2-foreground);
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+}
+.inputSelects::placeholder {
+  /* font: inherit; */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+}
+
+.regionTypesSelects {
+  width: calc((100% - 16px) / 2);
+}
+
+.selects {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding-right: 36px; /* місце під стрілку */
+
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%23666' stroke-width='1.8'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+  background-position: right 12px center; /* ← тепер контролюєш відступ */
+  background-size: 22px;
 }

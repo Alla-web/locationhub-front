@@ -32,43 +32,53 @@ export default function LocationSearchBox({
 
   return (
     <div className={css.searchBoxContainer}>
-      <input
-        value={search}
-        onChange={(event) => onSearchChange(event.target.value)}
-        name="search"
-        type="text"
-        placeholder="Пошук"
-      />
+      <div className={css.searchRegionLocationTypeContainer}>
+        <input
+          className={css.inputSelects}
+          value={search}
+          onChange={(event) => onSearchChange(event.target.value)}
+          name="search"
+          type="text"
+          placeholder="Пошук"
+        />
 
-      <div className={css.searchRegionContainer}>
-        <select
-          name="region"
-          value={filters.regionId}
-          onChange={handleSelectChange}
-        >
-          <option value="">Регіон</option>
-          {regions.map((region) => (
-            <option key={region._id} value={region._id}>
-              {region.name}
-            </option>
-          ))}
-        </select>
+        <div className={css.searchRegionContainer}>
+          <select
+            className={`${css.inputSelects} ${css.regionTypesSelects} ${css.selects}`}
+            name="region"
+            value={filters.regionId}
+            onChange={handleSelectChange}
+          >
+            <option value="">Регіон</option>
+            {regions.map((region) => (
+              <option key={region._id} value={region._id}>
+                {region.name}
+              </option>
+            ))}
+          </select>
 
-        <select
-          name="locationType"
-          value={filters.locationTypeId}
-          onChange={handleSelectChange}
-        >
-          <option value="">Тип локації</option>
-          {locationTypes.map((type) => (
-            <option key={type._id} value={type._id}>
-              {type.name}
-            </option>
-          ))}
-        </select>
+          <select
+            className={`${css.inputSelects} ${css.regionTypesSelects} ${css.selects}`}
+            name="locationType"
+            value={filters.locationTypeId}
+            onChange={handleSelectChange}
+          >
+            <option value="">Тип локації</option>
+            {locationTypes.map((type) => (
+              <option key={type._id} value={type._id}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <select name="sort" value={filters.sort} onChange={handleSelectChange}>
+      <select
+        className={`${css.inputSelects} ${css.selects}`}
+        name="sort"
+        value={filters.sort}
+        onChange={handleSelectChange}
+      >
         <option value="">Сортування</option>
 
         <option value="name-asc">Назва A → Я</option>

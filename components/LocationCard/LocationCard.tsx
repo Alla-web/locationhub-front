@@ -17,8 +17,8 @@ export default function LocationCard({ location }: LocationCardProps) {
       <Image
         src={location.image}
         alt={location.name}
-        width={300}
-        height={300}
+        width={335}
+        height={335}
       />
       <h4>{location.name}</h4>
       <div>{location.rate}</div>
