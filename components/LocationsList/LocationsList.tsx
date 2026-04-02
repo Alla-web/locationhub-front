@@ -11,7 +11,7 @@ interface LocationsListProps {
 
 export default function LocationsList({ locations }: LocationsListProps) {
   return (
-    <ul>
+    <ul className={css.cardsContainer}>
       {locations.map((location) => (
         <LocationCard key={location._id} location={location} />
       ))}
