@@ -1,11 +1,11 @@
 import LoginForm from "@/components/LoginForm/LoginForm";
-import AuthNav from "@/components/AuthNav/AuthNav";
+import AuthTabs from "@/components/AuthTabs/AuthTabs";
 import css from "./page.module.css";
 
 export default function LoginPage() {
   return (
     <>
-      <AuthNav />
+      <AuthTabs current="login" />
       <h1 className={css.loginTitle}>Вхід</h1>
       <LoginForm />
     </>
