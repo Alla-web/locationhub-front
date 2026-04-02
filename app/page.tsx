@@ -3,6 +3,8 @@ import { Metadata } from "next";
 // import css from "./page.module.css";
 import HeroBlock from "@/components/HeroBlock/HeroBlock";
 import AdvantagesBlock from "@/components/AdvantagesBlock/AdvantagesBlock";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Locationhub home page",
@@ -26,10 +28,12 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
+      <Header />
       <HeroBlock />
       <AdvantagesBlock />
       {/* <PopularLocationsBlock />
       <ReviewsBlock /> */}
+      <Footer />
     </main>
   );
 }
