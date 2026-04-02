@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, type RefObject } from "react";
+import { useAuthStore } from "@/lib/store/authStore";
 import { LocationDetails, LocationFeedback } from "@/types/location-details";
 import css from "./LocationDetails.module.css";
 
@@ -11,14 +13,6 @@ type LocationDetailsViewProps = {
   reviews: LocationFeedback[];
   reviewsCount: number;
 };
-
-function formatReviewDate(date: string) {
-  return new Intl.DateTimeFormat("uk-UA", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(date));
-}
 
 function RatingStars({
   rating,
@@ -54,7 +48,34 @@ function RatingStars({
   );
 }
 
-function ReviewsBlock({ reviews }: { reviews: LocationFeedback[] }) {
+function splitDescription(description: string) {
+  const paragraphs = description
+    .split(/\n+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (paragraphs.length > 0) {
+    return paragraphs;
+  }
+
+  return [description.trim()].filter(Boolean);
+}
+
+function getReviewAuthor(review: LocationFeedback) {
+  if (typeof review.ownerId === "string") {
+    return "Користувач";
+  }
+
+  return review.ownerId.name || review.ownerId.email || "Користувач";
+}
+
+function ReviewsBlock({
+  reviews,
+  railRef,
+}: {
+  reviews: LocationFeedback[];
+  railRef: RefObject<HTMLUListElement | null>;
+}) {
   if (reviews.length === 0) {
     return (
       <div className={css.emptyState}>
@@ -64,27 +85,15 @@ function ReviewsBlock({ reviews }: { reviews: LocationFeedback[] }) {
   }
 
   return (
-    <ul className={css.reviewsList}>
+    <ul ref={railRef} className={css.reviewsList}>
       {reviews.map((review) => {
-        const owner = typeof review.ownerId === "string" ? null : review.ownerId;
-
         return (
           <li key={review._id} className={css.reviewCard}>
             <div className={css.reviewCardTop}>
-              <div>
-                <h3 className={css.reviewAuthor}>
-                  {owner?.name || owner?.email || "Користувач"}
-                </h3>
-                <p className={css.reviewDate}>{formatReviewDate(review.createdAt)}</p>
-              </div>
-              <div className={css.reviewRating}>
-                <RatingStars rating={review.rate} size="sm" />
-                <span className={css.reviewRatingValue}>
-                  {review.rate.toFixed(1)}
-                </span>
-              </div>
+              <RatingStars rating={review.rate} size="sm" />
             </div>
             <p className={css.reviewText}>{review.text}</p>
+            <p className={css.reviewAuthor}>{getReviewAuthor(review)}</p>
           </li>
         );
       })}
@@ -98,79 +107,130 @@ export function LocationDetailsView({
   reviews,
   reviewsCount,
 }: LocationDetailsViewProps) {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const reviewsRailRef = useRef<HTMLUListElement>(null);
+  const descriptionParts = splitDescription(location.description);
+  const reviewHref = isAuthenticated
+    ? `/locations/${locationId}/reviews/new`
+    : "/auth-prompt";
+  const reviewsSectionLabel =
+    reviewsCount > 0 ? `Відгуки (${reviewsCount})` : "Відгуки";
+
+  const scrollReviews = (direction: "prev" | "next") => {
+    const element = reviewsRailRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const amount = Math.max(element.clientWidth * 0.82, 220);
+
+    element.scrollBy({
+      left: direction === "next" ? amount : -amount,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <>
-      <section className={css.infoSection}>
-        <div className={css.ratingInfo}>
-          <RatingStars rating={location.rate} />
-          <span className={css.ratingValue}>{location.rate.toFixed(1)}</span>
-        </div>
-
-        <h1 className={css.pageTitle}>{location.name}</h1>
-
-        <ul className={css.metaList}>
-          <li className={css.metaItem}>
-            <span className={css.metaLabel}>Регіон</span>
-            <span className={css.metaValue}>
-              {location.regionId?.name ?? "Не вказано"}
-            </span>
-          </li>
-          <li className={css.metaItem}>
-            <span className={css.metaLabel}>Тип локації</span>
-            <span className={css.metaValue}>
-              {location.locationTypeId?.name ?? "Не вказано"}
-            </span>
-          </li>
-          <li className={css.metaItem}>
-            <span className={css.metaLabel}>Автор</span>
-            <Link href={`/profile/${location.ownerId?._id}`} className={css.authorLink}>
-              {location.ownerId?.name || location.ownerId?.email || "Профіль автора"}
-            </Link>
-          </li>
-        </ul>
-      </section>
-
-      <section className={css.gallerySection}>
-        <div className={css.imageWrap}>
-          <Image
-            src={location.image}
-            alt={location.name}
-            fill
-            priority
-            sizes="(min-width: 1440px) 1152px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)"
-            className={css.image}
-          />
-        </div>
-      </section>
-
-      <div className={css.contentGrid}>
-        <section className={css.descriptionSection}>
-          <h2 className={css.sectionTitle}>Опис місця</h2>
-          <p className={css.descriptionText}>{location.description}</p>
+    <div className={css.wrapper}>
+      <div className={css.heroLayout}>
+        <section className={css.gallerySection}>
+          <div className={css.imageWrap}>
+            <Image
+              src={location.image}
+              alt={location.name}
+              fill
+              priority
+              sizes="(min-width: 1440px) 560px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)"
+              className={css.image}
+            />
+          </div>
         </section>
 
-        <section className={css.reviewsSection}>
-          <div className={css.reviewsHeader}>
-            <div>
-              <h2 className={css.sectionTitle}>Відгуки</h2>
-              <p className={css.reviewsSubtitle}>
-                {reviewsCount > 0
-                  ? `${reviewsCount} відгук${reviewsCount === 1 ? "" : reviewsCount < 5 ? "и" : "ів"}`
-                  : "Ще немає відгуків"}
-              </p>
-            </div>
-            <button
-              type="button"
-              className={`${css.primaryButton} ${css.reviewActionButton}`}
-              data-location-id={locationId}
-            >
-              Залишити відгук
-            </button>
+        <section className={css.infoSection}>
+          <div className={css.ratingInfo}>
+            <RatingStars rating={location.rate} />
+            <span className={css.ratingValue}>• {location.rate.toFixed(1)}</span>
           </div>
 
-          <ReviewsBlock reviews={reviews} />
+          <h1 className={css.pageTitle}>{location.name}</h1>
+
+          <div className={css.metaList}>
+            <p className={css.metaItem}>
+              <span className={css.metaLabel}>Регіон:</span>{" "}
+              <span className={css.metaValue}>
+                {location.regionId?.name ?? "Не вказано"}
+              </span>
+            </p>
+            <p className={css.metaItem}>
+              <span className={css.metaLabel}>Тип локації:</span>{" "}
+              <span className={css.metaValue}>
+                {location.locationTypeId?.name ?? "Не вказано"}
+              </span>
+            </p>
+            <p className={css.metaItem}>
+              <span className={css.metaLabel}>Автор статті:</span>{" "}
+              <Link
+                href={`/profile/${location.ownerId?._id}`}
+                className={css.authorLink}
+              >
+                {location.ownerId?.name ||
+                  location.ownerId?.email ||
+                  "Профіль автора"}
+              </Link>
+            </p>
+          </div>
         </section>
       </div>
-    </>
+
+      <section className={css.descriptionSection}>
+        {descriptionParts.map((paragraph, index) => (
+          <p key={`${location._id}-${index}`} className={css.descriptionText}>
+            {paragraph}
+          </p>
+        ))}
+      </section>
+
+      <section className={css.reviewsSection} aria-label={reviewsSectionLabel}>
+        <div className={css.reviewsHeader}>
+          <h2 className={css.sectionTitle}>Відгуки</h2>
+          <Link
+            href={reviewHref}
+            scroll={false}
+            className={`${css.primaryButton} ${css.reviewActionButton}`}
+          >
+            Залишити відгук
+          </Link>
+        </div>
+
+        <ReviewsBlock reviews={reviews} railRef={reviewsRailRef} />
+
+        {reviews.length > 0 ? (
+          <div className={css.reviewsControls}>
+            <button
+              type="button"
+              className={css.sliderButton}
+              onClick={() => scrollReviews("prev")}
+              aria-label="Попередні відгуки"
+            >
+              <svg className={css.sliderIcon}>
+                <use href="/icons.svg#icon-arrow_back" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              className={css.sliderButton}
+              onClick={() => scrollReviews("next")}
+              aria-label="Наступні відгуки"
+            >
+              <svg className={css.sliderIcon}>
+                <use href="/icons.svg#icon-arrow_forward" />
+              </svg>
+            </button>
+          </div>
+        ) : null}
+      </section>
+    </div>
   );
 }
