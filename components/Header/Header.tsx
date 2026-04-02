@@ -72,7 +72,7 @@ const Header = () => {
                   Вхід
                 </Link>
 
-                <Link href="/sign-up" className="btn-base btn">
+                <Link href="/register" className="btn-base btn">
                   Реєстрація
                 </Link>
               </>
@@ -114,7 +114,7 @@ const Header = () => {
                   </Link>
 
                   <Link
-                    href="/sign-up"
+                    href="/register"
                     className="btn-base btn"
                     onClick={closeMenu}
                   >
@@ -179,7 +179,7 @@ const Header = () => {
                   </Link>
 
                   <Link
-                    href="/sign-up"
+                    href="/register"
                     className={`btn-base btn ${css.mobileFullBtn}`}
                     onClick={closeMenu}
                   >
