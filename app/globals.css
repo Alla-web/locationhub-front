@@ -162,6 +162,16 @@ svg {
   color: var(--color-white);
   border: 1px solid var(--color-scheme-2-border);
   background-color: var(--color-coral);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: all var(--transition-fast);
 }
 
 .btn:hover,
