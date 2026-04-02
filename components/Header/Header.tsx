@@ -7,7 +7,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/api";
 
 import css from "./Header.module.css";
-import AuthNav from "@/components/AuthNav/AuthNav";
+import MainNavi from "@/components/MainNavi/MainNavi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,14 +32,14 @@ const Header = () => {
     <header className={css.header}>
       <div className={`container ${css.headerContainer}`}>
         <Link href="/" className={css.logo}>
-          <svg className={css.icon}>
+          <svg className={[css.icon, css.iconLogo].join(" ")}>
             <use href="/icons.svg#icon-map_search" />
           </svg>
           <span className={css.logoText}>Relax Map</span>
         </Link>
 
         <div className={css.desktopNav}>
-          <AuthNav />
+          <MainNavi />
         </div>
 
         <div className={css.actions}>
@@ -62,7 +62,7 @@ const Header = () => {
                   aria-label="Вийти"
                 >
                   <svg className={css.icon}>
-                    <use href="/icons.svg#icon-X" />
+                    <use href="/icons.svg#icon-" />
                   </svg>
                 </button>
               </>
@@ -114,7 +114,7 @@ const Header = () => {
                   </Link>
 
                   <Link
-                    href="/sign-up"
+                    href="/register"
                     className="btn-base btn"
                     onClick={closeMenu}
                   >
@@ -129,7 +129,7 @@ const Header = () => {
                 onClick={closeMenu}
                 aria-label="Закрити меню"
               >
-                <svg className={css.icon}>
+                <svg className={[css.icon, css.iconClose].join(" ")}>
                   <use href="/icons.svg#icon-close" />
                 </svg>
               </button>
@@ -137,7 +137,7 @@ const Header = () => {
           </div>
 
           <div className={css.mobileMenuContent}>
-            <AuthNav onLinkClick={closeMenu} />
+            <MainNavi onLinkClick={closeMenu} />
 
             <div className={css.mobileBottom}>
               {isAuthenticated ? (
@@ -179,7 +179,7 @@ const Header = () => {
                   </Link>
 
                   <Link
-                    href="/sign-up"
+                    href="/register"
                     className={`btn-base btn ${css.mobileFullBtn}`}
                     onClick={closeMenu}
                   >

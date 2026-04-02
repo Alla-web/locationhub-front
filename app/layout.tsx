@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-
 import { Montserrat } from "next/font/google";
 
 import "./globals.css";
-
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/Header/Header";
 
 export const metadata: Metadata = {
   title: "Locationhub",
@@ -38,22 +34,16 @@ const montserrat = Montserrat({
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${montserrat.variable} app`}>
         <TanStackProvider>
           <AuthProvider>
-            <Header />
-            <main className="content">
-              {children}
-              {modal}
-            </main>
-            <Footer />
+            {children}
+            {/* {modal} */}
           </AuthProvider>
         </TanStackProvider>
       </body>

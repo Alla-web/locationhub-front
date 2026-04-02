@@ -11,7 +11,7 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 3px;
   flex-shrink: 0;
 }
 
@@ -23,9 +23,11 @@
 }
 
 .logoText {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-neutral-darkest);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-2-text);
 }
 
 @media (min-width: 768px) {

@@ -1,9 +1,9 @@
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
-import AuthNav from '@/components/AuthNav/AuthNav';
-import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
+import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
 
-import css from './page.module.css';
+import css from "./page.module.css";
+import AuthNav from "@/components/AuthNav/AuthNav";
 
 export default function RegisterPage() {
   return (
