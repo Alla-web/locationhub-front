@@ -1,6 +1,6 @@
-import LoginForm from '@/components/LoginForm/LoginForm';
-import AuthNav from '@/components/AuthNav/AuthNav';
-import css from './page.module.css';
+import LoginForm from "@/components/LoginForm/LoginForm";
+import AuthNav from "@/components/AuthNav/AuthNav";
+import css from "./page.module.css";
 
 export default function LoginPage() {
   return (

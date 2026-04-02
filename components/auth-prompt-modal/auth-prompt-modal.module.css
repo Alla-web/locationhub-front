@@ -1,0 +1,151 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 343px;
+  padding: 48px 20px 20px;
+  border-radius: 12px;
+  background-color: #fffdfb;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #7a6b66;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: #5f514d;
+}
+
+.title {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #1f1110;
+}
+
+.text {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7a6b66;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primaryButton,
+.secondaryButton {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primaryButton {
+  border: none;
+  background-color: #c85a2e;
+  color: #ffffff;
+}
+
+.primaryButton:hover,
+.primaryButton:focus {
+  background-color: #b84e24;
+}
+
+.secondaryButton {
+  border: 1px solid rgba(31, 17, 16, 0.15);
+  background-color: #f8e7df;
+  color: #1f1110;
+}
+
+.secondaryButton:hover,
+.secondaryButton:focus {
+  background-color: #f3ddd3;
+}
+
+@media screen and (min-width: 768px) {
+  .backdrop {
+    padding: 24px;
+  }
+
+  .modal {
+    max-width: 420px;
+    padding: 48px 24px 24px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .actions {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: calc((100% - 12px) / 2);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .modal {
+    max-width: 420px;
+  }
+}
