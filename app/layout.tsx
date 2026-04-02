@@ -43,7 +43,7 @@ export default function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             {children}
-            /* {modal} */
+            {/* {modal} */}
           </AuthProvider>
         </TanStackProvider>
       </body>
