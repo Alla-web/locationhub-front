@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
 }
 
 .locationType {
@@ -52,6 +52,12 @@
   justify-content: flex-start;
   flex-direction: row;
   gap: 0px;
+}
+
+.star {
+  width: 24px;
+  height: 24px;
+  fill: #000;
 }
 
 .locationName {
@@ -86,7 +92,11 @@
 @media screen and (min-width: 768px) {
   .cardContainer {
     width: 340px;
-    width: calc((100% -24p) / 2);
+    width: calc((100% -24px) / 2);
+  }
+
+  .locationType {
+    font-size: 16px;
   }
 }
 
@@ -94,5 +104,9 @@
   .cardContainer {
     /* width: 421px; */
     width: calc((100% - (24px * 2)) / 3);
+  }
+
+  .locationName {
+    font-size: 26px;
   }
 }
