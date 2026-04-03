@@ -47,15 +47,6 @@
   cursor: not-allowed;
 }
 
-.list {
-  display: grid;
-  gap: 16px;
-}
-
-.item {
-  list-style: none;
-}
-
 .bottomControls {
   display: flex;
   justify-content: flex-end;
@@ -105,9 +96,6 @@
   .title {
     font-size: 44px;
   }
-  .list {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (min-width: 1440px) {
@@ -119,7 +107,17 @@
     font-size: 20px;
   }
 
-  .list {
-    grid-template-columns: repeat(3, 1fr);
+  .swiper {
+    width: 100%;
+  }
+
+  .slide {
+    display: flex;
+    height: auto;
+  }
+
+  .slide > * {
+    width: 100%;
+    flex: 1;
   }
 }
