@@ -24,7 +24,7 @@
   width: 24px;
   height: 24px;
   display: block;
-  fill: #000;
+  fill: var(--color-scheme-1-text);
 }
 
 .iconClose {
@@ -58,37 +58,15 @@
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--color-neutral-light);
 }
 
 .userName {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5%;
-  color: var(--color-scheme-2-text);
-}
-
-.logoutBtn {
-  width: 36px;
-  height: 36px;
-
-  border: none;
-  border-radius: 8px;
-  background-color: transparent;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-}
-
-.logoutBtn:hover {
-  background-color: #ead6c8;
-  transform: translateY(-1px);
+  font-size: 14px;
+  color: var(--color-neutral-darkest);
 }
 
 .burgerBtn,
@@ -122,15 +100,11 @@
 .mobileMenuContent {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
 }
 
 .mobileBottom {
   margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px;
 }
 
 .mobileAuthButtons {
@@ -148,31 +122,13 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.divider {
-  background-color: var(--color-scheme-1-border);
-  width: 1px;
-  height: 29px;
-}
-
-.btnTablet,
-.btnDesktop,
-.desktopActions {
-  display: none;
-}
-
-.burgerBtn {
-  display: inline-flex;
 }
 
 .mobileMenuTopActions {
   display: none;
 }
 
-.desktopProfile {
+.desktopActions {
   display: none;
 }
 
@@ -187,6 +143,12 @@
   .headerContainer {
     width: 768px;
     min-height: 80px;
+  }
+
+  .desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 
   .profileBox {
@@ -210,14 +172,6 @@
     align-items: center;
     gap: 16px;
   }
-
-  .btnTablet {
-    display: inline-flex;
-  }
-
-  .burgerBtn {
-    display: inline-flex;
-  }
 }
 
 @media (min-width: 1440px) {
@@ -231,58 +185,14 @@
     margin-right: 24px;
   }
 
-  .desktopActions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
   .profileBox {
     display: flex;
     align-items: center;
     gap: 16px;
   }
 
-  .divider {
-    margin-right: 3px;
-  }
-
-  .btnShare {
-    margin-right: 16px;
-  }
-
-  .avatar,
-  .userName,
-  .divider {
-    margin-right: 8px;
-  }
-
   .burgerBtn {
     display: none;
-  }
-
-  .btnTablet {
-    display: none;
-  }
-
-  .btnDesktop {
-    display: inline-flex;
-  }
-
-  .desktopActions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .burgerBtn {
-    display: none;
-  }
-
-  .desktopProfile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
   }
 }
 

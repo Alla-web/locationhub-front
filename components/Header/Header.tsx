@@ -19,18 +19,10 @@ const Header = () => {
   );
 
   const handleLogout = async () => {
-    try {
-      console.log("logout click");
-
-      await logout();
-    } catch (error) {
-      console.error("API logout error:", error);
-    } finally {
-      clearIsAuthenticated();
-      setIsMenuOpen(false);
-      router.replace("/login");
-      router.refresh();
-    }
+    await logout();
+    clearIsAuthenticated();
+    setIsMenuOpen(false);
+    router.push("/login");
   };
 
   const openMenu = () => setIsMenuOpen(true);
@@ -54,37 +46,25 @@ const Header = () => {
           <div className={css.desktopActions}>
             {isAuthenticated ? (
               <>
-                <Link
-                  href="/locations/add"
-                  className={`btn-base btn ${css.btnTablet}`}
-                >
-                  Опублікувати статтю
-                </Link>
-
-                <Link
-                  href="/locations/add"
-                  className={`btn-base btn ${css.btnDesktop}`}
-                >
+                <Link href="/locations/add" className="btn-base btn">
                   Поділитись локацією
                 </Link>
 
-                <div className={css.desktopProfile}>
-                  <div className={css.profileBox}>
-                    <div className={css.avatar}></div>
-                    <span className={css.userName}>{user?.name || "Ім’я"}</span>
-                  </div>
-                  <span className={css.divider}></span>
-                  <button
-                    type="button"
-                    className="icon-btn"
-                    onClick={handleLogout}
-                    aria-label="Вийти"
-                  >
-                    <svg className={css.icon}>
-                      <use href="/icons.svg#icon-logout" />
-                    </svg>
-                  </button>
+                <div className={css.profileBox}>
+                  <div className={css.avatar}></div>
+                  <span className={css.userName}>{user?.email || "Ім’я"}</span>
                 </div>
+
+                <button
+                  type="button"
+                  className="icon-btn"
+                  onClick={handleLogout}
+                  aria-label="Вийти"
+                >
+                  <svg className={css.icon}>
+                    <use href="/icons.svg#icon-" />
+                  </svg>
+                </button>
               </>
             ) : (
               <>
@@ -165,18 +145,20 @@ const Header = () => {
                   <Link
                     href="/locations/add"
                     className={`btn-base btn ${css.mobileFullBtn}`}
+                    onClick={closeMenu}
                   >
                     Опублікувати статтю
                   </Link>
+
                   <div className={css.mobileProfile}>
                     <div className={css.avatar}></div>
-                    <span className={css.userName}>{user?.name || "Ім’я"}</span>
-
-                    <span className={css.divider}></span>
+                    <span className={css.userName}>
+                      {user?.email || "Ім’я"}
+                    </span>
 
                     <button
                       type="button"
-                      className={css.logoutBtn}
+                      className="icon-btn"
                       onClick={handleLogout}
                       aria-label="Вийти"
                     >
