@@ -22,7 +22,7 @@ export default function LocationCard({ location }: LocationCardProps) {
     <li className={css.cardContainer}>
       <div className={css.imageContainer}>
         <Image
-          className={css.image}
+          className={css.image.trim()}
           src={location.image}
           alt={location.name}
           fill
