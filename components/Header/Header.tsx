@@ -19,18 +19,10 @@ const Header = () => {
   );
 
   const handleLogout = async () => {
-    try {
-      console.log("logout click");
-
-      await logout();
-    } catch (error) {
-      console.error("API logout error:", error);
-    } finally {
-      clearIsAuthenticated();
-      setIsMenuOpen(false);
-      router.replace("/login");
-      router.refresh();
-    }
+    await logout();
+    clearIsAuthenticated();
+    setIsMenuOpen(false);
+    router.push("/login");
   };
 
   const openMenu = () => {
@@ -99,17 +91,7 @@ const Header = () => {
           <div className={css.desktopActions}>
             {isAuthenticated ? (
               <>
-                <Link
-                  href="/locations/add"
-                  className={`btn-base btn ${css.btnTablet}`}
-                >
-                  Опублікувати статтю
-                </Link>
-
-                <Link
-                  href="/locations/add"
-                  className={`btn-base btn ${css.btnDesktop}`}
-                >
+                <Link href="/locations/add" className="btn-base btn">
                   Поділитись локацією
                 </Link>
 
@@ -209,9 +191,9 @@ const Header = () => {
                 <>
                   <div className={css.mobileProfile}>
                     <div className={css.avatar}></div>
-                    <span className={css.userName}>{user?.name || "Ім’я"}</span>
-
-                    <span className={css.divider}></span>
+                    <span className={css.userName}>
+                      {user?.email || "Ім’я"}
+                    </span>
 
                     <button
                       type="button"

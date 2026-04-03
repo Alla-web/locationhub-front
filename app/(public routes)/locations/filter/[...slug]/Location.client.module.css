@@ -4,21 +4,50 @@
   padding-left: 20px;
   padding-right: 20px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-
   background: var(--color-scheme-2-background);
 }
 
 .pageTitle {
-  font-weight: 900;
-  font-size: 32px;
+  margin: 0 auto;
+  min-width: calc(320px - (20px * 2));
+  width: 100%;
+
   text-align: center;
+  font-size: 32px;
+  font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.01em;
-  text-align: center;
   color: var(--color-neutral-darkest);
+
+  margin-bottom: 40px;
+}
+
+@media screen and (min-width: 375px) {
+  .pageTitle {
+    width: calc(375px - (20px * 2));
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .locationsPage {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .pageTitle {
+    width: calc(768px - (32px * 2));
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .locationsPage {
+    padding-top: 48px;
+    padding-bottom: 72px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
+  .pageTitle {
+    width: calc(1440px - (64px * 2));
+  }
 }

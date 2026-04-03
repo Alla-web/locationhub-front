@@ -1,19 +1,23 @@
 .searchBoxContainer {
+  margin: 0 auto;
+  min-width: calc(320px - (20px * 2));
   width: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 16px;
+
+  margin-bottom: 40px;
 }
 
-.searchRegionLocationTypeContainer {
+.regionLocationTypeSortContainer {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.searchRegionContainer {
+.regionLocationTypeContainer {
   display: flex;
   gap: 16px;
 }
@@ -75,4 +79,53 @@
 
 .selects option {
   background: white;
+}
+
+@media screen and (min-width: 375px) {
+  .searchBoxContainer {
+    width: calc(375px - (20px * 2));
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .searchBoxContainer {
+    width: calc(768px - (32px * 2));
+  }
+
+  .regionLocationTypeSortContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .regionLocationtypesSelects {
+    width: 207px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .searchBoxContainer {
+    width: calc(1440px - (64px * 2));
+  }
+
+  .searchBoxContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .searchInput {
+    width: 310px;
+  }
+
+  .regionLocationTypeSortContainer {
+    gap: 0;
+    /* justify-content: space-between; */
+  }
+
+  .sortSelect {
+    /* margin-left: auto; */
+    margin-left: 397px;
+  }
 }

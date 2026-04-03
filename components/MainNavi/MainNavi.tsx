@@ -20,7 +20,11 @@ const MainNavi = ({ onLinkClick }: Props) => {
     <nav className={css.nav}>
       <ul className={css.navList}>
         <li>
-          <Link href="/" className={getLinkClass("/")} onClick={onLinkClick}>
+          <Link
+            href="/"
+            className={getLinkClass("/locations")}
+            onClick={onLinkClick}
+          >
             Головна
           </Link>
         </li>

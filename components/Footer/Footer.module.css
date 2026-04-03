@@ -19,7 +19,7 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 8px;
 }
 
 .logoIcon {
@@ -31,10 +31,8 @@
 }
 
 .logoText {
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--color-scheme-2-text);
 }
 

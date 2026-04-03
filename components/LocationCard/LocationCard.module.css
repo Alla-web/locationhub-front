@@ -4,28 +4,24 @@
   width: 100%;
 
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 0px;
 
   border: 0px solid var(--color-scheme-1-border);
   border-radius: 12px;
-  width: 335px;
-  height: 520px;
+
+  width: 100%;
 
   background-color: var(--color-scheme-2-foreground);
-
   color: var(--color-scheme-2-text);
 }
 
 .imageContainer {
   position: relative;
-
-  width: 335px;
+  width: 100%;
   height: 335px;
   overflow: hidden;
-
   border-bottom: 1px solid gray;
 }
 
@@ -39,7 +35,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
+  flex: 1;
 }
 
 .locationType {
@@ -58,14 +55,22 @@
   gap: 0px;
 }
 
+.star {
+  width: 24px;
+  height: 24px;
+  fill: #000;
+}
+
 .locationName {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 26px;
   line-height: 1.5;
 }
 
 .schowLocationLinkContainer {
-  align-self: center;
+  margin-top: auto;
+
+  align-self: stretch;
 
   display: flex;
   align-items: center;
@@ -76,7 +81,7 @@
   border: 1px solid var(--color-scheme-2-border);
   border-radius: 6px;
   padding: 6px 12px;
-  width: 303px;
+  width: 100%;
   height: 48px;
 
   background: var(--opacity-neutral-darkest-5);
@@ -85,4 +90,22 @@
 .schowLocationLinkContainer:hover,
 .schowLocationLinkContainer:focus {
   background: rgb(233, 165, 131);
+}
+
+@media screen and (min-width: 768px) {
+  .cardContainer {
+    width: 340px;
+    width: calc((100% -24px) / 2);
+  }
+
+  .locationType {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .cardContainer {
+    /* width: 421px; */
+    width: calc((100% - (24px * 2)) / 3);
+  }
 }
