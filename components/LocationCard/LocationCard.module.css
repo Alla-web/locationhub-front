@@ -1,3 +1,88 @@
 .cardContainer {
+  overflow: hidden;
+
   width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0px;
+
+  border: 0px solid var(--color-scheme-1-border);
+  border-radius: 12px;
+  width: 335px;
+  height: 520px;
+
+  background-color: var(--color-scheme-2-foreground);
+
+  color: var(--color-scheme-2-text);
+}
+
+.imageContainer {
+  position: relative;
+
+  width: 335px;
+  height: 335px;
+  overflow: hidden;
+
+  border-bottom: 1px solid gray;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.cardTexContainer {
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.locationType {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ratingContainer {
+  height: 24px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0px;
+}
+
+.locationName {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.schowLocationLinkContainer {
+  align-self: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: 303px;
+  height: 48px;
+
+  background: var(--opacity-neutral-darkest-5);
+}
+
+.schowLocationLinkContainer:hover,
+.schowLocationLinkContainer:focus {
+  background: rgb(233, 165, 131);
 }
