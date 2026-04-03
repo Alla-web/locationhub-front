@@ -223,7 +223,17 @@
   transform: translateY(-2px);
 }
 
+@media screen and (min-width: 375px) {
+  .container {
+    width: 375px;
+  }
+}
+
 @media (min-width: 768px) {
+  .container {
+    width: 768px;
+    padding: 0 32px;
+  }
   .headerContainer {
     min-height: 80px;
   }
@@ -266,6 +276,10 @@
 }
 
 @media (min-width: 1440px) {
+  .container {
+    width: 1440px;
+  }
+
   .desktopNav {
     display: block;
     margin-left: auto;

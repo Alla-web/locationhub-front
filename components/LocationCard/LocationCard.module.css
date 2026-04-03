@@ -63,7 +63,7 @@
 
 .locationName {
   font-weight: 700;
-  font-size: 26px;
+  font-size: 18px;
   line-height: 1.5;
 }
 
@@ -107,5 +107,9 @@
   .cardContainer {
     /* width: 421px; */
     width: calc((100% - (24px * 2)) / 3);
+  }
+
+  .locationName {
+    font-size: 26px;
   }
 }
