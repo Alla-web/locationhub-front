@@ -150,6 +150,16 @@
   margin: 0 auto;
 }
 
+.mobileMenuContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mobileBottom {
+  margin-top: auto;
+}
+
 .divider {
   background-color: var(--color-scheme-1-border);
   width: 1px;
@@ -172,6 +182,46 @@
 
 .desktopProfile {
   display: none;
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: var(--color-coral-lightest);
+  padding: 19px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mobileMenuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.mobileMenuContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mobileBottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.iconBtn svg {
+  transition: transform 0.2s ease;
+}
+
+.iconBtn:hover svg,
+.iconBtn:focus svg {
+  transform: translateY(-3px);
 }
 
 @media (min-width: 768px) {
@@ -208,6 +258,12 @@
   .burgerBtn {
     display: inline-flex;
   }
+
+  .desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -215,12 +271,6 @@
     display: block;
     margin-left: auto;
     margin-right: 24px;
-  }
-
-  .desktopActions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
   }
 
   .profileBox {
@@ -281,9 +331,5 @@
 
   .mobileAuthButtons {
     display: none;
-  }
-
-  .mobileBottom {
-    margin-top: 0;
   }
 }
