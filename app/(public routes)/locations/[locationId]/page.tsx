@@ -15,13 +15,21 @@ type LocationDetailsPageProps = {
 async function loadLocationData(locationId: string) {
   try {
     const location = await getLocationById(locationId);
+    const fallbackReviews = location.feedbacksId ?? [];
 
     try {
       const reviewsResponse = await getLocationFeedbacks(locationId);
 
       return {
         location,
-        reviewsResponse,
+        reviewsResponse:
+          reviewsResponse.totalFeedbacks > 0 || fallbackReviews.length === 0
+            ? reviewsResponse
+            : {
+                ...reviewsResponse,
+                totalFeedbacks: fallbackReviews.length,
+                feedbacks: fallbackReviews,
+              },
       };
     } catch {
       return {
@@ -29,13 +37,12 @@ async function loadLocationData(locationId: string) {
         reviewsResponse: {
           page: 1,
           perPage: 10,
-          totalPages: 0,
-          totalFeedbacks: 0,
-          feedbacks: [],
+          totalPages: fallbackReviews.length > 0 ? 1 : 0,
+          totalFeedbacks: fallbackReviews.length,
+          feedbacks: fallbackReviews,
         },
       };
     }
-
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
       notFound();

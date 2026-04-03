@@ -7,6 +7,8 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { LocationDetails, LocationFeedback } from "@/types/location-details";
 import css from "./LocationDetails.module.css";
 
+const SEEDED_AUTHOR_IDS = new Set(["69cb86695f62579868ae320c"]);
+
 type LocationDetailsViewProps = {
   locationId: string;
   location: LocationDetails;
@@ -63,6 +65,19 @@ function splitDescription(description: string) {
 
 function getReviewAuthor(review: LocationFeedback) {
   if (typeof review.ownerId === "string") {
+    if (SEEDED_AUTHOR_IDS.has(review.ownerId)) {
+      return "Користувач";
+    }
+
+    return "Користувач";
+  }
+
+  if (
+    SEEDED_AUTHOR_IDS.has(review.ownerId._id) ||
+    review.ownerId.name === "Seed User" ||
+    review.ownerId.email === "seed@locationhub.local" ||
+    review.ownerId.name === "umnyj.start"
+  ) {
     return "Користувач";
   }
 
@@ -74,13 +89,19 @@ function getLocationAuthor(location: LocationDetails) {
   const authorEmail = location.ownerId?.email?.trim().toLowerCase();
 
   if (
+    SEEDED_AUTHOR_IDS.has(location.ownerId?._id) ||
     authorName === "Seed User" ||
-    authorEmail === "seed@locationhub.local"
+    authorEmail === "seed@locationhub.local" ||
+    authorName === "umnyj.start"
   ) {
     return "Автор не вказаний";
   }
 
   return authorName || location.ownerId?.email || "Профіль автора";
+}
+
+function hasLocationAuthorProfile(location: LocationDetails) {
+  return Boolean(location.ownerId?._id && getLocationAuthor(location) !== "Автор не вказаний");
 }
 
 function ReviewsBlock({
@@ -155,6 +176,7 @@ export function LocationDetailsView({
               alt={location.name}
               fill
               priority
+              unoptimized
               sizes="(min-width: 1440px) 560px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)"
               className={css.image}
             />
@@ -184,12 +206,16 @@ export function LocationDetailsView({
             </p>
             <p className={css.metaItem}>
               <span className={css.metaLabel}>Автор статті:</span>{" "}
-              <Link
-                href={`/profile/${location.ownerId?._id}`}
-                className={css.authorLink}
-              >
-                {getLocationAuthor(location)}
-              </Link>
+              {hasLocationAuthorProfile(location) ? (
+                <Link
+                  href={`/profile/${location.ownerId._id}`}
+                  className={css.authorLink}
+                >
+                  {getLocationAuthor(location)}
+                </Link>
+              ) : (
+                <span className={css.metaValue}>{getLocationAuthor(location)}</span>
+              )}
             </p>
           </div>
         </section>
