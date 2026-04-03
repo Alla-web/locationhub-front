@@ -13,7 +13,7 @@ export default function ErrorBox({ query, errorMessage }: ErrorBoxProps) {
       {query && (
         <p
           className={css.errorMessage}
-        >{`No locations found with guwry: ${query}`}</p>
+        >{`No locations found with guery: ${query}`}</p>
       )}
     </div>
   );

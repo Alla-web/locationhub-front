@@ -48,11 +48,29 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
   };
 
   const locationsQuery = useQuery<GetLocationsResponse>({
-    queryKey: ["locations"],
+    queryKey: [
+      "locations",
+      page,
+      perPage,
+      debouncedSearch,
+      filters.regionId,
+      filters.locationTypeId,
+      filters.sort,
+    ],
     queryFn: () => getLocations(locationsParams),
     placeholderData: keepPreviousData,
     staleTime: 60 * 1000,
   });
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const handleFiltersChange = (newFilters: LocationFilters) => {
+    setFilters(newFilters);
+    setPage(1);
+  };
 
   const regionsQuery = useQuery<Region[]>({
     queryKey: ["regions"],
@@ -66,35 +84,15 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     staleTime: 30 * 60 * 1000,
   });
 
-  if (
+  const isLoading =
     locationsQuery.isLoading ||
     regionsQuery.isLoading ||
-    locationTypesQuery.isLoading
-  ) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-  }
+    locationTypesQuery.isLoading;
 
-  if (
+  const isError =
     locationsQuery.isError ||
     regionsQuery.isError ||
-    locationTypesQuery.isError
-  ) {
-    return (
-      <ErrorBox
-        query={search}
-        errorMessage={
-          locationsQuery.error?.message ||
-          locationTypesQuery.error?.message ||
-          regionsQuery.error?.message ||
-          "Something went wrong!"
-        }
-      />
-    );
-  }
+    locationTypesQuery.isError;
 
   return (
     <div className={css.locationsPage}>
@@ -109,10 +107,25 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
             regions={regionsQuery.data || []}
             locationTypes={locationTypesQuery.data || []}
             filters={filters}
-            onSearchChange={setSearch}
-            onFiltersChange={setFilters}
+            onSearchChange={handleSearchChange}
+            onFiltersChange={handleFiltersChange}
+            isLoading={isLoading}
           />
         )}
+
+      {isLoading && <Loader />}
+
+      {isError && (
+        <ErrorBox
+          query={search}
+          errorMessage={
+            locationsQuery.error?.message ||
+            locationTypesQuery.error?.message ||
+            regionsQuery.error?.message ||
+            "Something went wrong!"
+          }
+        />
+      )}
 
       {locationsQuery.data && !locationsQuery.isLoading && (
         <LocationsList locations={locationsQuery.data.locations} />
