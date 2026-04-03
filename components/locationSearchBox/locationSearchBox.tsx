@@ -11,6 +11,7 @@ interface LocationSearchBoxProps {
   filters: LocationFilters;
   onSearchChange: (search: string) => void;
   onFiltersChange: (filters: LocationFilters) => void;
+  isLoading: boolean;
 }
 
 export default function LocationSearchBox({
@@ -20,6 +21,7 @@ export default function LocationSearchBox({
   filters,
   onSearchChange,
   onFiltersChange,
+  isLoading,
 }: LocationSearchBoxProps) {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -39,6 +41,7 @@ export default function LocationSearchBox({
         name="search"
         type="text"
         placeholder="Пошук"
+        disabled={isLoading}
       />
 
       <div className={css.regionLocationTypeSortContainer}>
@@ -48,9 +51,10 @@ export default function LocationSearchBox({
           >
             <select
               className={`${css.inputSelects} ${css.selects}`}
-              name="region"
+              name="regionId"
               value={filters.regionId}
               onChange={handleSelectChange}
+              disabled={isLoading}
             >
               <option value="">Регіон</option>
               {regions.map((region) => (
@@ -70,9 +74,10 @@ export default function LocationSearchBox({
           >
             <select
               className={`${css.inputSelects} ${css.selects}`}
-              name="locationType"
+              name="locationTypeId"
               value={filters.locationTypeId}
               onChange={handleSelectChange}
+              disabled={isLoading}
             >
               <option value="">Тип локації</option>
               {locationTypes.map((type) => (
@@ -100,8 +105,8 @@ export default function LocationSearchBox({
             <option value="name-asc">Назва A → Я</option>
             <option value="name-desc">Назва Я → А</option>
 
-            <option value="rate-asс">Рейтинг ↑</option>
-            <option value="rate-desc">Рейтинг ↑</option>
+            <option value="rate-asc">Рейтинг ↑</option>
+            <option value="rate-desc">Рейтинг ↓</option>
 
             <option value="newest">Спочатку нові</option>
             <option value="oldest">Спочатку старі</option>
