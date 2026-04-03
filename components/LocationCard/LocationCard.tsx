@@ -26,6 +26,7 @@ export default function LocationCard({ location }: LocationCardProps) {
           src={location.image}
           alt={location.name}
           fill
+          unoptimized
         />
       </div>
       <div className={css.cardTexContainer}>
