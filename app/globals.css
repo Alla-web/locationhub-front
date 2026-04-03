@@ -129,13 +129,24 @@ svg {
   padding: 0 20px;
 }
 
+@media screen and (min-width: 375px) {
+  .container {
+    width: 375px;
+  }
+}
+
 @media (min-width: 768px) {
   .container {
+    width: 768;
     padding: 0 32px;
   }
 }
 
 @media (min-width: 1440px) {
+  .container {
+    width: 1440px;
+  }
+
   .section {
     padding: 72px 0;
   }
