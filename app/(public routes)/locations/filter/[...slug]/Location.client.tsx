@@ -22,6 +22,7 @@ import type { Region } from "@/types/region";
 import type { LocationFilters } from "@/types/location";
 import ErrorBox from "@/components/ErrorBox/ErrorBox";
 import Loader from "@/components/Loader/Loader";
+import Pagination from "@/components/Pagination/Pagination";
 
 interface LocationsPageProps {
   initialSearch: string;
@@ -29,7 +30,7 @@ interface LocationsPageProps {
 
 export default function LocationPage({ initialSearch }: LocationsPageProps) {
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(6);
+  const [perPage] = useState(6);
   const [search, setSearch] = useState(initialSearch);
   const [debouncedSearch] = useDebounceValue(search, 1000);
   const [filters, setFilters] = useState<LocationFilters>({
@@ -130,6 +131,14 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
       {locationsQuery.data && !locationsQuery.isLoading && (
         <LocationsList locations={locationsQuery.data.locations} />
       )}
+
+      {locationsQuery.data?.totalPages && locationsQuery.data.totalPages > 1 ? (
+        <Pagination
+          totalPages={locationsQuery.data.totalPages ?? 0}
+          page={page}
+          setPage={setPage}
+        />
+      ) : null}
     </div>
   );
 }
