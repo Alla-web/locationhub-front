@@ -4,8 +4,6 @@
 }
 
 .headerContainer {
-  width: 100%;
-
   min-height: 72px;
   display: flex;
   align-items: center;
@@ -24,7 +22,7 @@
   width: 24px;
   height: 24px;
   display: block;
-  fill: var(--color-scheme-1-text);
+  fill: #000;
 }
 
 .iconClose {
@@ -58,15 +56,37 @@
 }
 
 .avatar {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background-color: var(--color-neutral-light);
 }
 
 .userName {
-  font-size: 14px;
-  color: var(--color-neutral-darkest);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5%;
+  color: var(--color-scheme-2-text);
+}
+
+.logoutBtn {
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background-color: #ead6c8;
+  transform: translateY(-1px);
 }
 
 .burgerBtn,
@@ -100,11 +120,15 @@
 .mobileMenuContent {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  height: 100%;
 }
 
 .mobileBottom {
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
 }
 
 .mobileAuthButtons {
@@ -156,7 +180,7 @@
   display: none;
 }
 
-.desktopActions {
+.desktopProfile {
   display: none;
 }
 
@@ -192,23 +216,16 @@
 }
 
 .iconBtn svg {
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-fast);
 }
 
-.iconBtn:hover svg,
-.iconBtn:focus svg {
-  transform: translateY(-3px);
+.iconBtn:hover svg {
+  transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
   .headerContainer {
     min-height: 80px;
-  }
-
-  .desktopActions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
   }
 
   .profileBox {
@@ -261,8 +278,46 @@
     gap: 16px;
   }
 
+  .divider {
+    margin-right: 3px;
+  }
+
+  .btnShare {
+    margin-right: 16px;
+  }
+
+  .avatar,
+  .userName,
+  .divider {
+    margin-right: 8px;
+  }
+
   .burgerBtn {
     display: none;
+  }
+
+  .btnTablet {
+    display: none;
+  }
+
+  .btnDesktop {
+    display: inline-flex;
+  }
+
+  .desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+
+  .desktopProfile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 }
 
