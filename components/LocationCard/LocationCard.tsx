@@ -43,7 +43,7 @@ export default function LocationCard({ location }: LocationCardProps) {
           })}
         </div>
 
-        <h4 className={css.locationName}>{location.locationTypeId.name}</h4>
+        <h3 className={css.locationName}>{location.locationTypeId.name}</h3>
 
         <div className={css.schowLocationLinkContainer}>
           <Link href={`/locations/${location._id}`}>Переглянути локацію</Link>
