@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
@@ -25,8 +25,54 @@ const Header = () => {
     router.push("/login");
   };
 
-  const openMenu = () => setIsMenuOpen(true);
+  const openMenu = () => {
+    if (window.innerWidth >= 1440) return;
+    setIsMenuOpen(true);
+  };
+
   const closeMenu = () => setIsMenuOpen(false);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      window.addEventListener("keydown", handleEsc);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1440) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <header className={css.header}>
@@ -46,25 +92,39 @@ const Header = () => {
           <div className={css.desktopActions}>
             {isAuthenticated ? (
               <>
-                <Link href="/locations/add" className="btn-base btn">
+                <Link
+                  href="/locations/add"
+                  className={`btn-base btn ${css.btnTablet}`}
+                >
+                  Опублікувати статтю
+                </Link>
+
+                <Link
+                  href="/locations/add"
+                  className={`btn-base btn ${css.btnDesktop}`}
+                >
                   Поділитись локацією
                 </Link>
 
-                <div className={css.profileBox}>
-                  <div className={css.avatar}></div>
-                  <span className={css.userName}>{user?.email || "Ім’я"}</span>
-                </div>
+                <div className={css.desktopProfile}>
+                  <div className={css.profileBox}>
+                    <div className={css.avatar}></div>
+                    <span className={css.userName}>{user?.name || "Ім’я"}</span>
+                  </div>
 
-                <button
-                  type="button"
-                  className="icon-btn"
-                  onClick={handleLogout}
-                  aria-label="Вийти"
-                >
-                  <svg className={css.icon}>
-                    <use href="/icons.svg#icon-" />
-                  </svg>
-                </button>
+                  <span className={css.divider}></span>
+
+                  <button
+                    type="button"
+                    className={`iconBtn ${css.iconBtn}`}
+                    onClick={handleLogout}
+                    aria-label="Вийти"
+                  >
+                    <svg className={css.icon}>
+                      <use href="/icons.svg#icon-logout" />
+                    </svg>
+                  </button>
+                </div>
               </>
             ) : (
               <>
@@ -141,33 +201,24 @@ const Header = () => {
 
             <div className={css.mobileBottom}>
               {isAuthenticated ? (
-                <>
-                  <Link
-                    href="/locations/add"
-                    className={`btn-base btn ${css.mobileFullBtn}`}
-                    onClick={closeMenu}
+                <div className={css.mobileProfile}>
+                  <div className={css.avatar}></div>
+
+                  <span className={css.userName}>{user?.name || "Ім’я"}</span>
+
+                  <span className={css.divider}></span>
+
+                  <button
+                    type="button"
+                    className={`iconBtn ${css.iconBtn}`}
+                    onClick={handleLogout}
+                    aria-label="Вийти"
                   >
-                    Опублікувати статтю
-                  </Link>
-
-                  <div className={css.mobileProfile}>
-                    <div className={css.avatar}></div>
-                    <span className={css.userName}>
-                      {user?.email || "Ім’я"}
-                    </span>
-
-                    <button
-                      type="button"
-                      className="icon-btn"
-                      onClick={handleLogout}
-                      aria-label="Вийти"
-                    >
-                      <svg className={css.icon}>
-                        <use href="/icons.svg#icon-logout" />
-                      </svg>
-                    </button>
-                  </div>
-                </>
+                    <svg className={css.icon}>
+                      <use href="/icons.svg#icon-logout" />
+                    </svg>
+                  </button>
+                </div>
               ) : (
                 <div className={css.mobileAuthButtons}>
                   <Link
