@@ -36,6 +36,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  flex: 1;
 }
 
 .locationType {
@@ -67,6 +68,8 @@
 }
 
 .schowLocationLinkContainer {
+  margin-top: auto;
+
   align-self: stretch;
 
   display: flex;
