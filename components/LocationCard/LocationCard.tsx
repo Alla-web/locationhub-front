@@ -22,10 +22,11 @@ export default function LocationCard({ location }: LocationCardProps) {
     <li className={css.cardContainer}>
       <div className={css.imageContainer}>
         <Image
-          className={css.image}
+          className={css.image.trim()}
           src={location.image}
           alt={location.name}
           fill
+          unoptimized
         />
       </div>
       <div className={css.cardTexContainer}>
@@ -41,7 +42,9 @@ export default function LocationCard({ location }: LocationCardProps) {
             }
           })}
         </div>
+
         <h4 className={css.locationName}>{location.locationTypeId.name}</h4>
+
         <div className={css.schowLocationLinkContainer}>
           <Link href={`/locations/${location._id}`}>Переглянути локацію</Link>
         </div>

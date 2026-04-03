@@ -55,3 +55,29 @@ export const checkSession = async () => {
     return false;
   }
 };
+interface CreateFeedbackPayload {
+  rating: number;
+  comment: string;
+  userName: string;
+}
+
+export const createFeedback = async (
+  locationId: string,
+  payload: CreateFeedbackPayload
+) => {
+  const response = await nextServer.post(
+    `/locations/${locationId}/feedback`,
+    payload
+  );
+
+  return response.data;
+};
+export const getMe = async (): Promise<User | null> => {
+  try {
+    const res = await nextServer.get<User>("/users/me");
+    return res.data;
+  } catch (error) {
+    console.warn("Користувач не авторизований");
+    return null;
+  }
+};

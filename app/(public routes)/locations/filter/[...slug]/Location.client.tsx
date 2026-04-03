@@ -21,6 +21,7 @@ import type { LocationType } from "@/types/locationType";
 import type { Region } from "@/types/region";
 import type { LocationFilters } from "@/types/location";
 import ErrorBox from "@/components/ErrorBox/ErrorBox";
+import Loader from "@/components/Loader/Loader";
 
 interface LocationsPageProps {
   initialSearch: string;
@@ -70,7 +71,11 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     regionsQuery.isLoading ||
     locationTypesQuery.isLoading
   ) {
-    return <p>Loading...</p>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   if (

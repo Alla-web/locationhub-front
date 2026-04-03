@@ -36,6 +36,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  flex: 1;
 }
 
 .locationType {
@@ -62,11 +63,13 @@
 
 .locationName {
   font-weight: 700;
-  font-size: 26px;
+  font-size: 18px;
   line-height: 1.5;
 }
 
 .schowLocationLinkContainer {
+  margin-top: auto;
+
   align-self: stretch;
 
   display: flex;
