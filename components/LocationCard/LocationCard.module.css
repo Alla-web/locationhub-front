@@ -1,7 +1,8 @@
-.card {
-  border-radius: 12px;
+.cardContainer {
   overflow: hidden;
-  background-color: var(--color-scheme-2-foreground);
+
+  width: 100%;
+
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
@@ -25,108 +26,61 @@
 }
 
 .image {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 
-.content {
+.cardTexContainer {
   padding: 16px;
+
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 16px;
 }
 
-.type {
-  font-family: var(--font-family);
+.locationType {
   font-weight: 600;
   font-size: 12px;
   line-height: 1.5;
-  color: var(--color-scheme-2-text);
 }
 
-.title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-}
-
-.star {
-  width: 24px;
+.ratingContainer {
   height: 24px;
-  fill: #000;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0px;
 }
 
-.rateNumber {
-  margin-left: 6px;
-  font-size: 14px;
+.locationName {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 .schowLocationLinkContainer {
   align-self: stretch;
-}
 
-.btnAll {
-  border: 1px solid var(--color-scheme-2-border);
-  border-radius: 6px;
-  padding: 12px;
-  background: var(--opacity-neutral-darkest-5);
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--color-scheme-2-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
+  flex-direction: row;
+  gap: 8px;
 
-
-.btnAll:hover {
-  background-color: #d78557;  
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(215, 133, 87, 0.28);
   border: 1px solid var(--color-scheme-2-border);
   border-radius: 6px;
   padding: 6px 12px;
   width: 100%;
   height: 48px;
-  }
 
-.btnAll:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(215, 133, 87, 0.18);
+  background: var(--opacity-neutral-darkest-5);
 }
 
-.btnAll:focus-visible {
-  outline: 2px solid #d78557;
-  outline-offset: 2px;
-}
-
-@media (min-width: 1440px) {
-  .title {
-    font-size: 26px;
-  }
-
-  .type {
-    font-size: 16px;
-  }
-
-  .btnAll {
-    font-size: 20px;
-  }
+.schowLocationLinkContainer:hover,
+.schowLocationLinkContainer:focus {
+  background: rgb(233, 165, 131);
 }
 
 @media screen and (min-width: 768px) {
