@@ -12,6 +12,12 @@ interface LocationCardProps {
 }
 
 export default function LocationCard({ location }: LocationCardProps) {
+  const rating = location.rate || 0;
+
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating - fullStars >= 0.5;
+  const totalStars = 5;
+
   return (
     <li className={css.cardContainer}>
       <div className={css.imageContainer}>
@@ -25,7 +31,15 @@ export default function LocationCard({ location }: LocationCardProps) {
       <div className={css.cardTexContainer}>
         <h4 className={css.locationType}>{location.name}</h4>
         <div className={css.ratingContainer}>
-          <div>{location.rate}</div>
+          {[...Array(totalStars)].map((_, index) => {
+            if (index < fullStars) {
+              return (
+                <svg key={index} className={css.star}>
+                  <use href="/icons.svg#icon-star_filled" />
+                </svg>
+              );
+            }
+          })}
         </div>
         <h3 className={css.locationName}>{location.locationTypeId.name}</h3>
         <div className={css.schowLocationLinkContainer}>
