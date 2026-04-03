@@ -6,8 +6,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
-import "swiper/css";
-
 import css from "./PopularLocationsBlock.module.css";
 
 import LocationCard from "../LocationCard/LocationCard";
