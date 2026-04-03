@@ -2,75 +2,36 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
 import css from "./LocationCard.module.css";
 
 import type { Location } from "@/types/location";
-import { getLocationTypeLabel } from "@/lib/utils/locationType";
 
 interface LocationCardProps {
   location: Location;
 }
 
 export default function LocationCard({ location }: LocationCardProps) {
-  const rating = location.rate || 0;
-
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating - fullStars >= 0.5;
-  const totalStars = 5;
-
-  const locationTypeLabel =
-    location.locationTypeId?.name ||
-    getLocationTypeLabel(
-      (location as Location & { locationType?: string }).locationType,
-    );
-
   return (
-    <article className={css.card}>
-      <div className={css.imageWrapper}>
+    <li className={css.cardContainer}>
+      <div className={css.imageContainer}>
         <Image
+          className={css.image}
           src={location.image}
           alt={location.name}
-          width={340}
-          height={340}
-          className={css.image}
+          fill
         />
       </div>
-
-      <div className={css.content}>
-        <p className={css.type}>{locationTypeLabel}</p>
-
-        <div className={css.rating}>
-          {[...Array(totalStars)].map((_, index) => {
-            if (index < fullStars) {
-              return (
-                <svg key={index} className={css.star}>
-                  <use href="/icons.svg#icon-star_filled" />
-                </svg>
-              );
-            }
-
-            if (index === fullStars && hasHalfStar) {
-              return (
-                <svg key={index} className={css.star}>
-                  <use href="/icons.svg#icon_half" />
-                </svg>
-              );
-            }
-
-            return (
-              <svg key={index} className={css.star}>
-                <use href="/icons.svg#icon-rate" />
-              </svg>
-            );
-          })}
+      <div className={css.cardTexContainer}>
+        <h4 className={css.locationType}>{location.name}</h4>
+        <div className={css.ratingContainer}>
+          <div>{location.rate}</div>
         </div>
-
-        <h3 className={css.title}>{location.name}</h3>
-
-        <Link href={`/locations/${location._id}`} className={css.btnAll}>
-          Переглянути локацію
-        </Link>
+        <h3 className={css.locationName}>{location.locationTypeId.name}</h3>
+        <div className={css.schowLocationLinkContainer}>
+          <Link href={`/locations/${location._id}`}>Переглянути локацію</Link>
+        </div>
       </div>
-    </article>
+    </li>
   );
 }
