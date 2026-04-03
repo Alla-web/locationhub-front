@@ -5,6 +5,7 @@ import HeroBlock from "@/components/HeroBlock/HeroBlock";
 import AdvantagesBlock from "@/components/AdvantagesBlock/AdvantagesBlock";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import PopularLocationsBlock from "@/components/PopularLocationsBlock/PopularLocationsBlock";
 
 export const metadata: Metadata = {
   title: "Locationhub home page",
@@ -25,14 +26,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <main>
       <Header />
       <HeroBlock />
       <AdvantagesBlock />
-      {/* <PopularLocationsBlock />
-      <ReviewsBlock /> */}
+
+      <PopularLocationsBlock />
+
       <Footer />
     </main>
   );
