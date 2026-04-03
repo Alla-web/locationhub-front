@@ -1,0 +1,17 @@
+.errorBox {
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 18px;
+  font-weight: 600;
+  color: #fe0000;
+}
+
+.errorMessage {
+  color: #545252;
+}

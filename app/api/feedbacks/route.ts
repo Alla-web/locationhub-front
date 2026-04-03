@@ -1,0 +1,62 @@
+import { NextRequest, NextResponse } from "next/server";
+import { api, ApiError } from "../api";
+
+// GET /feedbacks
+export async function GET(req: NextRequest) {
+  try {
+    const search = req.nextUrl.searchParams.toString();
+    const url = search ? `/feedbacks?${search}` : "/feedbacks";
+
+    const apiRes = await api.get(url);
+
+    return NextResponse.json(apiRes.data);
+  } catch (error) {
+    const err = error as ApiError;
+
+    return NextResponse.json(
+      {
+        error: err.response?.data?.error ?? err.message,
+      },
+      {
+        status: err.response?.status || 500,
+      },
+    );
+  }
+}
+
+// POST /feedbacks (з authenticate)
+export async function POST(req: NextRequest) {
+  try {
+    const cookieHeader = req.headers.get("cookie") || "";
+    const body = await req.json();
+
+    const apiRes = await api.post("/feedbacks", body, {
+      headers: {
+        cookie: cookieHeader,
+      },
+    });
+
+    const res = NextResponse.json(apiRes.data);
+
+    const setCookie = apiRes.headers["set-cookie"];
+    if (setCookie) {
+      const cookies = Array.isArray(setCookie) ? setCookie : [setCookie];
+      cookies.forEach((cookie) => {
+        res.headers.append("set-cookie", cookie);
+      });
+    }
+
+    return res;
+  } catch (error) {
+    const err = error as ApiError;
+
+    return NextResponse.json(
+      {
+        error: err.response?.data?.error ?? err.message,
+      },
+      {
+        status: err.response?.status || 500,
+      },
+    );
+  }
+}

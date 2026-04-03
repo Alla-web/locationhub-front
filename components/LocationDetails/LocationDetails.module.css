@@ -1,0 +1,668 @@
+.wrapper {
+  display: grid;
+  gap: 40px;
+}
+
+.heroLayout {
+  display: grid;
+  gap: 16px;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ratingInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ratingValue {
+  font-size: 10px;
+  line-height: 1.2;
+  color: rgba(30, 30, 30, 0.72);
+}
+
+.pageTitle {
+  margin-top: 0;
+  margin-bottom: 2px;
+  font-size: 20px;
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #244128;
+}
+
+.metaList {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.metaItem {
+  margin: 0;
+}
+
+.metaLabel {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #1e1e1e;
+  font-weight: 700;
+}
+
+.metaValue {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #1e1e1e;
+}
+
+.authorLink {
+  width: fit-content;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #6f6f6f;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.authorLink:hover,
+.authorLink:focus-visible {
+  color: #4c2613;
+  transform: translateY(-1px);
+}
+
+.gallerySection {
+  order: -1;
+}
+
+.imageWrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: 224px;
+  background: #ecdabf;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.descriptionSection {
+  display: grid;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  line-height: 1.08;
+  font-weight: 700;
+  color: #4b2b1f;
+}
+
+.descriptionText {
+  white-space: pre-line;
+  font-size: 10px;
+  line-height: 1.55;
+  color: #5a4a42;
+}
+
+.reviewsSection {
+  display: grid;
+  gap: 20px;
+}
+
+.reviewsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.reviewsList {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(238px, 238px);
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.reviewsList::-webkit-scrollbar {
+  display: none;
+}
+
+.reviewCard {
+  display: grid;
+  gap: 8px;
+  min-height: 110px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #ffe5d9;
+  scroll-snap-align: start;
+}
+
+.reviewCardTop {
+  display: flex;
+  align-items: center;
+}
+
+.reviewAuthor {
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #5a4a42;
+}
+
+.reviewText {
+  font-size: 10px;
+  line-height: 1.45;
+  color: #5a4a42;
+}
+
+.emptyState {
+  padding: 20px 16px;
+  border-radius: 12px;
+  background-color: #ffe5d9;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #5a4a42;
+}
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #1e1e1e;
+}
+
+.starsSmall {
+  gap: 2px;
+}
+
+.star {
+  width: 14px;
+  height: 14px;
+}
+
+.starsSmall .star {
+  width: 12px;
+  height: 12px;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 500;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.primaryButton {
+  color: #fff;
+  background-color: #cc6534;
+  border-color: #cc6534;
+}
+
+.primaryButton:hover,
+.primaryButton:focus-visible {
+  color: #4c2613;
+  background-color: #ffe5d9;
+  border-color: #cc6534;
+  transform: translateY(-2px);
+}
+
+.primaryButton:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+.reviewActionButton {
+  width: fit-content;
+  flex-shrink: 0;
+}
+
+.secondaryButton {
+  color: #191919;
+  background-color: #fff;
+}
+
+.secondaryButton:hover,
+.secondaryButton:focus-visible {
+  color: #4c2613;
+  border-color: #cc6534;
+  background-color: #fff2ec;
+  transform: translateY(-2px);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(25, 25, 25, 0.48);
+  backdrop-filter: blur(8px);
+}
+
+.modal {
+  width: min(100%, 640px);
+  max-height: min(100vh - 40px, 760px);
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 165, 122, 0.18), transparent 30%),
+    #fff;
+  box-shadow: 0 24px 60px rgba(25, 25, 25, 0.2);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #191919;
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff2ec;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.closeButton:hover,
+.closeButton:focus-visible {
+  background-color: #ffe5d9;
+  transform: rotate(90deg);
+}
+
+.closeIcon {
+  width: 24px;
+  height: 24px;
+  color: #4c2613;
+}
+
+.promptContent {
+  display: grid;
+  gap: 24px;
+}
+
+.promptText {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4c4c4c;
+}
+
+.promptActions {
+  display: grid;
+  gap: 12px;
+}
+
+.form {
+  display: grid;
+  gap: 24px;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.reviewsControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sliderButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid rgba(204, 101, 52, 0.24);
+  background: #ffe5d9;
+  color: #7a4b2f;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.sliderButton:hover,
+.sliderButton:focus-visible {
+  transform: translateY(-1px);
+  background: #fff2ec;
+}
+
+.sliderIcon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+}
+
+@media (min-width: 375px) {
+  .imageWrap {
+    min-height: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    gap: 52px;
+  }
+
+  .heroLayout {
+    gap: 24px;
+  }
+
+  .infoSection {
+    gap: 12px;
+  }
+
+  .imageWrap {
+    min-height: 334px;
+    border-radius: 18px;
+  }
+
+  .star {
+    width: 16px;
+    height: 16px;
+  }
+
+  .starsSmall .star {
+    width: 12px;
+    height: 12px;
+  }
+
+  .ratingValue {
+    font-size: 12px;
+  }
+
+  .pageTitle {
+    font-size: 32px;
+    margin-bottom: 4px;
+  }
+
+  .metaLabel,
+  .metaValue,
+  .authorLink {
+    font-size: 12px;
+  }
+
+  .metaList {
+    gap: 8px;
+  }
+
+  .descriptionText {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .descriptionSection {
+    gap: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 22px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    min-height: 36px;
+    padding: 10px 14px;
+    font-size: 11px;
+  }
+
+  .reviewsList {
+    grid-auto-columns: minmax(242px, 242px);
+    gap: 16px;
+  }
+
+  .reviewCard {
+    min-height: 118px;
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .reviewText,
+  .reviewAuthor,
+  .emptyState {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .wrapper {
+    gap: 68px;
+  }
+
+  .heroLayout {
+    grid-template-columns: minmax(320px, 452px) minmax(0, 560px);
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .gallerySection {
+    order: 2;
+  }
+
+  .infoSection {
+    order: 1;
+    width: 100%;
+    max-width: 452px;
+    gap: 14px;
+    justify-self: start;
+  }
+
+  .imageWrap {
+    min-height: 420px;
+    border-radius: 20px;
+  }
+
+  .star {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ratingValue {
+    font-size: 13px;
+  }
+
+  .metaLabel,
+  .metaValue,
+  .authorLink {
+    font-size: 13px;
+  }
+
+  .metaList {
+    gap: 10px;
+  }
+
+  .descriptionSection {
+    width: min(100%, 865px);
+    justify-self: center;
+  }
+
+  .descriptionText {
+    font-size: 14px;
+    line-height: 1.72;
+    text-align: left;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    min-height: 38px;
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .reviewsList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-flow: row;
+    grid-auto-columns: unset;
+    overflow: visible;
+  }
+
+  .reviewCard {
+    min-height: 108px;
+    padding: 16px;
+  }
+
+  .reviewText,
+  .reviewAuthor,
+  .emptyState {
+    font-size: 12px;
+  }
+
+  .reviewsSection {
+    width: min(100%, 1036px);
+    justify-self: center;
+  }
+
+  .reviewsControls {
+    display: none;
+  }
+}
+
+.label {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #191919;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.starButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #fff2ec;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.starButton:hover,
+.starButton:focus-visible,
+.starButtonActive {
+  background-color: #ffe5d9;
+  transform: translateY(-1px);
+}
+
+.starIcon {
+  width: 24px;
+  height: 24px;
+  color: #cc6534;
+}
+
+.textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 160px;
+  padding: 14px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  background-color: #fff;
+  font: inherit;
+  color: #191919;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.textarea::placeholder {
+  color: #7f7f7f;
+}
+
+.textarea:hover,
+.textarea:focus-visible {
+  border-color: #cc6534;
+  box-shadow: 0 0 0 4px rgba(204, 101, 52, 0.12);
+  outline: none;
+}
+
+.textareaError {
+  border-color: #b00101;
+}
+
+.fieldFooter {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.counter {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #7f7f7f;
+}
+
+.error {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #b00101;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    padding: 32px;
+  }
+
+  .promptActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

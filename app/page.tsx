@@ -1,6 +1,11 @@
 import { Metadata } from "next";
 
-import css from "./page.module.css";
+// import css from "./page.module.css";
+import HeroBlock from "@/components/HeroBlock/HeroBlock";
+import AdvantagesBlock from "@/components/AdvantagesBlock/AdvantagesBlock";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+import PopularLocationsBlock from "@/components/PopularLocationsBlock/PopularLocationsBlock";
 
 export const metadata: Metadata = {
   title: "Locationhub home page",
@@ -21,19 +26,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div>
-      <main>
-        <div className={css.container}>
-          <h1 className={css.title}>Welcome to Locationhub</h1>
-          <p className={css.description}>
-            Locationhub is a simple and efficient application designed for
-            managing personal notes. It helps keep your thoughts organized and
-            accessible in one place, whether you are at home or on the go.
-          </p>
-        </div>
-      </main>
-    </div>
+    <main>
+      <Header />
+      <HeroBlock />
+      <AdvantagesBlock />
+      <PopularLocationsBlock />
+      {/* <ReviewsBlock /> */}
+      <Footer />
+    </main>
   );
 }

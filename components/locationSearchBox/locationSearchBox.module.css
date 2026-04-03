@@ -1,0 +1,131 @@
+.searchBoxContainer {
+  margin: 0 auto;
+  min-width: calc(320px - (20px * 2));
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+
+  margin-bottom: 40px;
+}
+
+.regionLocationTypeSortContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.regionLocationTypeContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.inputSelects {
+  outline: none;
+  padding: 8px;
+
+  width: 100%;
+  /* width: 335px; */
+  height: 40px;
+
+  background: var(--color-scheme-2-foreground);
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+}
+
+.inputSelects::placeholder {
+  /* font: inherit; */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.regionLocationtypesSelects {
+  width: calc((100% - 16px) / 2);
+}
+
+.selects {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 36px;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+
+  fill: none;
+  stroke: currentColor;
+  color: #666;
+}
+
+.selects option {
+  background: white;
+}
+
+@media screen and (min-width: 375px) {
+  .searchBoxContainer {
+    width: calc(375px - (20px * 2));
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .searchBoxContainer {
+    width: calc(768px - (32px * 2));
+  }
+
+  .regionLocationTypeSortContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .regionLocationtypesSelects {
+    width: 207px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .searchBoxContainer {
+    width: calc(1440px - (64px * 2));
+  }
+
+  .searchBoxContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .searchInput {
+    width: 310px;
+  }
+
+  .regionLocationTypeSortContainer {
+    gap: 0;
+    /* justify-content: space-between; */
+  }
+
+  .sortSelect {
+    /* margin-left: auto; */
+    margin-left: 397px;
+  }
+}
