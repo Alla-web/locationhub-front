@@ -4,6 +4,8 @@
 }
 
 .headerContainer {
+  width: 100%;
+
   min-height: 72px;
   display: flex;
   align-items: center;
@@ -130,8 +132,16 @@
   display: none;
 }
 
+@media screen and (min-width: 375px) {
+  .headerContainer {
+    margin: 0 auto;
+    width: 375px;
+  }
+}
+
 @media (min-width: 768px) {
   .headerContainer {
+    width: 768px;
     min-height: 80px;
   }
 
@@ -165,6 +175,10 @@
 }
 
 @media (min-width: 1440px) {
+  .headerContainer {
+    width: 1440px;
+  }
+
   .desktopNav {
     display: block;
     margin-left: auto;

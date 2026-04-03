@@ -28,7 +28,7 @@ interface LocationsPageProps {
 
 export default function LocationPage({ initialSearch }: LocationsPageProps) {
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(9);
+  const [perPage, setPerPage] = useState(6);
   const [search, setSearch] = useState(initialSearch);
   const [debouncedSearch] = useDebounceValue(search, 1000);
   const [filters, setFilters] = useState<LocationFilters>({
