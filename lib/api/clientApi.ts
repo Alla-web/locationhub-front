@@ -9,6 +9,7 @@ import {
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
 import { LocationType } from "@/types/locationType";
+import { CreateLocationPayload, UpdateLocationPayload } from "@/types/location";
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
@@ -25,27 +26,11 @@ export async function getLocationById(id: string) {
   return response.data;
 }
 
-export interface CreateLocationPayload {
-  image?: string;
-  name: string;
-  regionId: string;
-  locationTypeId: string;
-  description: string;
-}
-
 export async function createLocation(
   payload: CreateLocationPayload,
 ): Promise<Location> {
   const response = await nextServer.post<Location>("/locations", payload);
   return response.data;
-}
-
-export interface UpdateLocationPayload {
-  name?: string;
-  description?: string;
-  image?: string;
-  regionId?: string;
-  locationTypeId?: string;
 }
 
 export async function updateLocation(id: string, data: UpdateLocationPayload) {
