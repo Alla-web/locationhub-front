@@ -76,8 +76,7 @@ export default function CreateLocation() {
         actions.setStatus("Unknown issue occured");
       }
     } finally {
-      console.log("Success, location created!");
-      actions.setSubmitting(false);
+      // actions.resetForm()
     }
   };
 
@@ -196,11 +195,7 @@ export default function CreateLocation() {
                   <button
                     className={`${css.buttons} ${css.postBtn}`}
                     type="submit"
-                    disabled={
-                      !formikProps.isValid ||
-                      !formikProps.isValid ||
-                      formikProps.isSubmitting
-                    }
+                    disabled={!formikProps.isValid || formikProps.isSubmitting}
                   >
                     {formikProps.isSubmitting ? "Відправка" : "Опублікувати"}
                   </button>

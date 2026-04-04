@@ -1,7 +1,11 @@
 import { RegisterPayload } from "@/types/user";
 import { nextServer } from "./api";
 import { LocationDetails } from "@/types/location-details";
-import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
+import {
+  GetLocationsParams,
+  GetLocationsResponse,
+  Location,
+} from "@/types/location";
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
 import { LocationType } from "@/types/locationType";
@@ -29,7 +33,12 @@ export interface CreateLocationPayload {
   description: string;
 }
 
-export async function createLocation(payload: CreateLocationPayload) {}
+export async function createLocation(
+  payload: CreateLocationPayload,
+): Promise<Location> {
+  const response = await nextServer.post<Location>("/locations", payload);
+  return response.data;
+}
 
 export interface UpdateLocationPayload {
   name?: string;
