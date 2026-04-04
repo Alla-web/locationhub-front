@@ -64,94 +64,101 @@ export default function CreateLocation() {
   return (
     <div className={css.pageContainer}>
       <div className="container">
-        <h1 className={css.pageTitle}>Додавання нового місця</h1>
-        <p className={css.photoTitle}>Обкладинка</p>
-        <div className={css.imageContainer}>
-          <Image
-            src="/placeholder-image.jpg"
-            alt="plaseholder photo"
-            fill
-            unoptimized
-            style={{ objectFit: "cover" }}
-          />
+        <div className={css.innerContainer}>
+          <h1 className={css.pageTitle}>Додавання нового місця</h1>
+          <p className={css.photoTitle}>Обкладинка</p>
+          <div className={css.imageContainer}>
+            <Image
+              src="/placeholder-image.jpg"
+              alt="plaseholder photo"
+              fill
+              unoptimized
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+
+          <button className={css.downLoadPhotoBtn}>Завантажити фото</button>
+
+          <Formik
+            initialValues={initialValues}
+            validationSchema={locationValidationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form className={css.formikForm}>
+              <label>
+                Назва місця
+                <Field
+                  type="text"
+                  name="name"
+                  placeholder="Введіть назву місця"
+                />
+              </label>
+
+              <label>
+                Тип місця
+                <div className={css.selectWrapper}>
+                  <Field as="select" type="text" name="locationTypeId">
+                    <option value="">Оберіть тип місця</option>
+                    {locationTypesQuery.data?.map((locationType) => (
+                      <option key={locationType._id} value={locationType._id}>
+                        {locationType.name}
+                      </option>
+                    ))}
+                  </Field>
+
+                  <svg className={css.selectIcon} aria-hidden="true">
+                    <use href="/icons.svg#icon-keyboard_arrow_down" />
+                  </svg>
+                </div>
+              </label>
+
+              <label>
+                Регіон
+                <div className={css.selectWrapper}>
+                  <Field as="select" type="text" name="regionId">
+                    <option value="">Оберіть регіон</option>
+                    {regionsQuery.data?.map((region) => (
+                      <option key={region._id} value={region._id}>
+                        {region.name}
+                      </option>
+                    ))}
+                  </Field>
+
+                  <svg className={css.selectIcon} aria-hidden="true">
+                    <use href="/icons.svg#icon-keyboard_arrow_down" />
+                  </svg>
+                </div>
+              </label>
+
+              <label>
+                Детальний опис
+                <Field
+                  as="textarea"
+                  type="text"
+                  name="description"
+                  rows={5}
+                  placeholder="Детальний опис локації"
+                />
+              </label>
+
+              <div className={css.buttonsContainer}>
+                <button
+                  className={`${css.buttons} ${css.calcelBtn}`}
+                  onClick={handleCancel}
+                  type="button"
+                >
+                  Відмінити
+                </button>
+                <button
+                  className={`${css.buttons} ${css.postBtn}`}
+                  type="submit"
+                >
+                  Опублікувати
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
-
-        <button className={css.downLoadPhotoBtn}>Завантажити фото</button>
-
-        <Formik
-          initialValues={initialValues}
-          validationSchema={locationValidationSchema}
-          onSubmit={handleSubmit}
-        >
-          <Form className={css.formikForm}>
-            <label>
-              Назва місця
-              <Field
-                type="text"
-                name="name"
-                placeholder="Введіть назву місця"
-              />
-            </label>
-
-            <label>
-              Тип місця
-              <div className={css.selectWrapper}>
-                <Field as="select" type="text" name="locationTypeId">
-                  <option value="">Оберіть тип місця</option>
-                  {locationTypesQuery.data?.map((locationType) => (
-                    <option key={locationType._id} value={locationType._id}>
-                      {locationType.name}
-                    </option>
-                  ))}
-                </Field>
-
-                <svg className={css.selectIcon} aria-hidden="true">
-                  <use href="/icons.svg#icon-keyboard_arrow_down" />
-                </svg>
-              </div>
-            </label>
-
-            <label>
-              Регіон
-              <div className={css.selectWrapper}>
-                <Field as="select" type="text" name="regionId">
-                  <option value="">Оберіть регіон</option>
-                  {regionsQuery.data?.map((region) => (
-                    <option key={region._id} value={region._id}>
-                      {region.name}
-                    </option>
-                  ))}
-                </Field>
-
-                <svg className={css.selectIcon} aria-hidden="true">
-                  <use href="/icons.svg#icon-keyboard_arrow_down" />
-                </svg>
-              </div>
-            </label>
-
-            <label>
-              Детальний опис
-              <Field
-                as="textarea"
-                type="text"
-                name="description"
-                rows={5}
-                placeholder="Детальний опис локації"
-              />
-            </label>
-
-            <button
-              className={`${css.buttons} ${css.calcelBtn}`}
-              onClick={handleCancel}
-              type="button"
-            >
-              Відмінити
-            </button>
-            <button className={`${css.buttons} ${css.postBtn}`} type="submit">
-              Опублікувати
-            </button>
-          </Form>
-        </Formik>
       </div>
     </div>
   );
