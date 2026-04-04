@@ -25,10 +25,6 @@
   border-bottom: 1px solid gray;
 }
 
-.image {
-  object-fit: cover;
-}
-
 .cardTexContainer {
   padding: 16px;
 

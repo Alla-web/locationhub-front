@@ -97,48 +97,51 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
 
   return (
     <div className={css.locationsPage}>
-      <h1 className={css.pageTitle}>Усі місця відпочинку</h1>
+      <div className="container">
+        <h1 className={css.pageTitle}>Усі місця відпочинку</h1>
 
-      {locationTypesQuery.data &&
-        regionsQuery.data &&
-        !locationTypesQuery.isLoading &&
-        !regionsQuery.isLoading && (
-          <LocationSearchBox
-            search={search}
-            regions={regionsQuery.data || []}
-            locationTypes={locationTypesQuery.data || []}
-            filters={filters}
-            onSearchChange={handleSearchChange}
-            onFiltersChange={handleFiltersChange}
-            isLoading={isLoading}
+        {locationTypesQuery.data &&
+          regionsQuery.data &&
+          !locationTypesQuery.isLoading &&
+          !regionsQuery.isLoading && (
+            <LocationSearchBox
+              search={search}
+              regions={regionsQuery.data || []}
+              locationTypes={locationTypesQuery.data || []}
+              filters={filters}
+              onSearchChange={handleSearchChange}
+              onFiltersChange={handleFiltersChange}
+              isLoading={isLoading}
+            />
+          )}
+
+        {isLoading && <Loader />}
+
+        {isError && (
+          <ErrorBox
+            query={search}
+            errorMessage={
+              locationsQuery.error?.message ||
+              locationTypesQuery.error?.message ||
+              regionsQuery.error?.message ||
+              "Something went wrong!"
+            }
           />
         )}
 
-      {isLoading && <Loader />}
+        {locationsQuery.data && !locationsQuery.isLoading && (
+          <LocationsList locations={locationsQuery.data.locations} />
+        )}
 
-      {isError && (
-        <ErrorBox
-          query={search}
-          errorMessage={
-            locationsQuery.error?.message ||
-            locationTypesQuery.error?.message ||
-            regionsQuery.error?.message ||
-            "Something went wrong!"
-          }
-        />
-      )}
-
-      {locationsQuery.data && !locationsQuery.isLoading && (
-        <LocationsList locations={locationsQuery.data.locations} />
-      )}
-
-      {locationsQuery.data?.totalPages && locationsQuery.data.totalPages > 1 ? (
-        <Pagination
-          totalPages={locationsQuery.data.totalPages ?? 0}
-          page={page}
-          setPage={setPage}
-        />
-      ) : null}
+        {locationsQuery.data?.totalPages &&
+        locationsQuery.data.totalPages > 1 ? (
+          <Pagination
+            totalPages={locationsQuery.data.totalPages ?? 0}
+            page={page}
+            setPage={setPage}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }

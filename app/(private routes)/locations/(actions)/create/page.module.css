@@ -1,0 +1,215 @@
+.pageContainer {
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-top: 32px;
+  padding-bottom: 64px;
+  background: var(--color-scheme-2-background);
+}
+
+.pageTitle {
+  margin: 0 auto;
+  min-width: calc(320px - (20px * 2));
+  width: 100%;
+
+  text-align: start;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-2-text);
+
+  margin-bottom: 32px;
+}
+
+.photoTitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+
+  margin-bottom: 8px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 223px;
+  border-radius: 12px;
+
+  margin-bottom: 24px;
+}
+
+.downLoadPhotoBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  width: 176px;
+  height: 32px;
+  background: var(--opacity-neutral-darkest-5);
+
+  margin-bottom: 24px;
+}
+
+.formikForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.formikForm input {
+  outline: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  text-align: start;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  background: var(--color-scheme-2-foreground);
+}
+
+.formikForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  text-align: start;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+}
+
+.formikForm label select {
+  outline: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  text-align: start;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  background: var(--color-scheme-2-foreground);
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 36px;
+}
+
+.formikForm label select option {
+  background-color: white;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+
+  fill: none;
+  stroke: currentColor;
+  color: #666;
+}
+
+.formikForm label textarea {
+  outline: none;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0px;
+
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 12px;
+  width: 100%;
+  height: 180px;
+
+  background: var(--color-scheme-2-foreground);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: 335px;
+  height: 48px;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.calcelBtn {
+  background: var(--opacity-neutral-darkest-5);
+  color: var(--color-scheme-2-text);
+}
+
+.calcelBtn:hover,
+.calcelBtn:focus {
+  background: rgb(233, 165, 131);
+  color: var(--color-white);
+}
+
+.postBtn {
+  background: var(--color-coral-dark);
+  opacity: 0.3;
+  color: var(--color-white);
+}
+
+.postBtn:hover,
+.postBtn:focus {
+  background: rgb(233, 165, 131);
+  color: var(--color-scheme-2-text);
+  opacity: 1;
+}
+
+@media screen and (min-width: 375px) {
+  .imageContainer {
+    max-width: calc(375px - 20px * 2);
+  }
+}
