@@ -1,120 +1,311 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.pageContainer {
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-top: 32px;
+  padding-bottom: 64px;
+  background: var(--color-scheme-2-background);
 }
 
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 335px;
+.pageTitle {
+  margin: 0 auto;
+  min-width: calc(320px - (20px * 2));
+  width: 100%;
+
+  text-align: start;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-2-text);
+
+  margin-bottom: 32px;
 }
 
-.form label {
+.photoTitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+
   margin-bottom: 8px;
 }
 
-.formField {
-  box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 6px;
-  padding: 8px;
-  width: 335px;
-  min-height: 40px;
-  background-color: #ffe5d9;
-  outline: none;
-  font-size: 16px;
+.imageContainer {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 100%;
+  height: 223px;
+  border-radius: 12px;
+
+  margin-bottom: 24px;
 }
 
-.textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.formActions {
+.downLoadPhotoBtn {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  width: 176px;
+  height: 32px;
+  background: var(--opacity-neutral-darkest-5);
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+
+  margin-bottom: 24px;
+}
+
+.formikForm {
+  display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: stretch;
+  gap: 24px;
 }
 
-.submitButton {
-  width: 335px;
-  height: 44px;
+.formikForm input {
+  outline: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  text-align: start;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  background: var(--color-scheme-2-foreground);
+}
+
+.formikForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  text-align: start;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+}
+
+.formikForm label select {
+  outline: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  text-align: start;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  background: var(--color-scheme-2-foreground);
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 36px;
+}
+
+.formikForm label select option {
+  background-color: white;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+
+  fill: none;
+  stroke: currentColor;
+  color: #666;
+}
+
+.formikForm label textarea {
+  outline: none;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0px;
+
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 12px;
+  width: 100%;
+  height: 180px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+
+  background: var(--color-scheme-2-foreground);
+}
+
+.buttonsContainer {
+  margin-top: 36px;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.buttons {
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: 100%;
+  height: 48px;
+
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
-  background-color: #cc6534;
-  color: #fff;
-  border: 1px solid #cc6534;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-.submitButton:focus,
-.submitButton:hover {
-  color: #1b391b;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background-color: rgba(0, 0, 0, 0.05);
+.buttons:disabled {
+  background-color: rgb(158, 158, 158);
+  color: var(--color-scheme-2-text);
+  opacity: 1;
 }
 
-.cancelButton {
-  width: 335px;
-  height: 44px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: transparent;
-  color: #cc6534;
-  border: 1px solid #cc6534;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.calcelBtn {
+  background: var(--opacity-neutral-darkest-5);
+  color: var(--color-scheme-2-text);
 }
 
-.cancelButton:focus,
-.cancelButton:hover {
-  color: #1b391b;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background-color: rgba(0, 0, 0, 0.05);
+.calcelBtn:hover,
+.calcelBtn:focus {
+  background: rgb(233, 165, 131);
+  color: var(--color-white);
 }
 
-.errorField {
-  border: 1px solid #b00101;
-  background: #ffe5d9;
+.postBtn {
+  background: var(--color-coral-dark);
+  opacity: 0.3;
+  color: var(--color-white);
+}
+
+.postBtn:hover,
+.postBtn:focus {
+  background: rgb(233, 165, 131);
+  color: var(--color-scheme-2-text);
+  opacity: 1;
 }
 
 .error {
-  color: #dc3545;
-  font-size: 12px;
-  text-align: start;
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 4px;
 }
 
-@media (min-width: 768px) {
-  .form {
-    width: 100%;
-    max-width: 644px;
+@media screen and (min-width: 375px) {
+  .imageContainer {
+    max-width: calc(375px - 20px * 2);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .pageTitle {
+    font-size: 48px;
   }
 
-  .formGroup {
-    width: 100%;
+  .downLoadPhotoBtn {
+    width: 215px;
   }
 
-  .form label {
+  .imageContainer {
+    max-width: calc(768px - 24px * 2);
+    height: 468px;
+  }
+
+  .buttonsContainer {
+    width: 423px;
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .innerContainer {
+    max-width: 1092px;
+  }
+
+  .imageContainer {
+    max-width: 1092px;
+  }
+
+  .pageTitle {
+    font-size: 56px;
+  }
+
+  .photoTitle {
     font-size: 18px;
-    line-height: 1.2;
   }
 
-  .formField {
-    width: 100%;
+  .downLoadPhotoBtn {
+    font-size: 20px;
+  }
+
+  .formikForm input {
     font-size: 18px;
   }
 
-  .submitButton,
-  .cancelButton {
-    width: 100%;
+  .formikForm label select {
+    font-size: 18px;
+  }
+
+  .formikForm label textarea {
+    font-size: 18px;
+  }
+
+  .buttons {
+    font-size: 20px;
   }
 }
