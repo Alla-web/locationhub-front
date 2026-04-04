@@ -11,7 +11,8 @@ import toast from 'react-hot-toast';
 import { LocationDetails } from '@/types/location-details';
 import { LocationType } from '@/types/locationType';
 import { Region } from '@/types/region';
-import { getRegions, getLocationTypes, updateLocation, UpdateLocationPayload } from '@/lib/api/clientApi';
+import { UpdateLocationPayload } from "@/types/location";
+import { getRegions, getLocationTypes, updateLocation } from '@/lib/api/clientApi';
 
 import css from './LocationForm.module.css';
 
