@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import toast from 'react-hot-toast';
-import { LocationDetails } from '@/types/location-details';
-import { getLocationById } from '@/lib/api/clientApi';
-import LocationForm from '@/components/LocationForm/LocationForm';
-import css from './EditLocationPage.module.css';
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
+import { LocationDetails } from "@/types/location-details";
+import { getLocationById } from "@/lib/api/clientApi";
+import LocationForm from "@/components/LocationForm/LocationForm";
+import css from "./page.module.css";
 
 export default function UpdateLocation() {
   const { locationId } = useParams<{ locationId: string }>();
@@ -19,7 +19,7 @@ export default function UpdateLocation() {
         const data = await getLocationById(locationId);
         setLocation(data);
       } catch {
-        toast.error('Помилка завантаження локації');
+        toast.error("Помилка завантаження локації");
       } finally {
         setIsLoading(false);
       }
