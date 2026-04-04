@@ -5,6 +5,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+import Loader from "../Loader/Loader";
 
 import "swiper/css";
 
@@ -35,19 +36,6 @@ export default function PopularLocationsBlock() {
     staleTime: 60 * 1000,
   });
 
-  if (locationsQuery.isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (locationsQuery.isError) {
-    return (
-      <ErrorBox
-        query=""
-        errorMessage={locationsQuery.error?.message || "Something went wrong!"}
-      />
-    );
-  }
-
   const locations = locationsQuery.data?.locations ?? [];
 
   const preparedLocations = locations.map((loc) => ({
@@ -58,10 +46,6 @@ export default function PopularLocationsBlock() {
       name: loc.name,
     },
   }));
-
-  if (locations.length === 0) {
-    return null;
-  }
 
   return (
     <section className={`section ${css.section}`}>
@@ -74,56 +58,79 @@ export default function PopularLocationsBlock() {
           </Link>
         </div>
 
-        <Swiper
-          modules={[Navigation, A11y]}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          spaceBetween={16}
-          slidesPerView={1}
-          breakpoints={{
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 24,
-            },
-            1440: {
-              slidesPerView: 3,
-              spaceBetween: 16,
-            },
-          }}
-          loop={locations.length > 3}
-          className={css.swiper}
-        >
-          {preparedLocations.map((loc) => (
-            <SwiperSlide key={loc._id} className={css.slide}>
-              <LocationCard location={loc} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {locationsQuery.isLoading ? (
+          <Loader />
+        ) : locationsQuery.isError ? (
+          <ErrorBox
+            query=""
+            errorMessage={
+              locationsQuery.error?.message || "Something went wrong!"
+            }
+          />
+        ) : locations.length > 0 ? (
+          <>
+            <Swiper
+              modules={[Navigation, A11y]}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              spaceBetween={16}
+              slidesPerView={1}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 24,
+                },
+                1440: {
+                  slidesPerView: 3,
+                  spaceBetween: 16,
+                },
+              }}
+              loop={locations.length > 3}
+              className={css.swiper}
+            >
+              {preparedLocations.map((loc) => (
+                <SwiperSlide key={loc._id} className={css.slide}>
+                  <LocationCard location={loc} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-        <div className={css.bottomControls}>
-          <button
-            type="button"
-            className={css.arrowBtn}
-            onClick={() => swiperRef.current?.slidePrev()}
-            aria-label="Попередній слайд"
-          >
-            <svg className={css.icon} width="24" height="24" aria-hidden="true">
-              <use href="/icons.svg#icon-arrow_back" />
-            </svg>
-          </button>
+            <div className={css.bottomControls}>
+              <button
+                type="button"
+                className={css.arrowBtn}
+                onClick={() => swiperRef.current?.slidePrev()}
+                aria-label="Попередній слайд"
+              >
+                <svg
+                  className={css.icon}
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#icon-arrow_back" />
+                </svg>
+              </button>
 
-          <button
-            type="button"
-            className={css.arrowBtn}
-            onClick={() => swiperRef.current?.slideNext()}
-            aria-label="Наступний слайд"
-          >
-            <svg className={css.icon} width="24" height="24" aria-hidden="true">
-              <use href="/icons.svg#icon-arrow_forward" />
-            </svg>
-          </button>
-        </div>
+              <button
+                type="button"
+                className={css.arrowBtn}
+                onClick={() => swiperRef.current?.slideNext()}
+                aria-label="Наступний слайд"
+              >
+                <svg
+                  className={css.icon}
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#icon-arrow_forward" />
+                </svg>
+              </button>
+            </div>
+          </>
+        ) : null}
       </div>
     </section>
   );
