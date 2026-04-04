@@ -203,7 +203,7 @@ export default function CreateLocation() {
 
                 {formikProps.status && (
                   <div
-                    style={{ fontSize: "24px" }}
+                    style={{ fontSize: "24px", color: "red" }}
                     className={css.error}
                   >{`Error: ${formikProps.status}`}</div>
                 )}
