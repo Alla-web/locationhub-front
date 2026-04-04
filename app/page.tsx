@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
-// import css from "./page.module.css";
+import css from "./page.module.css";
+
 import HeroBlock from "@/components/HeroBlock/HeroBlock";
 import AdvantagesBlock from "@/components/AdvantagesBlock/AdvantagesBlock";
 import Header from "@/components/Header/Header";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main>
+    <main className={css.main}>
       <Header />
       <HeroBlock />
       <AdvantagesBlock />
