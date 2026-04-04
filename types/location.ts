@@ -39,3 +39,19 @@ export interface GetLocationsResponse {
   totalLocations: number;
   locations: Location[];
 }
+
+export interface CreateLocationPayload {
+  image: string;
+  name: string;
+  regionId: string;
+  locationTypeId: string;
+  description: string;
+}
+
+export interface UpdateLocationPayload {
+  name?: string;
+  description?: string;
+  image?: string;
+  regionId?: string;
+  locationTypeId?: string;
+}

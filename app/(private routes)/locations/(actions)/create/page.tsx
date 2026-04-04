@@ -76,7 +76,7 @@ export default function CreateLocation() {
         actions.setStatus("Unknown issue occured");
       }
     } finally {
-      // actions.resetForm()
+      actions.resetForm();
     }
   };
 
@@ -202,7 +202,10 @@ export default function CreateLocation() {
                 </div>
 
                 {formikProps.status && (
-                  <div className={css.error}>{formikProps.status}</div>
+                  <div
+                    style={{ fontSize: "24px" }}
+                    className={css.error}
+                  >{`Error: ${formikProps.status}`}</div>
                 )}
               </Form>
             )}
