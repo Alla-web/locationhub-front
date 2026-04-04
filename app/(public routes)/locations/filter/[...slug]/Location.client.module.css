@@ -3,8 +3,6 @@
 
   padding-top: 32px;
   padding-bottom: 64px;
-  padding-left: 20px;
-  padding-right: 20px;
 
   background: var(--color-scheme-2-background);
 }
@@ -31,11 +29,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .locationsPage {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-
   .pageTitle {
     width: calc(768px - (32px * 2));
   }
@@ -45,8 +38,6 @@
   .locationsPage {
     padding-top: 48px;
     padding-bottom: 72px;
-    padding-left: 64px;
-    padding-right: 64px;
   }
 
   .pageTitle {
