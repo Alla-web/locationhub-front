@@ -5,12 +5,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/api";
-
+import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
 import css from "./Header.module.css";
 import MainNavi from "@/components/MainNavi/MainNavi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
   const { isAuthenticated, user } = useAuthStore();
@@ -117,7 +118,7 @@ const Header = () => {
                   <button
                     type="button"
                     className={`iconBtn ${css.iconBtn}`}
-                    onClick={handleLogout}
+                     onClick={() => setIsModalOpen(true)}
                     aria-label="Вийти"
                   >
                     <svg className={css.icon}>
@@ -211,7 +212,7 @@ const Header = () => {
                   <button
                     type="button"
                     className={`iconBtn ${css.iconBtn}`}
-                    onClick={handleLogout}
+                    onClick={() => setIsModalOpen(true)}
                     aria-label="Вийти"
                   >
                     <svg className={css.icon}>
@@ -242,6 +243,19 @@ const Header = () => {
           </div>
         </div>
       )}
+      {isModalOpen && (
+  <ConfirmationModal
+    title="Ви точно хочете вийти?"
+    message="Ми будемо сумувати за вами!"
+    confirmButtonText="Вийти"
+    cancelButtonText="Відмінити"
+    onConfirm={async () => {
+      await handleLogout();
+      setIsModalOpen(false);
+    }}
+    onCancel={() => setIsModalOpen(false)}
+  />
+)}
     </header>
   );
 };
