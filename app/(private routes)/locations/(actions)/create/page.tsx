@@ -10,8 +10,9 @@ import css from "./page.module.css";
 
 import { LocationType } from "@/types/locationType";
 import { Region } from "@/types/region";
+import { CreateLocationPayload } from "@/types/location";
 import { getRegions, getLocationTypes } from "@/lib/api/clientApi";
-import { CreateLocationPayload, createLocation } from "@/lib/api/clientApi";
+import { createLocation } from "@/lib/api/clientApi";
 
 const defaultValues: CreateLocationPayload = {
   name: "",
