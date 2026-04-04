@@ -244,6 +244,10 @@
     font-size: 48px;
   }
 
+  .downLoadPhotoBtn {
+    width: 215px;
+  }
+
   .imageContainer {
     max-width: calc(768px - 24px * 2);
     height: 468px;
@@ -257,6 +261,10 @@
 
 @media screen and (min-width: 1440px) {
   .innerContainer {
+    max-width: 1092px;
+  }
+
+  .imageContainer {
     max-width: 1092px;
   }
 
