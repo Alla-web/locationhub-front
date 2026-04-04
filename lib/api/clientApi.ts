@@ -63,11 +63,11 @@ interface CreateFeedbackPayload {
 
 export const createFeedback = async (
   locationId: string,
-  payload: CreateFeedbackPayload
+  payload: CreateFeedbackPayload,
 ) => {
   const response = await nextServer.post(
     `/locations/${locationId}/feedback`,
-    payload
+    payload,
   );
 
   return response.data;
@@ -80,4 +80,36 @@ export const getMe = async (): Promise<User | null> => {
     console.warn("Користувач не авторизований");
     return null;
   }
+};
+
+export interface Feedback {
+  _id: string;
+  rate: number;
+  description: string;
+  userName: string;
+  locationId?: {
+    locationTypeId?: {
+      type?: string;
+    };
+  };
+}
+
+interface GetFeedbacksResponse {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalFeedbacks: number;
+  feedbacks: Feedback[];
+}
+
+export const getFeedbacks = async () => {
+  const response = await nextServer.get<GetFeedbacksResponse>("/feedbacks", {
+    params: {
+      page: 1,
+      perPage: 8,
+    },
+    withCredentials: false,
+  });
+
+  return response.data;
 };
