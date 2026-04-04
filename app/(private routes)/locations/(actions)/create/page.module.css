@@ -56,6 +56,11 @@
   height: 32px;
   background: var(--opacity-neutral-darkest-5);
 
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+
   margin-bottom: 24px;
 }
 
@@ -166,10 +171,17 @@
   width: 100%;
   height: 180px;
 
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+
   background: var(--color-scheme-2-foreground);
 }
 
 .buttonsContainer {
+  margin-top: 36px;
+
   width: 100%;
 
   display: flex;
@@ -244,4 +256,35 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .innerContainer {
+    max-width: 1092px;
+  }
+
+  .pageTitle {
+    font-size: 56px;
+  }
+
+  .photoTitle {
+    font-size: 18px;
+  }
+
+  .downLoadPhotoBtn {
+    font-size: 20px;
+  }
+
+  .formikForm input {
+    font-size: 18px;
+  }
+
+  .formikForm label select {
+    font-size: 18px;
+  }
+
+  .formikForm label textarea {
+    font-size: 18px;
+  }
+
+  .buttons {
+    font-size: 20px;
+  }
 }
