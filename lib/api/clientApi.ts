@@ -1,6 +1,6 @@
 import { RegisterPayload } from "@/types/user";
 import { nextServer } from "./api";
-
+import { LocationDetails } from "@/types/location-details";
 import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
@@ -11,6 +11,33 @@ export async function getLocations(params: GetLocationsParams) {
     params,
     withCredentials: false,
   });
+  return response.data;
+}
+
+export async function getLocationById(id: string) {
+  const response = await nextServer.get<LocationDetails>(`/locations/${id}`, {
+    withCredentials: true,
+  });
+  return response.data;
+}
+
+export interface UpdateLocationPayload {
+  name?: string;
+  description?: string;
+  image?: string;
+  regionId?: string;
+  locationTypeId?: string;
+}
+
+export async function updateLocation(
+  id: string,
+  data: UpdateLocationPayload
+) {
+  const response = await nextServer.patch<LocationDetails>(
+    `/locations/${id}`,
+    data,
+    { withCredentials: true }
+  );
   return response.data;
 }
 
@@ -48,13 +75,13 @@ export const logout = async () => {
 export const checkSession = async () => {
   try {
     await nextServer.post("/auth/refresh", {});
-
     return true;
   } catch (error) {
     console.warn("Сесія відсутня (користувач гість)");
     return false;
   }
 };
+
 interface CreateFeedbackPayload {
   rating: number;
   comment: string;
@@ -69,9 +96,9 @@ export const createFeedback = async (
     `/locations/${locationId}/feedback`,
     payload
   );
-
   return response.data;
 };
+
 export const getMe = async (): Promise<User | null> => {
   try {
     const res = await nextServer.get<User>("/users/me");

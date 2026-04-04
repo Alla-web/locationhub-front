@@ -148,7 +148,6 @@ export default function CreateLocation() {
               Відмінити
             </button>
             <button className={`${css.buttons} ${css.postBtn}`} type="submit">
-              {" "}
               Опублікувати
             </button>
           </Form>

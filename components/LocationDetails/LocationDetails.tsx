@@ -143,11 +143,13 @@ export function LocationDetailsView({
   reviewsCount,
 }: LocationDetailsViewProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthReady = useAuthStore((state) => state.isAuthReady);
   const reviewsRailRef = useRef<HTMLUListElement>(null);
   const descriptionParts = splitDescription(location.description);
-  const reviewHref = isAuthenticated
-    ? `/locations/${locationId}/reviews/new`
-    : "/auth-prompt";
+  const reviewHref =
+    isAuthReady && isAuthenticated
+      ? `/locations/${locationId}/reviews/new`
+      : "/auth-prompt";
   const reviewsSectionLabel =
     reviewsCount > 0 ? `Відгуки (${reviewsCount})` : "Відгуки";
 
