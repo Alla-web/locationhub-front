@@ -209,6 +209,12 @@
   line-height: 1.5;
 }
 
+.buttons:disabled {
+  background-color: rgb(158, 158, 158);
+  color: var(--color-scheme-2-text);
+  opacity: 1;
+}
+
 .calcelBtn {
   background: var(--opacity-neutral-darkest-5);
   color: var(--color-scheme-2-text);
@@ -231,6 +237,13 @@
   background: rgb(233, 165, 131);
   color: var(--color-scheme-2-text);
   opacity: 1;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 4px;
 }
 
 @media screen and (min-width: 375px) {

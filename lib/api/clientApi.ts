@@ -21,6 +21,16 @@ export async function getLocationById(id: string) {
   return response.data;
 }
 
+export interface CreateLocationPayload {
+  image?: string;
+  name: string;
+  regionId: string;
+  locationTypeId: string;
+  description: string;
+}
+
+export async function createLocation(payload: CreateLocationPayload) {}
+
 export interface UpdateLocationPayload {
   name?: string;
   description?: string;
@@ -29,14 +39,11 @@ export interface UpdateLocationPayload {
   locationTypeId?: string;
 }
 
-export async function updateLocation(
-  id: string,
-  data: UpdateLocationPayload
-) {
+export async function updateLocation(id: string, data: UpdateLocationPayload) {
   const response = await nextServer.patch<LocationDetails>(
     `/locations/${id}`,
     data,
-    { withCredentials: true }
+    { withCredentials: true },
   );
   return response.data;
 }
@@ -90,11 +97,11 @@ interface CreateFeedbackPayload {
 
 export const createFeedback = async (
   locationId: string,
-  payload: CreateFeedbackPayload
+  payload: CreateFeedbackPayload,
 ) => {
   const response = await nextServer.post(
     `/locations/${locationId}/feedback`,
-    payload
+    payload,
   );
   return response.data;
 };
