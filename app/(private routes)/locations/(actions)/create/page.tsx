@@ -4,6 +4,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Formik, Field, ErrorMessage, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
+import axios, { AxiosError } from "axios";
 
 import css from "./page.module.css";
 
@@ -49,6 +50,11 @@ export default function CreateLocation() {
     staleTime: 30 * 60 * 1000,
   });
 
+  type BackendErrorResponse = {
+    message?: string;
+    errors?: Record<string, string>;
+  };
+
   const handleSubmit = async (
     values: CreateLocationPayload,
     actions: FormikHelpers<CreateLocationPayload>,
@@ -57,8 +63,18 @@ export default function CreateLocation() {
       console.log(values);
       await createLocation(values);
       actions.resetForm();
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError<BackendErrorResponse>(error)) {
+        const backendErrors = error.response?.data;
+
+        if (backendErrors?.errors) {
+          actions.setErrors(backendErrors.errors);
+        } else {
+          actions.setStatus(backendErrors?.message || "Щось пішло не так");
+        }
+      } else {
+        actions.setStatus("Unknown issue occured");
+      }
     } finally {
       console.log("Success, location created!");
       actions.setSubmitting(false);
@@ -189,6 +205,10 @@ export default function CreateLocation() {
                     {formikProps.isSubmitting ? "Відправка" : "Опублікувати"}
                   </button>
                 </div>
+
+                {formikProps.status && (
+                  <div className={css.error}>{formikProps.status}</div>
+                )}
               </Form>
             )}
           </Formik>
