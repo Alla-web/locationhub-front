@@ -140,16 +140,18 @@ export default function CreateLocation() {
               />
             </label>
 
-            <button
-              className={`${css.buttons} ${css.calcelBtn}`}
-              onClick={handleCancel}
-              type="button"
-            >
-              Відмінити
-            </button>
-            <button className={`${css.buttons} ${css.postBtn}`} type="submit">
-              Опублікувати
-            </button>
+            <div className={css.buttonsContainer}>
+              <button
+                className={`${css.buttons} ${css.calcelBtn}`}
+                onClick={handleCancel}
+                type="button"
+              >
+                Відмінити
+              </button>
+              <button className={`${css.buttons} ${css.postBtn}`} type="submit">
+                Опублікувати
+              </button>
+            </div>
           </Form>
         </Formik>
       </div>
