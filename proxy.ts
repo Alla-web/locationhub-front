@@ -65,9 +65,9 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next();
     }
 
-    if (isPrivateRoute) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+    // if (isPrivateRoute) {
+    //   return NextResponse.redirect(new URL("/login", request.url));
+    // }
   }
 
   if (isPublicRoute) {

@@ -1,5 +1,7 @@
 "use client";
 
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -45,5 +47,11 @@ export default function ProfileLayout({
     );
   }
 
-  return <div className="layout-wrapper">{children}</div>;
+  return (
+    <>
+      <Header />
+      <main className="content">{children}</main>
+      <Footer />
+    </>
+  );
 }
