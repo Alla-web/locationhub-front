@@ -38,14 +38,14 @@ export default function PopularLocationsBlock() {
 
   const locations = locationsQuery.data?.locations ?? [];
 
-  const preparedLocations = locations.map((loc) => ({
-    ...loc,
-    name: loc.locationTypeId?.type || "Локація",
-    locationTypeId: {
-      ...(loc.locationTypeId || {}),
-      name: loc.name,
-    },
-  }));
+  // const preparedLocations = locations.map((loc) => ({
+  //   ...loc,
+  //   name: loc.locationTypeId?.type || "Локація",
+  //   locationTypeId: {
+  //     ...(loc.locationTypeId || {}),
+  //     name: loc.name,
+  //   },
+  // }));
 
   return (
     <section className={`section ${css.section}`}>
@@ -89,7 +89,7 @@ export default function PopularLocationsBlock() {
               loop={locations.length > 3}
               className={css.swiper}
             >
-              {preparedLocations.map((loc) => (
+              {locations.map((loc) => (
                 <SwiperSlide key={loc._id} className={css.slide}>
                   <LocationCard location={loc} />
                 </SwiperSlide>
