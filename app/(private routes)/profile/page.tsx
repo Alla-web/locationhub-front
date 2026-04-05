@@ -1,5 +1,5 @@
 import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
-import LocationsGrid from "@/components/LocationsGrid/LocationsGrid";
+import ProfileLocationsGrid from "@/components/ProfileLocationsGrid/ProfileLocationsGrid";
 import css from "./ProfilePage.module.css";
 
 export default function PrivateProfilePage() {
@@ -9,7 +9,7 @@ export default function PrivateProfilePage() {
 
       <div className={css.contentSection}>
         <h2 className={css.locationsTitle}>Локації</h2>
-        <LocationsGrid isPrivate={true} />
+        <ProfileLocationsGrid isPrivate={true} />
       </div>
     </main>
   );

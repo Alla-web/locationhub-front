@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
-import LocationsGrid from "@/components/LocationsGrid/LocationsGrid";
+import ProfileLocationsGrid from "@/components/ProfileLocationsGrid/ProfileLocationsGrid";
 import styles from "../../../(private routes)/profile/ProfilePage.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,7 +20,7 @@ export default async function PublicProfilePage({
 
       <div className={styles.contentSection}>
         <h2 className={styles.locationsTitle}>Локації</h2>
-        <LocationsGrid isPrivate={false} userId={userId} />
+        <ProfileLocationsGrid isPrivate={false} userId={userId} />
       </div>
     </main>
   );

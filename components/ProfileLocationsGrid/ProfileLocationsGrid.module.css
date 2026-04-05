@@ -1,0 +1,124 @@
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cardWrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.cardWrapper > li {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  flex: 1;
+}
+
+.editOverlayBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-neutral-darkest);
+  border-radius: 6px;
+  border: 1px solid var(--color-scheme-2-border);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-fast);
+}
+
+.editOverlayBtn:hover {
+  background-color: var(--color-coral-lighter);
+  transform: translateY(-2px);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pageBtn,
+.pageArrow {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-coral-lightest);
+  border-radius: 6px;
+  color: var(--color-coral-darkest);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--color-scheme-2-border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pageBtn:hover:not(.activePage):not(.dots) {
+  background-color: var(--color-coral-lighter);
+  border-color: var(--color-coral-light);
+}
+
+.activePage {
+  background-color: var(--color-coral) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-coral-dark) !important;
+  cursor: default;
+}
+
+.dots {
+  background-color: transparent;
+  color: var(--color-neutral);
+  cursor: default;
+  border: none;
+}
+
+.pageArrow {
+  background-color: transparent;
+  color: var(--color-coral-darkest);
+  font-size: 18px;
+  border: none;
+}
+
+.pageArrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.loader {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: var(--color-neutral);
+}
