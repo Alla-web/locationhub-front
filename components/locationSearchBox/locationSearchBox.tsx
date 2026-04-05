@@ -11,6 +11,7 @@ interface LocationSearchBoxProps {
   filters: LocationFilters;
   onSearchChange: (search: string) => void;
   onFiltersChange: (filters: LocationFilters) => void;
+  isLoading: boolean;
 }
 
 export default function LocationSearchBox({
@@ -20,6 +21,7 @@ export default function LocationSearchBox({
   filters,
   onSearchChange,
   onFiltersChange,
+  isLoading,
 }: LocationSearchBoxProps) {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -32,25 +34,27 @@ export default function LocationSearchBox({
 
   return (
     <div className={css.searchBoxContainer}>
-      <div className={css.searchRegionLocationTypeContainer}>
-        <input
-          className={css.inputSelects}
-          value={search}
-          onChange={(event) => onSearchChange(event.target.value)}
-          name="search"
-          type="text"
-          placeholder="Пошук"
-        />
+      <input
+        className={`${css.inputSelects} ${css.searchInput}`}
+        value={search}
+        onChange={(event) => onSearchChange(event.target.value)}
+        name="search"
+        type="text"
+        placeholder="Пошук"
+        disabled={isLoading}
+      />
 
-        <div className={css.searchRegionContainer}>
+      <div className={css.regionLocationTypeSortContainer}>
+        <div className={css.regionLocationTypeContainer}>
           <div
             className={`${css.selectWrapper} ${css.regionLocationtypesSelects}`}
           >
             <select
               className={`${css.inputSelects} ${css.selects}`}
-              name="region"
+              name="regionId"
               value={filters.regionId}
               onChange={handleSelectChange}
+              disabled={isLoading}
             >
               <option value="">Регіон</option>
               {regions.map((region) => (
@@ -70,9 +74,10 @@ export default function LocationSearchBox({
           >
             <select
               className={`${css.inputSelects} ${css.selects}`}
-              name="locationType"
+              name="locationTypeId"
               value={filters.locationTypeId}
               onChange={handleSelectChange}
+              disabled={isLoading}
             >
               <option value="">Тип локації</option>
               {locationTypes.map((type) => (
@@ -87,29 +92,29 @@ export default function LocationSearchBox({
             </svg>
           </div>
         </div>
-      </div>
 
-      <div className={css.selectWrapper}>
-        <select
-          className={`${css.inputSelects} ${css.selects}`}
-          name="sort"
-          value={filters.sort}
-          onChange={handleSelectChange}
-        >
-          <option value="">Сортування</option>
+        <div className={`${css.selectWrapper} ${css.sortSelect}`}>
+          <select
+            className={`${css.inputSelects} ${css.selects}`}
+            name="sort"
+            value={filters.sort}
+            onChange={handleSelectChange}
+          >
+            <option value="">Сортування</option>
 
-          <option value="name-asc">Назва A → Я</option>
-          <option value="name-desc">Назва Я → А</option>
+            <option value="name-asc">Назва A → Я</option>
+            <option value="name-desc">Назва Я → А</option>
 
-          <option value="rate-asс">Рейтинг ↑</option>
-          <option value="rate-desc">Рейтинг ↑</option>
+            <option value="rate-asc">Рейтинг ↑</option>
+            <option value="rate-desc">Рейтинг ↓</option>
 
-          <option value="newest">Спочатку нові</option>
-          <option value="oldest">Спочатку старі</option>
-        </select>
-        <svg className={css.selectIcon} aria-hidden="true">
-          <use href="/icons.svg#icon-keyboard_arrow_down" />
-        </svg>
+            <option value="newest">Спочатку нові</option>
+            <option value="oldest">Спочатку старі</option>
+          </select>
+          <svg className={css.selectIcon} aria-hidden="true">
+            <use href="/icons.svg#icon-keyboard_arrow_down" />
+          </svg>
+        </div>
       </div>
     </div>
   );

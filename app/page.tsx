@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 
-// import css from "./page.module.css";
+import css from "./page.module.css";
+
 import HeroBlock from "@/components/HeroBlock/HeroBlock";
 import AdvantagesBlock from "@/components/AdvantagesBlock/AdvantagesBlock";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import PopularLocationsBlock from "@/components/PopularLocationsBlock/PopularLocationsBlock";
+import ReviewsBlock from "@/components/ReviewsBlock/ReviewsBlock";
 
 export const metadata: Metadata = {
   title: "Locationhub home page",
@@ -27,12 +30,12 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main>
+    <main className={css.main}>
       <Header />
       <HeroBlock />
       <AdvantagesBlock />
-      {/* <PopularLocationsBlock />
-      <ReviewsBlock /> */}
+      <PopularLocationsBlock />
+      <ReviewsBlock />
       <Footer />
     </main>
   );

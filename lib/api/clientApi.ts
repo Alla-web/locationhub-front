@@ -1,16 +1,44 @@
 import { RegisterPayload } from "@/types/user";
 import { nextServer } from "./api";
-
-import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
+import { LocationDetails } from "@/types/location-details";
+import {
+  GetLocationsParams,
+  GetLocationsResponse,
+  Location,
+} from "@/types/location";
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
 import { LocationType } from "@/types/locationType";
+import { CreateLocationPayload, UpdateLocationPayload } from "@/types/location";
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
     params,
     withCredentials: false,
   });
+  return response.data;
+}
+
+export async function getLocationById(id: string) {
+  const response = await nextServer.get<LocationDetails>(`/locations/${id}`, {
+    withCredentials: true,
+  });
+  return response.data;
+}
+
+export async function createLocation(
+  payload: CreateLocationPayload,
+): Promise<Location> {
+  const response = await nextServer.post<Location>("/locations", payload);
+  return response.data;
+}
+
+export async function updateLocation(id: string, data: UpdateLocationPayload) {
+  const response = await nextServer.patch<LocationDetails>(
+    `/locations/${id}`,
+    data,
+    { withCredentials: true },
+  );
   return response.data;
 }
 
@@ -48,10 +76,68 @@ export const logout = async () => {
 export const checkSession = async () => {
   try {
     await nextServer.post("/auth/refresh", {});
-
     return true;
   } catch (error) {
     console.warn("Сесія відсутня (користувач гість)");
     return false;
   }
+};
+
+interface CreateFeedbackPayload {
+  rating: number;
+  comment: string;
+  userName: string;
+}
+
+export const createFeedback = async (
+  locationId: string,
+  payload: CreateFeedbackPayload,
+) => {
+  const response = await nextServer.post(
+    `/locations/${locationId}/feedback`,
+    payload,
+  );
+  return response.data;
+};
+
+export const getMe = async (): Promise<User | null> => {
+  try {
+    const res = await nextServer.get<User>("/users/me");
+    return res.data;
+  } catch (error) {
+    console.warn("Користувач не авторизований");
+    return null;
+  }
+};
+
+export interface Feedback {
+  _id: string;
+  rate: number;
+  description: string;
+  userName: string;
+  locationId?: {
+    locationTypeId?: {
+      type?: string;
+    };
+  };
+}
+
+interface GetFeedbacksResponse {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalFeedbacks: number;
+  feedbacks: Feedback[];
+}
+
+export const getFeedbacks = async () => {
+  const response = await nextServer.get<GetFeedbacksResponse>("/feedbacks", {
+    params: {
+      page: 1,
+      perPage: 8,
+    },
+    withCredentials: false,
+  });
+
+  return response.data;
 };

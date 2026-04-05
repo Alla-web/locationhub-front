@@ -14,15 +14,35 @@ type LocationDetailsPageProps = {
 
 async function loadLocationData(locationId: string) {
   try {
-    const [location, reviewsResponse] = await Promise.all([
-      getLocationById(locationId),
-      getLocationFeedbacks(locationId),
-    ]);
+    const location = await getLocationById(locationId);
+    const fallbackReviews = location.feedbacksId ?? [];
 
-    return {
-      location,
-      reviewsResponse,
-    };
+    try {
+      const reviewsResponse = await getLocationFeedbacks(locationId);
+
+      return {
+        location,
+        reviewsResponse:
+          reviewsResponse.totalFeedbacks > 0 || fallbackReviews.length === 0
+            ? reviewsResponse
+            : {
+                ...reviewsResponse,
+                totalFeedbacks: fallbackReviews.length,
+                feedbacks: fallbackReviews,
+              },
+      };
+    } catch {
+      return {
+        location,
+        reviewsResponse: {
+          page: 1,
+          perPage: 10,
+          totalPages: fallbackReviews.length > 0 ? 1 : 0,
+          totalFeedbacks: fallbackReviews.length,
+          feedbacks: fallbackReviews,
+        },
+      };
+    }
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
       notFound();

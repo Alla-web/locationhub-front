@@ -26,9 +26,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const cookieHeader = req.headers.get("cookie") || "";
-    const formData = await req.formData();
+    const body = await req.json();
 
-    const apiRes = await api.post("/locations", formData, {
+    const apiRes = await api.post("/locations", body, {
       headers: {
         cookie: cookieHeader,
       },

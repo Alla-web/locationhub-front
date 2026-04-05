@@ -1,22 +1,26 @@
 :root {
   --sp-size: 36px;
   --sp-thickness: 6px;
-  --sp-color: rgb(75, 120, 255);
+  --sp-color: var(--color-coral);
 }
 
 .loaderContainer {
-  padding-top: 20px;
+  min-height: 100vh;
+
+  padding-top: 200px;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
+  background-color: var(--color-coral-lightest);
 }
 
 .loadingPharagraph {
   text-align: center;
 
   display: block;
-  font-size: 18px;
+  font-size: 24px;
   color: #495057;
   margin-bottom: 16px;
 }
