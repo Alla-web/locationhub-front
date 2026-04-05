@@ -94,14 +94,14 @@ const Header = () => {
             {isAuthenticated ? (
               <>
                 <Link
-                  href="/locations/add"
+                  href="/locations/create"
                   className={`btn-base btn ${css.btnTablet}`}
                 >
                   Опублікувати статтю
                 </Link>
 
                 <Link
-                  href="/locations/add"
+                  href="/locations/create"
                   className={`btn-base btn ${css.btnDesktop}`}
                 >
                   Поділитись локацією
