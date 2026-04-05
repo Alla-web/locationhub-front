@@ -118,7 +118,7 @@ const Header = () => {
                   <button
                     type="button"
                     className={`iconBtn ${css.iconBtn}`}
-                     onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsModalOpen(true)}
                     aria-label="Вийти"
                   >
                     <svg className={css.icon}>
@@ -155,107 +155,100 @@ const Header = () => {
 
       {isMenuOpen && (
         <div className={css.mobileMenu}>
-          <div className={css.mobileMenuHeader}>
-            <Link href="/" className={css.logo} onClick={closeMenu}>
-              <svg className={css.icon}>
-                <use href="/icons.svg#icon-map_search" />
-              </svg>
-              <span className={css.logoText}>Relax Map</span>
-            </Link>
-
-            <div className={css.mobileMenuHeaderRight}>
-              {!isAuthenticated && (
-                <div className={css.mobileMenuTopActions}>
-                  <Link
-                    href="/login"
-                    className="btn-base btn-white"
-                    onClick={closeMenu}
-                  >
-                    Вхід
-                  </Link>
-
-                  <Link
-                    href="/register"
-                    className="btn-base btn"
-                    onClick={closeMenu}
-                  >
-                    Реєстрація
-                  </Link>
-                </div>
-              )}
-
-              <button
-                type="button"
-                className={`icon-btn ${css.closeBtn}`}
-                onClick={closeMenu}
-                aria-label="Закрити меню"
-              >
-                <svg className={[css.icon, css.iconClose].join(" ")}>
-                  <use href="/icons.svg#icon-close" />
+          <div className={`${css.container} ${css.mobileMenuInner}`}>
+            <div className={css.mobileMenuHeader}>
+              <Link href="/" className={css.logo} onClick={closeMenu}>
+                <svg className={css.icon}>
+                  <use href="/icons.svg#icon-map_search" />
                 </svg>
-              </button>
+                <span className={css.logoText}>Relax Map</span>
+              </Link>
+              <div className={css.mobileMenuHeaderRight}>
+                {!isAuthenticated && (
+                  <div className={css.mobileMenuTopActions}>
+                    <Link
+                      href="/login"
+                      className="btn-base btn-white"
+                      onClick={closeMenu}
+                    >
+                      Вхід
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="btn-base btn"
+                      onClick={closeMenu}
+                    >
+                      Реєстрація
+                    </Link>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  className={`icon-btn ${css.closeBtn}`}
+                  onClick={closeMenu}
+                  aria-label="Закрити меню"
+                >
+                  <svg className={[css.icon, css.iconClose].join(" ")}>
+                    <use href="/icons.svg#icon-close" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className={css.mobileMenuContent}>
-            <MainNavi onLinkClick={closeMenu} />
-
-            <div className={css.mobileBottom}>
-              {isAuthenticated ? (
-                <div className={css.mobileProfile}>
-                  <div className={css.avatar}></div>
-
-                  <span className={css.userName}>{user?.name || "Ім’я"}</span>
-
-                  <span className={css.divider}></span>
-
-                  <button
-                    type="button"
-                    className={`iconBtn ${css.iconBtn}`}
-                    onClick={() => setIsModalOpen(true)}
-                    aria-label="Вийти"
-                  >
-                    <svg className={css.icon}>
-                      <use href="/icons.svg#icon-logout" />
-                    </svg>
-                  </button>
-                </div>
-              ) : (
-                <div className={css.mobileAuthButtons}>
-                  <Link
-                    href="/login"
-                    className={`btn-base btn-white ${css.mobileFullBtn}`}
-                    onClick={closeMenu}
-                  >
-                    Вхід
-                  </Link>
-
-                  <Link
-                    href="/register"
-                    className={`btn-base btn ${css.mobileFullBtn}`}
-                    onClick={closeMenu}
-                  >
-                    Реєстрація
-                  </Link>
-                </div>
-              )}
+            <div className={css.mobileMenuContent}>
+              <MainNavi onLinkClick={closeMenu} />
+              <div className={css.mobileBottom}>
+                {isAuthenticated ? (
+                  <div className={css.mobileProfile}>
+                    <div className={css.avatar}></div>
+                    <span className={css.userName}>{user?.name || "Ім’я"}</span>
+                    <span className={css.divider}></span>
+                    <button
+                      type="button"
+                      className={`iconBtn ${css.iconBtn}`}
+                      onClick={() => setIsModalOpen(true)}
+                      aria-label="Вийти"
+                    >
+                      <svg className={css.icon}>
+                        <use href="/icons.svg#icon-logout" />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <div className={css.mobileAuthButtons}>
+                    <Link
+                      href="/login"
+                      className={`btn-base btn-white ${css.mobileFullBtn}`}
+                      onClick={closeMenu}
+                    >
+                      Вхід
+                    </Link>
+                    <Link
+                      href="/register"
+                      className={`btn-base btn ${css.mobileFullBtn}`}
+                      onClick={closeMenu}
+                    >
+                      Реєстрація
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       )}
       {isModalOpen && (
-  <ConfirmationModal
-    title="Ви точно хочете вийти?"
-    message="Ми будемо сумувати за вами!"
-    confirmButtonText="Вийти"
-    cancelButtonText="Відмінити"
-    onConfirm={async () => {
-      await handleLogout();
-      setIsModalOpen(false);
-    }}
-    onCancel={() => setIsModalOpen(false)}
-  />
-)}
+        <ConfirmationModal
+          title="Ви точно хочете вийти?"
+          message="Ми будемо сумувати за вами!"
+          confirmButtonText="Вийти"
+          cancelButtonText="Відмінити"
+          onConfirm={async () => {
+            await handleLogout();
+            setIsModalOpen(false);
+          }}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
     </header>
   );
 };
