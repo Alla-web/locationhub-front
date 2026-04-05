@@ -1,10 +1,12 @@
 .paginationContainer {
   margin-top: 40px;
+  max-width: 100%;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 4px;
   margin: 16px 0;
   list-style: none;
