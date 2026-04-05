@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/lib/api/api";
+import { logout } from "@/lib/api/clientApi";
 import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
 import css from "./Header.module.css";
 import MainNavi from "@/components/MainNavi/MainNavi";
@@ -118,7 +118,7 @@ const Header = () => {
                   <button
                     type="button"
                     className={`iconBtn ${css.iconBtn}`}
-                     onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsModalOpen(true)}
                     aria-label="Вийти"
                   >
                     <svg className={css.icon}>
@@ -244,18 +244,18 @@ const Header = () => {
         </div>
       )}
       {isModalOpen && (
-  <ConfirmationModal
-    title="Ви точно хочете вийти?"
-    message="Ми будемо сумувати за вами!"
-    confirmButtonText="Вийти"
-    cancelButtonText="Відмінити"
-    onConfirm={async () => {
-      await handleLogout();
-      setIsModalOpen(false);
-    }}
-    onCancel={() => setIsModalOpen(false)}
-  />
-)}
+        <ConfirmationModal
+          title="Ви точно хочете вийти?"
+          message="Ми будемо сумувати за вами!"
+          confirmButtonText="Вийти"
+          cancelButtonText="Відмінити"
+          onConfirm={async () => {
+            await handleLogout();
+            setIsModalOpen(false);
+          }}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
     </header>
   );
 };

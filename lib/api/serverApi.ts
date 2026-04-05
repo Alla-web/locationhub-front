@@ -1,29 +1,38 @@
 import { nextServer } from "./api"; // Або імпортуй api, якщо nextServer падає з відносним шляхом
 import { cookies } from "next/headers";
-import { RegisterPayload } from "@/types/user";
-import { AxiosResponse } from "axios";
+
 import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
 
-export const checkSession =
-  async (): Promise<AxiosResponse<RegisterPayload> | null> => {
-    try {
-      const cookieStore = await cookies();
+// export const checkServerSession =
+//   async (): Promise<AxiosResponse<RegisterPayload> | null> => {
+//     try {
+//       const cookieStore = await cookies();
 
-      const res = await nextServer.post<RegisterPayload>(
-        "/auth/refresh",
-        {},
-        {
-          headers: {
-            Cookie: cookieStore.toString(),
-          },
-        },
-      );
+//       const res = await nextServer.post<RegisterPayload>(
+//         "/auth/refresh",
+//         {},
+//         {
+//           headers: {
+//             Cookie: cookieStore.toString(),
+//           },
+//         },
+//       );
 
-      return res;
-    } catch {
-      return null;
-    }
-  };
+//       return res;
+//     } catch {
+//       return null;
+//     }
+//   };
+
+export const checkServerSession = async () => {
+  const cookieStore = await cookies();
+  const res = await nextServer.get("/auth/refresh", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res;
+};
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
@@ -33,3 +42,8 @@ export async function getLocations(params: GetLocationsParams) {
 
   return response.data;
 }
+
+export const getMeServer = async (): Promise<User> => {
+  const { data } = await nextServer.get<User>("/users/me");
+  return data;
+};
