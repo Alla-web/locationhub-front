@@ -81,11 +81,15 @@ export default function CreateLocation() {
 
         if (backendErrors?.errors) {
           actions.setErrors(backendErrors.errors);
-        } else {
-          actions.setStatus(backendErrors?.message || "Something went wrong");
         }
+
+        const message = backendErrors?.message || "Something went wrong";
+        actions.setStatus(message);
+        toast.error(message);
       } else {
-        actions.setStatus("Unknown issue occured");
+        const message = "Unknown issue occurred";
+        actions.setStatus(message);
+        toast.error(message);
       }
     } finally {
       actions.resetForm();
@@ -219,7 +223,6 @@ export default function CreateLocation() {
                     className={css.error}
                   >
                     {`Error: ${formikProps.status}`}
-                    toast.error(formikProps.status)
                   </div>
                 )}
               </Form>
