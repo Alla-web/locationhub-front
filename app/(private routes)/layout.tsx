@@ -15,24 +15,12 @@ export default function ProfileLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    const isPublicProfile =
-      pathname.startsWith("/profile/") && pathname.length > 9;
+     const isPublicProfile =
+     pathname.startsWith("/profile/") && pathname.length > 9;
 
     const isPrivateProfile = pathname === "/profile";
 
-    console.log(
-      "Шлях:",
-      pathname,
-      "| Публічний?",
-      isPublicProfile,
-      "| Готовий?",
-      isAuthReady,
-      "| Юзер:",
-      user !== null,
-    );
-
     if (isAuthReady && !user && isPrivateProfile) {
-      console.log("Блокуємо доступ! Викидаємо на логін.");
       router.push("/login");
     }
   }, [isAuthReady, user, router, pathname]);
