@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { LocationDetails } from "@/types/location-details";
 import { getLocationById } from "@/lib/api/clientApi";
 import LocationForm from "@/components/LocationForm/LocationForm";
+import Loader from "@/components/Loader/Loader";
 
 export default function UpdateLocation() {
   const { locationId } = useParams<{ locationId: string }>();
@@ -26,7 +27,13 @@ export default function UpdateLocation() {
     fetchLocation();
   }, [locationId]);
 
-  if (isLoading) return <p>Завантаження...</p>;
+  if (isLoading)
+    return (
+      <p>
+        <Loader />
+      </p>
+    );
+
   if (!location) return <p>Локацію не знайдено</p>;
 
   return <LocationForm location={location} />;

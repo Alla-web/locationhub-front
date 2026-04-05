@@ -1,10 +1,12 @@
 "use client";
 
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { Formik, Field, ErrorMessage, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
 import axios, { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 import css from "./page.module.css";
 
@@ -15,6 +17,7 @@ import { getRegions, getLocationTypes } from "@/lib/api/clientApi";
 import { createLocation } from "@/lib/api/clientApi";
 
 const defaultValues: CreateLocationPayload = {
+  image: "",
   name: "",
   regionId: "",
   locationTypeId: "",
@@ -37,6 +40,8 @@ const locationValidationSchema = Yup.object({
 });
 
 export default function CreateLocation() {
+  const router = useRouter();
+
   const locationTypesQuery = useQuery<LocationType[]>({
     queryKey: ["locationTypes"],
     queryFn: getLocationTypes,
@@ -61,9 +66,15 @@ export default function CreateLocation() {
     actions: FormikHelpers<CreateLocationPayload>,
   ) => {
     try {
-      console.log(values);
-      await createLocation(values);
       actions.resetForm();
+      const newLocation = await createLocation(values);
+
+      console.log("newLocation: ", newLocation);
+
+      if (newLocation) {
+        toast.success("New locations was successfuly created");
+        router.push(`/locations/${newLocation._id}`);
+      }
     } catch (error: unknown) {
       if (axios.isAxiosError<BackendErrorResponse>(error)) {
         const backendErrors = error.response?.data;
@@ -71,7 +82,7 @@ export default function CreateLocation() {
         if (backendErrors?.errors) {
           actions.setErrors(backendErrors.errors);
         } else {
-          actions.setStatus(backendErrors?.message || "Щось пішло не так");
+          actions.setStatus(backendErrors?.message || "Something went wrong");
         }
       } else {
         actions.setStatus("Unknown issue occured");
@@ -206,7 +217,10 @@ export default function CreateLocation() {
                   <div
                     style={{ fontSize: "24px", color: "red" }}
                     className={css.error}
-                  >{`Error: ${formikProps.status}`}</div>
+                  >
+                    {`Error: ${formikProps.status}`}
+                    toast.error(formikProps.status)
+                  </div>
                 )}
               </Form>
             )}
