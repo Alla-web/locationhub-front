@@ -66,13 +66,12 @@ export default function CreateLocation() {
     actions: FormikHelpers<CreateLocationPayload>,
   ) => {
     try {
-      actions.resetForm();
       const newLocation = await createLocation(values);
-
       console.log("newLocation: ", newLocation);
 
       if (newLocation) {
         toast.success("New locations was successfuly created");
+        actions.resetForm();
         router.push(`/locations/${newLocation._id}`);
       }
     } catch (error: unknown) {
@@ -83,16 +82,15 @@ export default function CreateLocation() {
           actions.setErrors(backendErrors.errors);
         }
 
-        const message = backendErrors?.message || "Something went wrong";
-        actions.setStatus(message);
-        toast.error(message);
+        if (backendErrors?.message) {
+          actions.setStatus(backendErrors.message);
+          toast.error(backendErrors.message);
+        }
       } else {
         const message = "Unknown issue occurred";
         actions.setStatus(message);
         toast.error(message);
       }
-    } finally {
-      actions.resetForm();
     }
   };
 
