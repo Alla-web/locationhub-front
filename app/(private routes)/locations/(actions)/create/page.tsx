@@ -4,8 +4,8 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Formik, Field, ErrorMessage, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
-import axios, { AxiosError } from "axios";
-
+import axios from "axios";
+import { useRef, useState } from "react";
 import css from "./page.module.css";
 
 import { LocationType } from "@/types/locationType";
@@ -19,24 +19,32 @@ const defaultValues: CreateLocationPayload = {
   regionId: "",
   locationTypeId: "",
   description: "",
+
 };
 
 const locationValidationSchema = Yup.object({
   name: Yup.string()
     .trim()
-    .min(3, "Field name shoulf contain 3 character at least")
-    .max(100, "Field name shoulf contain 100 characters maximum")
-    .required("Locations name shoulden't be empty"),
-  regionId: Yup.string().required("Choose a region"),
-  locationTypeId: Yup.string().required("Choose a location type"),
+    .min(3, "Назва має містити щонайменше 3 символи")
+    .max(96, "Назва має містити не більше 96 символів")
+    .required("Назва локації не може бути порожньою"),
+
+  regionId: Yup.string().required("Оберіть регіон"),
+
+  locationTypeId: Yup.string().required("Оберіть тип локації"),
+
   description: Yup.string()
     .trim()
-    .min(10, "Field name shoulf contain 10 character at least")
-    .max(1000, "Field name shoulf contain 1000 characters maximum")
-    .required("Locations name shoulden't be empty"),
+    .min(20, "Опис має містити щонайменше 20 символів")
+    .max(6000, "Опис має містити не більше 6000 символів")
+    .required("Опис не може бути порожнім"),
 });
 
 export default function CreateLocation() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const locationTypesQuery = useQuery<LocationType[]>({
     queryKey: ["locationTypes"],
     queryFn: getLocationTypes,
@@ -56,14 +64,47 @@ export default function CreateLocation() {
     errors?: Record<string, string>;
   };
 
+  const handleOpenFilePicker = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  };
+
   const handleSubmit = async (
     values: CreateLocationPayload,
     actions: FormikHelpers<CreateLocationPayload>,
   ) => {
     try {
-      console.log(values);
-      await createLocation(values);
+      if (!selectedFile) {
+        actions.setStatus("Будь ласка, завантажте фото");
+        return;
+      }
+      const formData = new FormData();
+
+      formData.append("name", values.name);
+      formData.append("regionId", values.regionId);
+      formData.append("locationTypeId", values.locationTypeId);
+      formData.append("description", values.description);
+
+      if (selectedFile) {
+        formData.append("image", selectedFile);
+      }
+
+      await createLocation(formData);
+
       actions.resetForm();
+      setSelectedFile(null);
+      setPreviewUrl("");
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error: unknown) {
       if (axios.isAxiosError<BackendErrorResponse>(error)) {
         const backendErrors = error.response?.data;
@@ -76,8 +117,6 @@ export default function CreateLocation() {
       } else {
         actions.setStatus("Unknown issue occured");
       }
-    } finally {
-      actions.resetForm();
     }
   };
 
@@ -89,7 +128,7 @@ export default function CreateLocation() {
           <p className={css.photoTitle}>Обкладинка</p>
           <div className={css.imageContainer}>
             <Image
-              src="/placeholder-image.jpg"
+              src={previewUrl || "/placeholder-image.jpg"}
               alt="plaseholder photo"
               fill
               unoptimized
@@ -97,7 +136,21 @@ export default function CreateLocation() {
             />
           </div>
 
-          <button className={css.downLoadPhotoBtn}>Завантажити фото</button>
+          <button
+            type="button"
+            className={css.downLoadPhotoBtn}
+            onClick={handleOpenFilePicker}
+          >
+            Завантажити фото
+          </button>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
 
           <Formik
             initialValues={defaultValues}
@@ -151,7 +204,7 @@ export default function CreateLocation() {
                       <option value="">Оберіть регіон</option>
                       {regionsQuery.data?.map((region) => (
                         <option key={region._id} value={region._id}>
-                          {region.name}
+                          {region.region}
                         </option>
                       ))}
                     </Field>
@@ -187,7 +240,15 @@ export default function CreateLocation() {
                 <div className={css.buttonsContainer}>
                   <button
                     className={`${css.buttons} ${css.calcelBtn}`}
-                    onClick={() => formikProps.resetForm()}
+                    onClick={() => {
+                      formikProps.resetForm();
+                      setSelectedFile(null);
+                      setPreviewUrl("");
+
+                      if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                      }
+                    }}
                     type="button"
                     disabled={formikProps.isSubmitting}
                   >

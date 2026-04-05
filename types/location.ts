@@ -41,11 +41,12 @@ export interface GetLocationsResponse {
 }
 
 export interface CreateLocationPayload {
-  image: string;
+  image?: string;
   name: string;
   regionId: string;
   locationTypeId: string;
   description: string;
+
 }
 
 export interface UpdateLocationPayload {
