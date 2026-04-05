@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/lib/api/api";
+import { logout } from "@/lib/api/clientApi";
 import css from "./AuthNav.module.css";
 
 const AuthNav = () => {

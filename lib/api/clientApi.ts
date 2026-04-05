@@ -63,10 +63,8 @@ interface LoginPayload {
   password: string;
 }
 
-export const login = async (
-  payload: LoginPayload,
-): Promise<RegisterPayload> => {
-  const res = await nextServer.post<RegisterPayload>("/auth/login", payload);
+export const login = async (payload: LoginPayload): Promise<User> => {
+  const res = await nextServer.post<User>("/auth/login", payload);
   return res.data;
 };
 
@@ -75,7 +73,7 @@ export const logout = async () => {
 };
 
 export const checkSession = async () => {
-  const { data } = await nextServer.get<{ success: boolean }>("/auth/refresh");
+  const { data } = await nextServer.post<{ success: boolean }>("/auth/refresh");
 
   return data.success;
 };
