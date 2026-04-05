@@ -6,8 +6,8 @@ import * as Yup from "yup";
 import Image from "next/image";
 import axios from "axios";
 import { useRef, useState } from "react";
+import { useRouter  } from "next/navigation"; 
 import css from "./page.module.css";
-
 import { LocationType } from "@/types/locationType";
 import { Region } from "@/types/region";
 import { CreateLocationPayload } from "@/types/location";
@@ -41,6 +41,7 @@ const locationValidationSchema = Yup.object({
 });
 
 export default function CreateLocation() {
+  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -96,8 +97,9 @@ export default function CreateLocation() {
         formData.append("image", selectedFile);
       }
 
-      await createLocation(formData);
+      const createdLocation = await createLocation(formData);
 
+      router.push(`/locations/${createdLocation._id}`);
       actions.resetForm();
       setSelectedFile(null);
       setPreviewUrl("");
