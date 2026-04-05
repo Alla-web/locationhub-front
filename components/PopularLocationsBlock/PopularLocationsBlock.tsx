@@ -40,7 +40,7 @@ export default function PopularLocationsBlock() {
 
   const preparedLocations = locations.map((loc) => ({
     ...loc,
-    name: loc.locationTypeId?.name || "Локація",
+    name: loc.locationTypeId?.type || "Локація",
     locationTypeId: {
       ...(loc.locationTypeId || {}),
       name: loc.name,

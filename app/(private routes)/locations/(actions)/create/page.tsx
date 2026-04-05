@@ -140,7 +140,7 @@ export default function CreateLocation() {
                       <option value="">Оберіть тип місця</option>
                       {locationTypesQuery.data?.map((locationType) => (
                         <option key={locationType._id} value={locationType._id}>
-                          {locationType.name}
+                          {locationType.type}
                         </option>
                       ))}
                     </Field>
@@ -164,7 +164,7 @@ export default function CreateLocation() {
                       <option value="">Оберіть регіон</option>
                       {regionsQuery.data?.map((region) => (
                         <option key={region._id} value={region._id}>
-                          {region.name}
+                          {region.region}
                         </option>
                       ))}
                     </Field>

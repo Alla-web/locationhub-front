@@ -1,6 +1,6 @@
 export interface Region {
   _id: string;
-  name: string;
+  region: string;
   slug: string;
   createdAt: string;
   updatedAt?: string;
