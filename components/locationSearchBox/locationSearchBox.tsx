@@ -59,7 +59,7 @@ export default function LocationSearchBox({
               <option value="">Регіон</option>
               {regions.map((region) => (
                 <option key={region._id} value={region._id}>
-                  {region.name}
+                  {region.region}
                 </option>
               ))}
             </select>
@@ -82,7 +82,7 @@ export default function LocationSearchBox({
               <option value="">Тип локації</option>
               {locationTypes.map((type) => (
                 <option key={type._id} value={type._id}>
-                  {type.name}
+                  {type.type}
                 </option>
               ))}
             </select>
