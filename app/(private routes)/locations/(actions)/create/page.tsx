@@ -214,15 +214,6 @@ export default function CreateLocation() {
                     {formikProps.isSubmitting ? "Відправка" : "Опублікувати"}
                   </button>
                 </div>
-
-                {formikProps.status && (
-                  <div
-                    style={{ fontSize: "24px", color: "red" }}
-                    className={css.error}
-                  >
-                    {`Error: ${formikProps.status}`}
-                  </div>
-                )}
               </Form>
             )}
           </Formik>
