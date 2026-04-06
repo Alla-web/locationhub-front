@@ -12,7 +12,7 @@ export async function GET(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
     const { id } = await params;
-    const res = await api(`/api/users/${id}`, {
+    const res = await api(`/users/${id}`, {
       headers: {
         Cookie: cookieStore.toString(),
       },
