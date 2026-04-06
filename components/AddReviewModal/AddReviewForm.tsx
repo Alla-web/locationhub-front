@@ -13,9 +13,8 @@ export const AddReviewForm = ({
   locationId,
   onSuccess,
 }: AddReviewFormProps) => {
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-  const [userName, setUserName] = useState("Анонім");
+  const [rate, setRate] = useState(0);
+  const [text, setText] = useState("");
   const [errors, setErrors] = useState<{ rating?: string; comment?: string }>(
     {},
   );
@@ -24,13 +23,13 @@ export const AddReviewForm = ({
   const validate = () => {
     const newErrors: { rating?: string; comment?: string } = {};
 
-    if (rating < 1) newErrors.rating = "Оберіть рейтинг";
+    if (rate < 1) newErrors.rating = "Оберіть рейтинг";
 
-    if (!comment.trim()) {
+    if (!text.trim()) {
       newErrors.comment = "Обов'язкове поле";
-    } else if (comment.trim().length < 10) {
+    } else if (text.trim().length < 10) {
       newErrors.comment = "Мінімум 10 символів";
-    } else if (comment.length > 100) {
+    } else if (text.length > 100) {
       newErrors.comment = "Максимум 100 символів";
     }
 
@@ -38,21 +37,16 @@ export const AddReviewForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  useEffect(() => {
-    getMe()
-      .then((user) => {
-        if (user?.name) setUserName(user.name);
-      })
-      .catch(() => {});
-  }, []);
-
   const handleSubmit = async (e: { preventDefault(): void }) => {
     e.preventDefault();
     if (!validate()) return;
 
     try {
       setLoading(true);
-      await createFeedback(String(locationId), { rating, comment, userName });
+      await createFeedback(String(locationId), {
+        rate,
+        text,
+      });
       onSuccess();
     } catch (error) {
       console.error("Помилка при відправці:", error);
@@ -66,9 +60,9 @@ export const AddReviewForm = ({
       <button
         key={star}
         type="button"
-        className={star <= rating ? styles.starOn : styles.starOff}
+        className={star <= rate ? styles.starOn : styles.starOff}
         onClick={() => {
-          setRating(star);
+          setRate(star);
           setErrors((prev) => ({ ...prev, rating: undefined }));
         }}
         aria-label={`${star} зірок`}
@@ -83,16 +77,16 @@ export const AddReviewForm = ({
         <h3 className={styles.subtitle}>Ваш відгук</h3>
         <textarea
           placeholder="Напишіть ваш відгук"
-          value={comment}
+          value={text}
           onChange={(e) => {
-            setComment(e.target.value);
+            setText(e.target.value);
             setErrors((prev) => ({ ...prev, comment: undefined }));
           }}
           className={`${styles.textarea} ${errors.comment ? styles.textareaError : ""}`}
         />
         <div className={styles.warning}>
           {errors.comment && <p className={styles.error}>{errors.comment}</p>}
-          <p className={styles.counter}>{comment.length}/100</p>
+          <p className={styles.counter}>{text.length}/100</p>
         </div>
       </div>
 
