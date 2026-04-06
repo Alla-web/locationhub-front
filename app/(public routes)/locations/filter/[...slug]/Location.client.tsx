@@ -109,13 +109,7 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
       behavior: "smooth",
       block: "start",
     });
-  }, [
-    page,
-    debouncedSearch,
-    filters.regionId,
-    filters.locationTypeId,
-    filters.sort,
-  ]);
+  }, [page]);
 
   return (
     <div className={css.locationsPage}>
