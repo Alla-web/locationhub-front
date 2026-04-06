@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { isAxiosError } from "axios";
 import { createFeedback } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
 
@@ -8,133 +10,152 @@ import css from "./AddReviewForm.module.css";
 
 interface AddReviewFormProps {
   locationId: string | string[] | undefined;
+  onClose: () => void;
   onSuccess: () => void;
+}
+
+interface ReviewFormValues {
+  rate: number;
+  description: string;
+}
+
+const initialValues: ReviewFormValues = {
+  rate: 0,
+  description: "",
+};
+
+const validationSchema = Yup.object({
+  rate: Yup.number()
+    .min(1, "Оберіть рейтинг")
+    .max(5, "Максимум 5 зірок")
+    .required("Оберіть рейтинг"),
+  description: Yup.string()
+    .trim()
+    .min(10, "Мінімум 10 символів")
+    .max(100, "Максимум 100 символів")
+    .required("Обов'язкове поле"),
+});
+
+function apiErrorMessage(error: unknown): string {
+  if (isAxiosError(error)) {
+    const data = error.response?.data as {
+      message?: string;
+      error?: string;
+      errors?: Array<{ message?: string }>;
+    };
+
+    if (data?.errors?.[0]?.message) return data.errors[0].message;
+    return data?.message ?? data?.error ?? error.message ?? "Помилка при відправці відгуку";
+  }
+
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return "Помилка при відправці відгуку";
 }
 
 export const AddReviewForm = ({
   locationId,
+  onClose,
   onSuccess,
 }: AddReviewFormProps) => {
-  const [rate, setRate] = useState(0);
-  const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState<{
-    rate?: string;
-    text?: string;
-    form?: string;
-  }>({});
-  const [loading, setLoading] = useState(false);
-
   const normalizedLocationId = Array.isArray(locationId)
     ? locationId[0]
     : locationId;
 
-  const validate = () => {
-    const newErrors: { rate?: string; text?: string; form?: string } = {};
-
-    if (!normalizedLocationId) {
-      newErrors.form = "Не вдалося визначити локацію";
-    }
-
-    if (rate < 1) newErrors.rate = "Оберіть рейтинг";
-
-    if (!description.trim()) {
-      newErrors.text = "Обов'язкове поле";
-    } else if (description.trim().length < 10) {
-      newErrors.text = "Мінімум 10 символів";
-    } else if (description.length > 100) {
-      newErrors.text = "Максимум 100 символів";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!validate()) return;
-
-    try {
-      setLoading(true);
-      setErrors({});
-
-      await createFeedback(String(normalizedLocationId), {
-        LocationId: String(normalizedLocationId),
-        rate,
-        description: description.trim(),
-      });
-
-      onSuccess();
-    } catch (error) {
-      let message = "Помилка при відправці відгуку";
-      if (error instanceof Error) {
-        message = error.message;
-      }
-      setErrors({
-        form: message,
-      });
-      toast.error(message);
-      console.error("Помилка при відправці:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const renderStars = () =>
-    [1, 2, 3, 4, 5].map((star) => (
-      <button
-        key={star}
-        type="button"
-        className={star <= rate ? css.starOn : css.starOff}
-        onClick={() => {
-          setRate(star);
-          setErrors((prev) => ({ ...prev, rate: undefined }));
-        }}
-        aria-label={`${star} зірок`}
-      >
-        ★
-      </button>
-    ));
-
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
-      <div className={css.field}>
-        <h3 className={css.subtitle}>Ваш відгук</h3>
+    <Formik<ReviewFormValues>
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={async (values, { setSubmitting }) => {
+        if (!normalizedLocationId) {
+          toast.error("Не вдалося визначити локацію");
+          setSubmitting(false);
+          return;
+        }
 
-        <textarea
-          placeholder="Напишіть ваш відгук"
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-            setErrors((prev) => ({
-              ...prev,
-              text: undefined,
-              form: undefined,
-            }));
-          }}
-          className={`${css.textarea} ${errors.text ? css.textareaError : ""}`}
-        />
+        try {
+          await createFeedback(normalizedLocationId, {
+            rate: values.rate,
+            description: values.description.trim(),
+          });
+          toast.success("Відгук відправлено на модерацію");
+          onSuccess();
+        } catch (error) {
+          toast.error(apiErrorMessage(error));
+        } finally {
+          setSubmitting(false);
+        }
+      }}
+    >
+      {({ errors, touched, values, setFieldValue, setFieldTouched, isSubmitting }) => (
+        <Form className={css.form} noValidate>
+          <div className={css.field}>
+            <h3 className={css.subtitle}>Ваш відгук</h3>
 
-        <div className={css.warning}>
-          {errors.text && <p className={css.error}>{errors.text}</p>}
-          <p className={css.counter}>{description.length}/100</p>
-        </div>
-      </div>
+            <Field
+              as="textarea"
+              name="description"
+              placeholder="Напишіть ваш відгук"
+              className={`${css.textarea} ${
+                errors.description && touched.description ? css.textareaError : ""
+              }`}
+            />
 
-      <div className={css.field}>
-        <div className={css.stars}>{renderStars()}</div>
-        {errors.rate && <p className={css.error}>{errors.rate}</p>}
-      </div>
+            <div className={css.warning}>
+              <ErrorMessage
+                name="description"
+                component="p"
+                className={css.error}
+              />
+              <p className={css.counter}>{values.description.length}/100</p>
+            </div>
+          </div>
 
-      {errors.form && <p className={css.error}>{errors.form}</p>}
+          <div className={css.field}>
+            <div className={css.stars}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  className={`${css.starButton} ${
+                    star <= values.rate ? css.starOn : css.starOff
+                  }`}
+                  onClick={() => {
+                    setFieldValue("rate", star);
+                    setFieldTouched("rate", true, false);
+                  }}
+                  aria-label={`${star} зірок`}
+                >
+                  {star <= values.rate ? "★" : "☆"}
+                </button>
+              ))}
+            </div>
+            <ErrorMessage name="rate" component="p" className={css.error} />
+          </div>
 
-      <div className={css.actions}>
-        <button type="button" onClick={onSuccess} className={css.cancel}>
-          Відмінити
-        </button>
-        <button type="submit" disabled={loading} className={css.submit}>
-          {loading ? "Відправка..." : "Надіслати"}
-        </button>
-      </div>
-    </form>
+          <div className={css.actions}>
+            <button type="button" onClick={onClose} className={css.cancel}>
+              Відмінити
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={css.submit}
+            >
+              {isSubmitting ? (
+                <span className={css.submitContent}>
+                  <span className={css.loader} aria-hidden="true" />
+                  Відправка...
+                </span>
+              ) : (
+                "Надіслати"
+              )}
+            </button>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
