@@ -13,8 +13,8 @@ export default function Error({ error }: ErrorProps) {
     <div className={css.errorContainer}>
       <h2 className={css.errorTitle}>Error occured:</h2>
       <p>{error.message}</p>
-      <Link className={css.goBack} href="/notes/filter/all">
-        Go to all notes
+      <Link className={css.goBack} href="/location/filter/all">
+        Go to all locations
       </Link>
     </div>
   );
