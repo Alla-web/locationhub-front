@@ -19,7 +19,8 @@ export default async function FilteredLocationsPage({
   params,
 }: FilteredLocationsPageProps) {
   const { slug } = (await params) || {};
-  const search = decodeURIComponent(slug?.[0] ?? "");
+  const rawSearch = decodeURIComponent(slug?.[0] ?? "");
+  const search = rawSearch == "all" ? "" : rawSearch;
 
   const locationsParams: GetLocationsParams = {
     page: 1,
