@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { parse } from "cookie";
-import { checkSession } from "./lib/api/serverApi";
+import { checkServerSession } from "./lib/api/serverApi";
 
 const privateRoutes = ["/profile"];
 const publicRoutes = ["/login", "/register"];
@@ -20,7 +20,7 @@ export async function proxy(request: NextRequest) {
 
   if (!accessToken) {
     if (refreshToken) {
-      const data = await checkSession();
+      const data = await checkServerSession();
       const setCookie = data?.headers?.["set-cookie"];
 
       if (setCookie) {
@@ -65,9 +65,9 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // if (isPrivateRoute) {
-    //   return NextResponse.redirect(new URL("/login", request.url));
-    // }
+    if (isPrivateRoute) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
   }
 
   if (isPublicRoute) {

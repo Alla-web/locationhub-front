@@ -10,6 +10,7 @@ import { User } from "@/types/user";
 import { Region } from "@/types/region";
 import { LocationType } from "@/types/locationType";
 import { CreateLocationPayload, UpdateLocationPayload } from "@/types/location";
+// import { cookies } from "next/headers";
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
@@ -62,10 +63,8 @@ interface LoginPayload {
   password: string;
 }
 
-export const login = async (
-  payload: LoginPayload,
-): Promise<RegisterPayload> => {
-  const res = await nextServer.post<RegisterPayload>("/auth/login", payload);
+export const login = async (payload: LoginPayload): Promise<User> => {
+  const res = await nextServer.post<User>("/auth/login", payload);
   return res.data;
 };
 
@@ -74,13 +73,9 @@ export const logout = async () => {
 };
 
 export const checkSession = async () => {
-  try {
-    await nextServer.post("/auth/refresh", {});
-    return true;
-  } catch (error) {
-    console.warn("Сесія відсутня (користувач гість)");
-    return false;
-  }
+  const { data } = await nextServer.post<{ success: boolean }>("/auth/refresh");
+
+  return data.success;
 };
 
 interface CreateFeedbackPayload {
@@ -140,4 +135,14 @@ export const getFeedbacks = async () => {
   });
 
   return response.data;
+};
+
+export const register = async (userData: RegisterPayload) => {
+  try {
+    const response = await nextServer.post("/auth/register", userData);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка під час реєстрації:", error);
+    throw error;
+  }
 };

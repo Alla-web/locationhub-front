@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/lib/api/api";
+import { logout } from "@/lib/api/clientApi";
 import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
 import css from "./Header.module.css";
 import MainNavi from "@/components/MainNavi/MainNavi";

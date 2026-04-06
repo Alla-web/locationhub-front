@@ -7,7 +7,10 @@ export async function POST(req: NextRequest) {
 
     const token = req.nextUrl.searchParams.get("token");
 
-    const apiRes = await api.post(`/auth/reset-password?token=${token}`, body);
+    const apiRes = await api.post(
+      `/auth/reset-password?token=${token}`,
+      body,
+    );
 
     return NextResponse.json(apiRes.data);
   } catch (error) {

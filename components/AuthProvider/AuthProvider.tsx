@@ -1,7 +1,6 @@
 "use client";
 
-import { checkSession } from "@/lib/api/clientApi"; // Виправлений імпорт
-import { getMe } from "@/lib/api/api";
+import { checkSession, getMe } from "@/lib/api/clientApi"; // Виправлений імпорт
 import { useAuthStore } from "@/lib/store/authStore";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast"; // Повернули Тостер

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { isAxiosError } from "axios";
 
-import { register } from "@/lib/api/api";
+import { register } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 
 import css from "./RegistrationForm.module.css";
