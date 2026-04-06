@@ -12,7 +12,6 @@ import { updateProfile } from "@/lib/api/clientApi";
 
 import css from "./EditProfileModal.module.css";
 
-// Схема валідації
 const profileValidationSchema = Yup.object({
   name: Yup.string()
     .trim()
@@ -37,7 +36,6 @@ export default function EditProfileModal() {
     router.back();
   };
 
-  // Закриття при кліку на оверлей
   const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       handleClose();
@@ -85,7 +83,6 @@ export default function EditProfileModal() {
   return (
     <div className={css.overlay} onClick={handleOverlayClick}>
       <div className={css.modalContainer}>
-        {/* Кнопка закриття */}
         <button type="button" onClick={handleClose} className={css.closeButton}>
           <svg
             width="24"
