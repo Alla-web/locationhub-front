@@ -11,19 +11,14 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
   try {
     const { locationId } = await params;
     const body = await req.json();
-    const cookieHeader = req.headers.get("cookie") || "";
 
     const payload = {
       locationId,
-      rate: body.rating,
-      text: body.comment,
+      rate: body.rate,
+      text: body.text,
     };
 
-    const apiRes = await api.post("/feedbacks", payload, {
-      headers: {
-        cookie: cookieHeader,
-      },
-    });
+    const apiRes = await api.post("/feedbacks", payload);
 
     return NextResponse.json(apiRes.data, { status: 201 });
   } catch (error) {
