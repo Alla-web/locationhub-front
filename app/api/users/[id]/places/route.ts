@@ -21,7 +21,7 @@ export async function GET(
 
     const { id } = await params;
 
-    const res = await api(`/api/users/${id}/places`, {
+    const res = await api(`/users/${id}/places`, {
       params: {
         page,
         limit,
