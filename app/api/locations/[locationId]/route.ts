@@ -11,7 +11,7 @@ export async function GET(_req: NextRequest, { params }: Params) {
   try {
     const { locationId } = await params;
 
-    const apiRes = await api.get(`/api/locations/${locationId}`);
+    const apiRes = await api.get(`/locations/${locationId}`);
 
     return NextResponse.json(apiRes.data);
   } catch (error) {
