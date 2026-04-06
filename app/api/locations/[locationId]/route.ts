@@ -11,7 +11,7 @@ export async function GET(_req: NextRequest, { params }: Params) {
   try {
     const { locationId } = await params;
 
-    const apiRes = await api.get(`/api/locations/${locationId}`);
+    const apiRes = await api.get(`/locations/${locationId}`);
 
     return NextResponse.json(apiRes.data);
   } catch (error) {
@@ -34,7 +34,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     const cookieHeader = req.headers.get("cookie") || "";
     const formData = await req.formData();
 
-    const apiRes = await api.patch(`/api/locations/${locationId}`, formData, {
+    const apiRes = await api.patch(`/locations/${locationId}`, formData, {
       headers: {
         cookie: cookieHeader,
       },
