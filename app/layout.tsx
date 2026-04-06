@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "modern-normalize/modern-normalize.css";
+import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
@@ -49,6 +50,29 @@ export default function RootLayout({
             {modal}
           </AuthProvider>
         </TanStackProvider>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: "#d67d01",
+              color: "#fff",
+              borderRadius: "12px",
+            },
+            success: {
+              iconTheme: {
+                primary: "green",
+                secondary: "white",
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: "red",
+                secondary: "white",
+              },
+            },
+          }}
+        />
       </body>
     </html>
   );
