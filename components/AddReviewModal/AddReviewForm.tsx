@@ -56,6 +56,7 @@ export const AddReviewForm = ({
       setErrors({});
 
       await createFeedback(String(normalizedLocationId), {
+        LocationId: String(normalizedLocationId),
         rate,
         text: text.trim(),
       });

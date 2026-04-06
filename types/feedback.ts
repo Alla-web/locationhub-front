@@ -11,6 +11,7 @@ export interface Feedback {
 }
 
 export interface CreateFeedbackPayload {
+  LocationId: string;
   rate: number;
   text: string;
 }
