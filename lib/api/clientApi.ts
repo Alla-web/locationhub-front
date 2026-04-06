@@ -26,15 +26,12 @@ export async function getLocationById(id: string) {
   return response.data;
 }
 
-export async function createLocation(
-  payload: FormData,
-): Promise<Location> {
+export async function createLocation(payload: FormData): Promise<Location> {
   const response = await nextServer.post<Location>("/locations", payload, {
     withCredentials: true,
   });
   return response.data;
 }
-
 
 export async function updateLocation(id: string, data: UpdateLocationPayload) {
   const response = await nextServer.patch<LocationDetails>(
@@ -78,7 +75,7 @@ export const checkSession = async () => {
   try {
     await nextServer.post("/auth/refresh", {});
     return true;
-  } catch  {
+  } catch {
     return false;
   }
 };
@@ -105,7 +102,6 @@ export const getMe = async (): Promise<User | null> => {
     const res = await nextServer.get<User>("/users/me");
     return res.data;
   } catch {
-    
     return null;
   }
 };
@@ -150,4 +146,13 @@ export const register = async (userData: RegisterPayload) => {
     console.error("Помилка під час реєстрації:", error);
     throw error;
   }
+};
+
+export const updateProfile = async (formData: FormData): Promise<User> => {
+  const response = await nextServer.patch<User>("/users/me", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
 };

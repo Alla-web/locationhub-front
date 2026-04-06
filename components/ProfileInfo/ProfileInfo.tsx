@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link"; // 👈 Додали імпорт Link
 import { useQuery } from "@tanstack/react-query";
 import { nextServer } from "@/lib/api/api";
 import css from "./ProfileInfo.module.css";
@@ -43,7 +44,16 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
         />
       </div>
       <div className={css.userInfo}>
-        <h1 className={css.userName}>{userProfile.name}</h1>
+        <div className={css.nameAndButton}>
+          <h1 className={css.userName}>{userProfile.name}</h1>
+
+          {isPrivate && (
+            <Link href="/edit" className={css.editProfileBtn}>
+              Редагувати профіль
+            </Link>
+          )}
+        </div>
+
         <p className={css.userStats}>
           Статей: {userProfile.articlesAmount || 0}
         </p>

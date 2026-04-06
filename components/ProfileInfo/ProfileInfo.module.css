@@ -1,3 +1,48 @@
+.nameAndButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.editProfileBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  background-color: #e8dfd8; /* Світло-бежевий колір як на макеті */
+  color: #333;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.editProfileBtn:hover {
+  background-color: #d8cec6; /* Трохи темніший при наведенні */
+}
+
+/* 🎯 Оновлюємо медіа-запит для десктопів */
+@media (min-width: 768px) {
+  .profileHeader {
+    flex-direction: row;
+    text-align: left;
+    gap: 32px;
+  }
+  .avatarWrapper {
+    width: 140px;
+    height: 140px;
+  }
+  /* На десктопі кнопка стоїть праворуч від імені */
+  .nameAndButton {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+}
 .profileHeader {
   display: flex;
   flex-direction: column;
@@ -8,7 +53,7 @@
 }
 
 .avatarWrapper {
-  position: relative !important; 
+  position: relative !important;
   width: 120px;
   height: 120px;
   border-radius: 50%;
