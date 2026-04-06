@@ -142,3 +142,12 @@ export const register = async (userData: RegisterPayload) => {
     throw error;
   }
 };
+
+export const updateProfile = async (formData: FormData): Promise<User> => {
+  const response = await nextServer.patch<User>("/users/me", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
