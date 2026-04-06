@@ -3,7 +3,7 @@ import { api, ApiError } from "../../api";
 
 export async function GET() {
   try {
-    const apiRes = await api.get("/api/categories/regions");
+    const apiRes = await api.get("/categories/regions");
 
     return NextResponse.json(apiRes.data);
   } catch (error) {
