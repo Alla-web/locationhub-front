@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounceValue } from "usehooks-ts";
 
@@ -95,6 +95,28 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     regionsQuery.isError ||
     locationTypesQuery.isError;
 
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    listRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [
+    page,
+    debouncedSearch,
+    filters.regionId,
+    filters.locationTypeId,
+    filters.sort,
+  ]);
+
   return (
     <div className={css.locationsPage}>
       <div className="container">
@@ -129,9 +151,11 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
           />
         )}
 
-        {locationsQuery.data && !locationsQuery.isLoading && (
-          <LocationsList locations={locationsQuery.data.locations} />
-        )}
+        <div ref={listRef}>
+          {locationsQuery.data && !locationsQuery.isLoading && (
+            <LocationsList locations={locationsQuery.data.locations} />
+          )}
+        </div>
 
         {locationsQuery.data?.totalPages &&
         locationsQuery.data.totalPages > 1 ? (
