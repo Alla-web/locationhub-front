@@ -1,41 +1,16 @@
-.main {
-  flex: 1;
-}
-
-.container {
-  width: 90%;
-  max-width: 1280px;
-  margin: 0px auto;
-  padding: 0 16px 16px;
-}
-
 .loginTitle {
-  margin: 0;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  margin: 0 0 32px;
   text-align: center;
-  color: #000;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.05;
+  color: #1f1f1f;
 }
 
-.description {
-  font-size: 18px;
-  color: #444444;
-  line-height: 28px;
-  margin-bottom: 16px;
-}
-
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .loginTitle {
-    font-size: 44px;
+    margin-bottom: 40px;
+    font-size: 60px;
+    line-height: 1;
   }
 }
-
-@media (min-width: 1440px) {
-  .loginTitle {
-    font-size: 52px;
-  }
-}
-
-

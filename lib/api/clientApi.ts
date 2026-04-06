@@ -9,8 +9,7 @@ import {
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
 import { LocationType } from "@/types/locationType";
-import { CreateLocationPayload, UpdateLocationPayload } from "@/types/location";
-// import { cookies } from "next/headers";
+import { UpdateLocationPayload } from "@/types/location";
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
@@ -28,11 +27,14 @@ export async function getLocationById(id: string) {
 }
 
 export async function createLocation(
-  payload: CreateLocationPayload,
+  payload: FormData,
 ): Promise<Location> {
-  const response = await nextServer.post<Location>("/locations", payload);
+  const response = await nextServer.post<Location>("/locations", payload, {
+    withCredentials: true,
+  });
   return response.data;
 }
+
 
 export async function updateLocation(id: string, data: UpdateLocationPayload) {
   const response = await nextServer.patch<LocationDetails>(
@@ -73,9 +75,12 @@ export const logout = async () => {
 };
 
 export const checkSession = async () => {
-  const { data } = await nextServer.post<{ success: boolean }>("/auth/refresh");
-
-  return data.success;
+  try {
+    await nextServer.post("/auth/refresh", {});
+    return true;
+  } catch  {
+    return false;
+  }
 };
 
 interface CreateFeedbackPayload {
@@ -99,8 +104,8 @@ export const getMe = async (): Promise<User | null> => {
   try {
     const res = await nextServer.get<User>("/users/me");
     return res.data;
-  } catch (error) {
-    console.warn("Користувач не авторизований");
+  } catch {
+    
     return null;
   }
 };
