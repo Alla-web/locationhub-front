@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   try {
-    const apiRes = await api.post("/api/auth/login", body);
+    const apiRes = await api.post("/auth/login", body);
     const cookieStore = await cookies();
     const setCookie = apiRes.headers["set-cookie"];
     if (setCookie) {
