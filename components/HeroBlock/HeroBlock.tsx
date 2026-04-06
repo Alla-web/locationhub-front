@@ -9,7 +9,7 @@ export default function HeroBlock() {
   const router = useRouter();
 
   const handleSearch = () => {
-    router.push(`/locations?search=${query}`);
+    router.push(`/locations/filter/search?search=${query}`);
   };
 
   return (

@@ -15,20 +15,24 @@ interface FilteredLocationsPageProps {
 }
 
 export default async function FilteredLocationsPage({
-  params,
   searchParams,
 }: FilteredLocationsPageProps) {
   const sp = await searchParams;
   const search = sp?.search || "";
 
   const locationsParams: GetLocationsParams = {
+    page: 1,
+    perPage: 6,
     search,
+    regionId: "",
+    locationTypeId: "",
+    sort: "",
   };
 
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["locations", search],
+    queryKey: ["locations", 1, 6, search, "", "", ""],
     queryFn: () => getLocations(locationsParams),
   });
 
