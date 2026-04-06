@@ -3,19 +3,19 @@ import { api, ApiError } from "../../../api";
 
 interface RouteContext {
   params: Promise<{
-    id: string;
+    locationId: string;
   }>;
 }
 
 export async function POST(req: NextRequest, { params }: RouteContext) {
   try {
-    const { id } = await params;
+    const { locationId } = await params;
     const body = await req.json();
     const cookieHeader = req.headers.get("cookie") || "";
 
     const payload = {
       ...body,
-      locationId: id,
+      locationId: locationId,
     };
 
     const apiRes = await api.post("/feedbacks", payload, {
