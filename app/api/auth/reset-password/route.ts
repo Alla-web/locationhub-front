@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const token = req.nextUrl.searchParams.get("token");
 
     const apiRes = await api.post(
-      `/api/auth/reset-password?token=${token}`,
+      `/auth/reset-password?token=${token}`,
       body,
     );
 
