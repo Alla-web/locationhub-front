@@ -80,9 +80,9 @@ export default function LocationSearchBox({
               disabled={isLoading}
             >
               <option value="">Тип локації</option>
-              {locationTypes.map((type) => (
-                <option key={type._id} value={type._id}>
-                  {type.type}
+              {locationTypes.map((locationType) => (
+                <option key={locationType._id} value={locationType._id}>
+                  {locationType.type}
                 </option>
               ))}
             </select>
