@@ -34,7 +34,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     const cookieHeader = req.headers.get("cookie") || "";
     const formData = await req.formData();
 
-    const apiRes = await api.patch(`/api/locations/${locationId}`, formData, {
+    const apiRes = await api.patch(`/locations/${locationId}`, formData, {
       headers: {
         cookie: cookieHeader,
       },
