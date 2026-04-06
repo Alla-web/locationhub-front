@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { createFeedback, getMe } from "@/lib/api/clientApi";
-import styles from "./AddReviewForm.module.css";
+import React, { useState } from "react";
+import { createFeedback } from "@/lib/api/clientApi";
+import css from "./AddReviewForm.module.css";
 
 interface AddReviewFormProps {
   locationId: string | string[] | undefined;
@@ -13,24 +13,33 @@ export const AddReviewForm = ({
   locationId,
   onSuccess,
 }: AddReviewFormProps) => {
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-  const [userName, setUserName] = useState("Анонім");
-  const [errors, setErrors] = useState<{ rating?: string; comment?: string }>(
-    {},
-  );
+  const [rate, setRate] = useState(0);
+  const [text, setText] = useState("");
+  const [errors, setErrors] = useState<{
+    rate?: string;
+    text?: string;
+    form?: string;
+  }>({});
   const [loading, setLoading] = useState(false);
 
+  const normalizedLocationId = Array.isArray(locationId)
+    ? locationId[0]
+    : locationId;
+
   const validate = () => {
-    const newErrors: { rating?: string; comment?: string } = {};
+    const newErrors: { rating?: string; comment?: string; form?: string } = {};
 
-    if (rating < 1) newErrors.rating = "Оберіть рейтинг";
+    if (!normalizedLocationId) {
+      newErrors.form = "Не вдалося визначити локацію";
+    }
 
-    if (!comment.trim()) {
+    if (rate < 1) newErrors.rating = "Оберіть рейтинг";
+
+    if (!text.trim()) {
       newErrors.comment = "Обов'язкове поле";
-    } else if (comment.trim().length < 10) {
+    } else if (text.trim().length < 10) {
       newErrors.comment = "Мінімум 10 символів";
-    } else if (comment.length > 100) {
+    } else if (text.length > 100) {
       newErrors.comment = "Максимум 100 символів";
     }
 
@@ -38,23 +47,31 @@ export const AddReviewForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  useEffect(() => {
-    getMe()
-      .then((user) => {
-        if (user?.name) setUserName(user.name);
-      })
-      .catch(() => {});
-  }, []);
-
-  const handleSubmit = async (e: { preventDefault(): void }) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (!validate()) return;
 
     try {
       setLoading(true);
-      await createFeedback(String(locationId), { rating, comment, userName });
+      setErrors({});
+
+      await createFeedback(String(normalizedLocationId), {
+        LocationId: String(normalizedLocationId),
+        rate,
+        text: text.trim(),
+      });
+
       onSuccess();
     } catch (error) {
+      let message = "Помилка при відправці відгуку";
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      setErrors({
+        form: message,
+      });
       console.error("Помилка при відправці:", error);
     } finally {
       setLoading(false);
@@ -66,10 +83,10 @@ export const AddReviewForm = ({
       <button
         key={star}
         type="button"
-        className={star <= rating ? styles.starOn : styles.starOff}
+        className={star <= rate ? css.starOn : css.starOff}
         onClick={() => {
-          setRating(star);
-          setErrors((prev) => ({ ...prev, rating: undefined }));
+          setRate(star);
+          setErrors((prev) => ({ ...prev, rate: undefined }));
         }}
         aria-label={`${star} зірок`}
       >
@@ -78,34 +95,42 @@ export const AddReviewForm = ({
     ));
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.field}>
-        <h3 className={styles.subtitle}>Ваш відгук</h3>
+    <form className={css.form} onSubmit={handleSubmit}>
+      <div className={css.field}>
+        <h3 className={css.subtitle}>Ваш відгук</h3>
+
         <textarea
           placeholder="Напишіть ваш відгук"
-          value={comment}
+          value={text}
           onChange={(e) => {
-            setComment(e.target.value);
-            setErrors((prev) => ({ ...prev, comment: undefined }));
+            setText(e.target.value);
+            setErrors((prev) => ({
+              ...prev,
+              text: undefined,
+              form: undefined,
+            }));
           }}
-          className={`${styles.textarea} ${errors.comment ? styles.textareaError : ""}`}
+          className={`${css.textarea} ${errors.text ? css.textareaError : ""}`}
         />
-        <div className={styles.warning}>
-          {errors.comment && <p className={styles.error}>{errors.comment}</p>}
-          <p className={styles.counter}>{comment.length}/100</p>
+
+        <div className={css.warning}>
+          {errors.text && <p className={css.error}>{errors.text}</p>}
+          <p className={css.counter}>{text.length}/100</p>
         </div>
       </div>
 
-      <div className={styles.field}>
-        <div className={styles.stars}>{renderStars()}</div>
-        {errors.rating && <p className={styles.error}>{errors.rating}</p>}
+      <div className={css.field}>
+        <div className={css.stars}>{renderStars()}</div>
+        {errors.rate && <p className={css.error}>{errors.rate}</p>}
       </div>
 
-      <div className={styles.actions}>
-        <button type="button" onClick={onSuccess} className={styles.cancel}>
+      {errors.form && <p className={css.error}>{errors.form}</p>}
+
+      <div className={css.actions}>
+        <button type="button" onClick={onSuccess} className={css.cancel}>
           Відмінити
         </button>
-        <button type="submit" disabled={loading} className={styles.submit}>
+        <button type="submit" disabled={loading} className={css.submit}>
           {loading ? "Відправка..." : "Надіслати"}
         </button>
       </div>

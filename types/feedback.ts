@@ -9,3 +9,9 @@ export interface Feedback {
   createdAt: Date;
   updatedAt?: Date;
 }
+
+export interface CreateFeedbackPayload {
+  LocationId: string;
+  rate: number;
+  text: string;
+}

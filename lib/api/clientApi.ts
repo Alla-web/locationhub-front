@@ -8,6 +8,7 @@ import {
 } from "@/types/location";
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
+import { CreateFeedbackPayload } from "../../types/feedback";
 import { LocationType } from "@/types/locationType";
 import { UpdateLocationPayload } from "@/types/location";
 
@@ -79,12 +80,6 @@ export const checkSession = async () => {
     return false;
   }
 };
-
-interface CreateFeedbackPayload {
-  rating: number;
-  comment: string;
-  userName: string;
-}
 
 export const createFeedback = async (
   locationId: string,

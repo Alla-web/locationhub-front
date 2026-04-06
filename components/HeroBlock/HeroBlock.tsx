@@ -9,7 +9,10 @@ export default function HeroBlock() {
   const router = useRouter();
 
   const handleSearch = () => {
-    router.push(`/locations?search=${query}`);
+    const trimmed = query.trim();
+    if (!trimmed) return;
+
+    router.push(`/locations/filter/${encodeURIComponent(trimmed)}`);
   };
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounceValue } from "usehooks-ts";
 
@@ -38,6 +38,9 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     locationTypeId: "",
     sort: "",
   });
+  const [shouldScroll, setShouldScroll] = useState(false);
+
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   const locationsParams: GetLocationsParams = {
     page,
@@ -95,6 +98,22 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     regionsQuery.isError ||
     locationTypesQuery.isError;
 
+  const handlePageChange = () => {
+    setPage(page);
+    setShouldScroll(true);
+  };
+
+  useEffect(() => {
+    if (!shouldScroll) return;
+
+    listRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    setShouldScroll(false);
+  }, [page, shouldScroll]);
+
   return (
     <div className={css.locationsPage}>
       <div className="container">
@@ -129,16 +148,18 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
           />
         )}
 
-        {locationsQuery.data && !locationsQuery.isLoading && (
-          <LocationsList locations={locationsQuery.data.locations} />
-        )}
+        <div ref={listRef}>
+          {locationsQuery.data && !locationsQuery.isLoading && (
+            <LocationsList locations={locationsQuery.data.locations} />
+          )}
+        </div>
 
         {locationsQuery.data?.totalPages &&
         locationsQuery.data.totalPages > 1 ? (
           <Pagination
             totalPages={locationsQuery.data.totalPages ?? 0}
             page={page}
-            setPage={setPage}
+            setPage={handlePageChange}
           />
         ) : null}
       </div>

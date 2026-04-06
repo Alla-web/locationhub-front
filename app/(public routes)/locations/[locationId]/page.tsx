@@ -3,9 +3,9 @@ import { isAxiosError } from "axios";
 import { notFound } from "next/navigation";
 import { LocationDetailsView } from "@/components/LocationDetails/LocationDetails";
 import {
-  getLocationById,
+  getLocationDetailsServer,
   getLocationFeedbacks,
-} from "@/lib/api/location-details";
+} from "@/lib/api/serverApi";
 import css from "./page.module.css";
 
 type LocationDetailsPageProps = {
@@ -14,7 +14,7 @@ type LocationDetailsPageProps = {
 
 async function loadLocationData(locationId: string) {
   try {
-    const location = await getLocationById(locationId);
+    const location = await getLocationDetailsServer(locationId);
     const fallbackReviews = location.feedbacksId ?? [];
 
     try {
@@ -58,7 +58,7 @@ export async function generateMetadata({
   const { locationId } = await params;
 
   try {
-    const location = await getLocationById(locationId);
+    const location = await getLocationDetailsServer(locationId);
 
     return {
       title: `${location.name} | Relax Map`,
