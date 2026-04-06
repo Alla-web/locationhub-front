@@ -40,6 +40,10 @@
   max-width: 343px;
 }
 
+.input {
+  height: 40px;
+}
+
 .inputResearch {
   margin-bottom: 16px;
 }
@@ -48,6 +52,7 @@
 .searchBtn,
 .searchBox {
   width: 100%;
+  height: 40px;
 }
 
 @media (min-width: 768px) {
@@ -70,9 +75,8 @@
     max-width: 560px;
   }
 
-  .inputResearch {
+  .input {
     flex: 1;
-    width: auto;
     width: 331px;
     margin-right: 16px;
   }
