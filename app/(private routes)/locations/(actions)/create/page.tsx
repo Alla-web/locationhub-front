@@ -7,8 +7,6 @@ import * as Yup from "yup";
 import Image from "next/image";
 import axios from "axios";
 import { useRef, useState } from "react";
-import { useRouter  } from "next/navigation"; 
-import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 import css from "./page.module.css";
@@ -24,7 +22,6 @@ const defaultValues: CreateLocationPayload = {
   regionId: "",
   locationTypeId: "",
   description: "",
-
 };
 
 const locationValidationSchema = Yup.object({
@@ -87,7 +84,6 @@ export default function CreateLocation() {
     actions: FormikHelpers<CreateLocationPayload>,
   ) => {
     try {
-
       if (!selectedFile) {
         actions.setStatus("Будь ласка, завантажте фото");
         return;
@@ -113,7 +109,6 @@ export default function CreateLocation() {
 
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
-
       }
     } catch (error: unknown) {
       if (axios.isAxiosError<BackendErrorResponse>(error)) {
