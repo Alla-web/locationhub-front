@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import css from "./HeroBlock.module.css";
+import toast from "react-hot-toast";
 
 export default function HeroBlock() {
   const [query, setQuery] = useState("");
@@ -10,7 +11,10 @@ export default function HeroBlock() {
 
   const handleSearch = () => {
     const trimmed = query.trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      toast("Введіть пошуковий запит");
+      return;
+    }
 
     router.push(`/locations/filter/${encodeURIComponent(trimmed)}`);
   };
