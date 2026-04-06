@@ -6,8 +6,8 @@ export interface LocationEntityRef {
 
 export interface LocationOwner {
   _id: string;
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   avatarUrl?: string;
 }
 

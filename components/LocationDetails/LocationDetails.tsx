@@ -65,11 +65,13 @@ function splitDescription(description: string) {
 
 function getReviewAuthor(review: LocationFeedback) {
   if (typeof review.ownerId === "string") {
-    if (SEEDED_AUTHOR_IDS.has(review.ownerId)) {
+    const normalizedOwner = review.ownerId.trim();
+
+    if (SEEDED_AUTHOR_IDS.has(normalizedOwner)) {
       return "Користувач";
     }
 
-    return "Користувач";
+    return normalizedOwner || "Користувач";
   }
 
   if (
