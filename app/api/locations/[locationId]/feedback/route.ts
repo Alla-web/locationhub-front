@@ -15,7 +15,7 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
     const payload = {
       locationId,
       rate: body.rate,
-      text: body.text,
+      description: body.description,
     };
 
     const apiRes = await api.post("/feedbacks", payload);

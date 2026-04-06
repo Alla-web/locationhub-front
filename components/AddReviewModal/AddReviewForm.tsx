@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { createFeedback } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
+
 import css from "./AddReviewForm.module.css";
 
 interface AddReviewFormProps {
@@ -58,7 +60,7 @@ export const AddReviewForm = ({
       await createFeedback(String(normalizedLocationId), {
         LocationId: String(normalizedLocationId),
         rate,
-        text: text.trim(),
+        description: text.trim(),
       });
 
       onSuccess();
@@ -72,6 +74,9 @@ export const AddReviewForm = ({
       setErrors({
         form: message,
       });
+
+      toast.error(message);
+
       console.error("Помилка при відправці:", error);
     } finally {
       setLoading(false);
