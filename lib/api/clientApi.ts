@@ -1,5 +1,6 @@
 import { RegisterPayload } from "@/types/user";
 import { nextServer } from "./api";
+import axios from "axios";
 import { LocationDetails } from "@/types/location-details";
 import {
   GetLocationsParams,
@@ -85,9 +86,12 @@ export const createFeedback = async (
   locationId: string,
   payload: CreateFeedbackPayload,
 ) => {
-  const response = await nextServer.post(
-    `/locations/${locationId}/feedback`,
+  const response = await axios.post(
+    `/api/locations/${locationId}/feedback`,
     payload,
+    {
+      withCredentials: true,
+    },
   );
   return response.data;
 };
