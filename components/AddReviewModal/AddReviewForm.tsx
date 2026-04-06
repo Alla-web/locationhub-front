@@ -58,7 +58,7 @@ export const AddReviewForm = ({
       setErrors({});
 
       await createFeedback(String(normalizedLocationId), {
-        LocationId: String(normalizedLocationId),
+        locationId: String(normalizedLocationId),
         rate,
         description: description.trim(),
       });
@@ -124,8 +124,6 @@ export const AddReviewForm = ({
         <div className={css.stars}>{renderStars()}</div>
         {errors.rate && <p className={css.error}>{errors.rate}</p>}
       </div>
-
-      {errors.form && <p className={css.error}>{errors.form}</p>}
 
       <div className={css.actions}>
         <button type="button" onClick={onSuccess} className={css.cancel}>
