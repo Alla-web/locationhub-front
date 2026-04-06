@@ -14,8 +14,9 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
     const cookieHeader = req.headers.get("cookie") || "";
 
     const payload = {
-      ...body,
-      locationId: locationId,
+      locationId,
+      rate: body.rating,
+      text: body.comment,
     };
 
     const apiRes = await api.post("/feedbacks", payload, {
