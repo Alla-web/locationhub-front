@@ -1,14 +1,27 @@
 import { nextServer } from "./api";
 import {
-  LocationDetails,
-  LocationFeedbacksResponse,
-} from "@/types/location-details";
+  enrichFeedbackAuthors,
+  normalizeLocationDetails,
+  normalizeLocationFeedbacksResponse,
+} from "./mappers/location-details";
+import { LocationDetails, LocationFeedbacksResponse } from "@/types/location-details";
 
 export const getLocationById = async (
   locationId: string,
 ): Promise<LocationDetails> => {
-  const { data } = await nextServer.get<LocationDetails>(`/locations/${locationId}`);
-  return data;
+  const { data } = await nextServer.get(`/locations/${locationId}`);
+  const location = normalizeLocationDetails(data);
+
+  return {
+    ...location,
+    feedbacksId: await enrichFeedbackAuthors(
+      location.feedbacksId,
+      async (ownerId) => {
+        const { data: user } = await nextServer.get(`/users/${ownerId}`);
+        return user;
+      },
+    ),
+  };
 };
 
 export const getLocationFeedbacks = async (
@@ -16,7 +29,7 @@ export const getLocationFeedbacks = async (
   page = 1,
   perPage = 10,
 ): Promise<LocationFeedbacksResponse> => {
-  const { data } = await nextServer.get<LocationFeedbacksResponse>("/feedbacks", {
+  const { data } = await nextServer.get("/feedbacks", {
     params: {
       locationId,
       page,
@@ -24,5 +37,13 @@ export const getLocationFeedbacks = async (
     },
   });
 
-  return data;
+  const response = normalizeLocationFeedbacksResponse(data);
+
+  return {
+    ...response,
+    feedbacks: await enrichFeedbackAuthors(response.feedbacks, async (ownerId) => {
+      const { data: user } = await nextServer.get(`/users/${ownerId}`);
+      return user;
+    }),
+  };
 };
