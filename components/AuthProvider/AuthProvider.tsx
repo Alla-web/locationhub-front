@@ -3,7 +3,6 @@
 import { checkSession, getMe } from "@/lib/api/clientApi"; // Виправлений імпорт
 import { useAuthStore } from "@/lib/store/authStore";
 import { useEffect } from "react";
-import { Toaster } from "react-hot-toast"; // Повернули Тостер
 
 type Props = { children: React.ReactNode };
 
@@ -40,12 +39,7 @@ const AuthProvider = ({ children }: Props) => {
     fetchUser();
   }, [setUser, clearIsAuthenticated, setAuthReady]);
 
-  return (
-    <>
-      <Toaster position="top-right" />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default AuthProvider;
