@@ -38,6 +38,9 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     locationTypeId: "",
     sort: "",
   });
+  const [shouldScroll, setShouldScroll] = useState(false);
+
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   const locationsParams: GetLocationsParams = {
     page,
@@ -95,21 +98,21 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
     regionsQuery.isError ||
     locationTypesQuery.isError;
 
-  const listRef = useRef<HTMLDivElement | null>(null);
-
-  const isFirstRender = useRef(true);
+  const handlePageChange = () => {
+    setPage(page);
+    setShouldScroll(true);
+  };
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    if (!shouldScroll) return;
 
     listRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-  }, [page]);
+
+    setShouldScroll(false);
+  }, [page, shouldScroll]);
 
   return (
     <div className={css.locationsPage}>
@@ -156,7 +159,7 @@ export default function LocationPage({ initialSearch }: LocationsPageProps) {
           <Pagination
             totalPages={locationsQuery.data.totalPages ?? 0}
             page={page}
-            setPage={setPage}
+            setPage={handlePageChange}
           />
         ) : null}
       </div>

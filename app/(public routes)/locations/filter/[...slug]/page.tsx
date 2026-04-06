@@ -16,9 +16,10 @@ interface FilteredLocationsPageProps {
 
 export default async function FilteredLocationsPage({
   searchParams,
+  params,
 }: FilteredLocationsPageProps) {
-  const sp = await searchParams;
-  const search = sp?.search || "";
+  const { slug } = (await params) || {};
+  const search = decodeURIComponent(slug?.[0] ?? "");
 
   const locationsParams: GetLocationsParams = {
     page: 1,
