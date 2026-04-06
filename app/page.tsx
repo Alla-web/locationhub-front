@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: "Locationhub home page",
-    description: "Notes management website home page",
+    description: "Locations management website home page",
     url: "/",
     images: [
       {

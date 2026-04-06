@@ -30,7 +30,7 @@ export default function LocationCard({ location }: LocationCardProps) {
         />
       </div>
       <div className={css.cardTexContainer}>
-        <h4 className={css.locationType}>{location.locationTypeId.name}</h4>
+        <h4 className={css.locationType}>{location.locationTypeId.type}</h4>
         <div className={css.ratingContainer}>
           {[...Array(totalStars)].map((_, index) => {
             if (index < fullStars) {

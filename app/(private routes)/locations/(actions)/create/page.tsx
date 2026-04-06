@@ -1,12 +1,16 @@
 "use client";
 
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { Formik, Field, ErrorMessage, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useRouter  } from "next/navigation"; 
+import axios, { AxiosError } from "axios";
+import toast from "react-hot-toast";
+
 import css from "./page.module.css";
 import { LocationType } from "@/types/locationType";
 import { Region } from "@/types/region";
@@ -15,6 +19,7 @@ import { getRegions, getLocationTypes } from "@/lib/api/clientApi";
 import { createLocation } from "@/lib/api/clientApi";
 
 const defaultValues: CreateLocationPayload = {
+  image: "",
   name: "",
   regionId: "",
   locationTypeId: "",
@@ -82,6 +87,7 @@ export default function CreateLocation() {
     actions: FormikHelpers<CreateLocationPayload>,
   ) => {
     try {
+
       if (!selectedFile) {
         actions.setStatus("Будь ласка, завантажте фото");
         return;
@@ -99,6 +105,7 @@ export default function CreateLocation() {
 
       const createdLocation = await createLocation(formData);
 
+      toast.success("New locations was successfuly created");
       router.push(`/locations/${createdLocation._id}`);
       actions.resetForm();
       setSelectedFile(null);
@@ -106,6 +113,7 @@ export default function CreateLocation() {
 
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
+
       }
     } catch (error: unknown) {
       if (axios.isAxiosError<BackendErrorResponse>(error)) {
@@ -113,11 +121,16 @@ export default function CreateLocation() {
 
         if (backendErrors?.errors) {
           actions.setErrors(backendErrors.errors);
-        } else {
-          actions.setStatus(backendErrors?.message || "Щось пішло не так");
+        }
+
+        if (backendErrors?.message) {
+          actions.setStatus(backendErrors.message);
+          toast.error(backendErrors.message);
         }
       } else {
-        actions.setStatus("Unknown issue occured");
+        const message = "Unknown issue occurred";
+        actions.setStatus(message);
+        toast.error(message);
       }
     }
   };
@@ -182,7 +195,7 @@ export default function CreateLocation() {
                       <option value="">Оберіть тип місця</option>
                       {locationTypesQuery.data?.map((locationType) => (
                         <option key={locationType._id} value={locationType._id}>
-                          {locationType.name}
+                          {locationType.type}
                         </option>
                       ))}
                     </Field>
@@ -264,13 +277,6 @@ export default function CreateLocation() {
                     {formikProps.isSubmitting ? "Відправка" : "Опублікувати"}
                   </button>
                 </div>
-
-                {formikProps.status && (
-                  <div
-                    style={{ fontSize: "24px", color: "red" }}
-                    className={css.error}
-                  >{`Error: ${formikProps.status}`}</div>
-                )}
               </Form>
             )}
           </Formik>

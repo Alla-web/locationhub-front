@@ -1,27 +1,46 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { logErrorResponse } from "../../../_utils/utils";
+import { api } from "../../../api";
+import { isAxiosError } from "axios";
+
+type Props = {
+  params: Promise<{ id: string }>;
+};
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  request: NextRequest,
+  // 2. ВИКОРИСТОВУЄМО ТИП Props ОСЬ ТУТ
+  { params }: Props,
 ) {
-  const { id } = await params;
-  const cookieStore = await cookies();
-
   try {
-    const backendUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}/places`;
+    const cookieStore = await cookies();
+    const searchParams = request.nextUrl.searchParams;
+    const page = searchParams.get("page") || "1";
+    const limit = searchParams.get("limit") || "6";
 
-    const response = await fetch(backendUrl, {
-      method: "GET",
-      headers: { Cookie: cookieStore.toString() },
+    const { id } = await params;
+
+    const res = await api(`/users/${id}/places`, {
+      params: {
+        page,
+        limit,
+      },
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
     });
 
-    const data = await response.json();
-
-    if (!response.ok)
-      return NextResponse.json(data, { status: response.status });
-    return NextResponse.json(data);
+    return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
+    if (isAxiosError(error)) {
+      logErrorResponse(error.response?.data);
+      return NextResponse.json(
+        { error: error.message, response: error.response?.data },
+        { status: error.status },
+      );
+    }
+    logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 },

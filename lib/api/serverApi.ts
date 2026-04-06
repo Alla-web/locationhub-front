@@ -1,10 +1,11 @@
-import { nextServer } from "./api"; // Або імпортуй api, якщо nextServer падає з відносним шляхом
+import { nextServer } from "./api";
 import { cookies } from "next/headers";
-import { RegisterPayload } from "@/types/user";
-import { AxiosResponse } from "axios";
-import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
 
-export const checkSession =
+import { GetLocationsParams, GetLocationsResponse } from "@/types/location";
+import { RegisterPayload, User } from "@/types/user";
+import { AxiosResponse } from "axios";
+
+export const checkServerSession =
   async (): Promise<AxiosResponse<RegisterPayload> | null> => {
     try {
       const cookieStore = await cookies();
@@ -33,3 +34,8 @@ export async function getLocations(params: GetLocationsParams) {
 
   return response.data;
 }
+
+export const getMeServer = async (): Promise<User> => {
+  const { data } = await nextServer.get<User>("/users/me");
+  return data;
+};

@@ -65,10 +65,8 @@ interface LoginPayload {
   password: string;
 }
 
-export const login = async (
-  payload: LoginPayload,
-): Promise<RegisterPayload> => {
-  const res = await nextServer.post<RegisterPayload>("/auth/login", payload);
+export const login = async (payload: LoginPayload): Promise<User> => {
+  const res = await nextServer.post<User>("/auth/login", payload);
   return res.data;
 };
 
@@ -142,4 +140,14 @@ export const getFeedbacks = async () => {
   });
 
   return response.data;
+};
+
+export const register = async (userData: RegisterPayload) => {
+  try {
+    const response = await nextServer.post("/auth/register", userData);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка під час реєстрації:", error);
+    throw error;
+  }
 };
