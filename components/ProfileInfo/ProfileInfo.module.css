@@ -22,10 +22,9 @@
 }
 
 .editProfileBtn:hover {
-  background-color: #d8cec6; /* Трохи темніший при наведенні */
+  background-color: #d8cec6;
 }
 
-/* 🎯 Оновлюємо медіа-запит для десктопів */
 @media (min-width: 768px) {
   .profileHeader {
     flex-direction: row;
@@ -36,7 +35,7 @@
     width: 140px;
     height: 140px;
   }
-  /* На десктопі кнопка стоїть праворуч від імені */
+
   .nameAndButton {
     flex-direction: row;
     align-items: center;

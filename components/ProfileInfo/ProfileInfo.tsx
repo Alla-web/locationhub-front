@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link"; // 👈 Додали імпорт Link
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { nextServer } from "@/lib/api/api";
 import css from "./ProfileInfo.module.css";
