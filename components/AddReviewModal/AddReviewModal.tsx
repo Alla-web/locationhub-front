@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { AddReviewForm } from "../AddReviewModal/AddReviewForm";
 import { IoIosClose } from "react-icons/io";
@@ -11,9 +11,9 @@ export const AddReviewModal = () => {
   const params = useParams();
   const id = params?.locationId;
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     router.back();
-  };
+  }, [router]);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -22,7 +22,7 @@ export const AddReviewModal = () => {
 
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
+  }, [handleClose]);
 
   return (
     <div className={styles.backdrop} onClick={handleClose}>
@@ -35,13 +35,14 @@ export const AddReviewModal = () => {
           className={styles.close}
           onClick={handleClose}
         >
-          <IoIosClose size="34px" />
+          <IoIosClose />
         </button>
 
         <h2 className={styles.title}>Залишити відгук</h2>
 
         <AddReviewForm
           locationId={id}
+          onClose={handleClose}
           onSuccess={handleClose}
         />
       </div>
