@@ -5,6 +5,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+import Loader from "../Loader/Loader";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -31,19 +32,6 @@ export default function ReviewsBlock() {
     staleTime: 60 * 1000,
   });
 
-  if (reviewsQuery.isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (reviewsQuery.isError) {
-    return (
-      <ErrorBox
-        query=""
-        errorMessage={reviewsQuery.error?.message || "Something went wrong!"}
-      />
-    );
-  }
-
   const reviews = reviewsQuery.data?.feedbacks ?? [];
 
   if (reviews.length === 0) {
@@ -56,6 +44,17 @@ export default function ReviewsBlock() {
         <div className={css.topRow}>
           <h2 className={css.title}>Останні відгуки</h2>
         </div>
+
+        {reviewsQuery.isLoading && <Loader />}
+
+        {reviewsQuery.isError && (
+          <ErrorBox
+            query=""
+            errorMessage={
+              reviewsQuery.error?.message || "Something went wrong!"
+            }
+          />
+        )}
 
         <Swiper
           modules={[Navigation, Pagination, A11y]}
