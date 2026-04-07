@@ -36,11 +36,22 @@ export async function createLocation(payload: FormData): Promise<Location> {
   return response.data;
 }
 
-export async function updateLocation(id: string, data: UpdateLocationPayload) {
+export async function updateLocation(
+  id: string,
+  data: UpdateLocationPayload | FormData,
+) {
   const response = await nextServer.patch<LocationDetails>(
     `/locations/${id}`,
     data,
-    { withCredentials: true },
+    {
+      withCredentials: true,
+      headers:
+        data instanceof FormData
+          ? {
+              "Content-Type": "multipart/form-data",
+            }
+          : undefined,
+    },
   );
   return response.data;
 }

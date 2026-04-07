@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { LocationDetails } from "@/types/location-details";
@@ -41,6 +42,9 @@ const validationSchema = Yup.object({
 
 const LocationForm = ({ location }: LocationFormProps) => {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState(location.image);
 
   const locationTypesQuery = useQuery<LocationType[]>({
     queryKey: ["locationTypes"],
@@ -69,12 +73,49 @@ const LocationForm = ({ location }: LocationFormProps) => {
     errors?: Record<string, string>;
   };
 
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl !== location.image) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [location.image, previewUrl]);
+
+  const handleOpenFilePicker = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    if (previewUrl && previewUrl !== location.image) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  };
+
   const handleSubmit = async (
     values: UpdateLocationPayload,
     actions: FormikHelpers<UpdateLocationPayload>,
   ) => {
     try {
-      await updateLocation(location._id, values);
+      const formData = new FormData();
+
+      formData.append("name", values.name ?? "");
+      formData.append("description", values.description ?? "");
+      formData.append("regionId", values.regionId ?? "");
+      formData.append("locationTypeId", values.locationTypeId ?? "");
+      formData.append("image", location.image);
+
+      if (selectedFile) {
+        formData.set("image", selectedFile);
+      }
+
+      await updateLocation(location._id, formData);
       toast.success("Локацію успішно оновлено!");
       router.push(`/locations/${location._id}`);
     } catch (error: unknown) {
@@ -100,16 +141,27 @@ const LocationForm = ({ location }: LocationFormProps) => {
           <p className={css.photoTitle}>Обкладинка статті</p>
           <div className={css.imageContainer}>
             <Image
-              src={location.image || "/placeholder-image.jpg"}
+              src={previewUrl || "/placeholder-image.jpg"}
               alt={location.name}
               fill
               unoptimized
               style={{ objectFit: "cover" }}
             />
           </div>
-          <button className={css.downLoadPhotoBtn} type="button">
+          <button
+            className={css.downLoadPhotoBtn}
+            type="button"
+            onClick={handleOpenFilePicker}
+          >
             Завантажити фото
           </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleFileChange}
+            className={css.hiddenFileInput}
+          />
 
           <Formik
             initialValues={initialValues}
