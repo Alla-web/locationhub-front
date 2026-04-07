@@ -37,15 +37,6 @@ export default function ProfileLocationsGrid({
   const locations = data?.data || [];
   const { totalPages } = data?.pagination || { totalPages: 1 };
 
-  if (locations.length === 0 && currentPage === 1) {
-    return (
-      <ProfilePlaceholder
-        profileId={targetId || ""}
-        userLocations={locations}
-      />
-    );
-  }
-
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -64,6 +55,13 @@ export default function ProfileLocationsGrid({
 
   return (
     <div className={css.gridContainer}>
+      {isPrivate && (
+        <ProfilePlaceholder
+          profileId={targetId || ""}
+          userLocations={locations}
+        />
+      )}
+
       <div className={css.grid}>
         {locations.map((loc) => {
           return (
