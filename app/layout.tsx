@@ -55,7 +55,7 @@ export default function RootLayout({
           toastOptions={{
             duration: 3000,
             style: {
-              background: "#d67d01",
+              background: "'#009b18'",
               color: "#fff",
               borderRadius: "12px",
             },
@@ -66,6 +66,9 @@ export default function RootLayout({
               },
             },
             error: {
+              style: {
+                background: "#db5050",
+              },
               iconTheme: {
                 primary: "red",
                 secondary: "white",
