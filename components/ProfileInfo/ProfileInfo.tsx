@@ -38,8 +38,11 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
     queryFn: () => fetchUserLocations(userId || ""),
   });
 
-  if (isLoading) return <div className={css.loader}>Завантаження...</div>;
-  if (isError || !userProfile)
+  console.log("userLocations: ", userLocations?.data);
+
+  if (isLoading && userLocationsLoading)
+    return <div className={css.loader}>Завантаження...</div>;
+  if ((isError && isUserLocationsError) || !userProfile)
     return <div className={css.error}>Користувача не знайдено</div>;
 
   return (
@@ -67,7 +70,7 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
 
         <p className={css.userStats}>
           {/* Статей: {userProfile.articlesAmount || 0} */}
-          Статей: {userLocations?.data.length}
+          Статей: {userLocations?.data.length ?? 0}
         </p>
       </div>
     </section>
