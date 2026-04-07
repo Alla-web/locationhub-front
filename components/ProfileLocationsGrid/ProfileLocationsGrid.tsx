@@ -9,12 +9,23 @@ import LocationCard from "@/components/LocationCard/LocationCard";
 import Link from "next/link";
 import css from "./ProfileLocationsGrid.module.css";
 
+import { LocationType } from "@/types/locationType";
+import { Region } from "@/types/region";
+import { User } from "@/types/user";
+import { Feedback } from "@/types/feedback";
+
 interface Location {
   _id: string;
+  image: string;
   name: string;
-  image?: string;
-  locationType: string;
-  rate: number;
+  locationTypeId: LocationType;
+  regionId?: Region;
+  rate?: number;
+  description?: string;
+  ownerId?: User;
+  feedbacksId?: Feedback[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface LocationsResponse {
@@ -86,7 +97,7 @@ export default function ProfileLocationsGrid({
         {locations.map((loc) => {
           // const adaptedLocation = {
           //   ...loc,
-          //   locationTypeId: { type: loc.locationType },
+          //   locationTypeId: { type: loc.locationType. },
           // };
 
           console.log(loc);
