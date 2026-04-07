@@ -86,7 +86,7 @@ export default function ProfileLocationsGrid({
         {locations.map((loc) => {
           const adaptedLocation = {
             ...loc,
-            locationTypeId: { name: loc.locationType },
+            locationTypeId: { type: loc.locationType },
           };
 
           return (
