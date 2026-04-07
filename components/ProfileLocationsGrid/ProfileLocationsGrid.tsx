@@ -89,6 +89,8 @@ export default function ProfileLocationsGrid({
           //   locationTypeId: { type: loc.locationType },
           // };
 
+          console.log(loc);
+
           return (
             <div key={loc._id} className={css.cardWrapper}>
               <LocationCard location={loc as any} />
