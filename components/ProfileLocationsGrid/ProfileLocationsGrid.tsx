@@ -84,14 +84,14 @@ export default function ProfileLocationsGrid({
     <div className={css.gridContainer}>
       <div className={css.grid}>
         {locations.map((loc) => {
-          const adaptedLocation = {
-            ...loc,
-            locationTypeId: { type: loc.locationType },
-          };
+          // const adaptedLocation = {
+          //   ...loc,
+          //   locationTypeId: { type: loc.locationType },
+          // };
 
           return (
             <div key={loc._id} className={css.cardWrapper}>
-              <LocationCard location={adaptedLocation as any} />
+              <LocationCard location={loc as any} />
 
               {isPrivate && (
                 <Link
