@@ -4,9 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { nextServer } from "@/lib/api/api";
+
 import css from "./ProfileInfo.module.css";
 
+import { useAuthStore } from "@/lib/store/authStore";
 import { fetchUserLocations } from "@/lib/api/clientApi";
+import { UserLocationsResponse } from "@/types/user";
 
 interface ProfileInfoProps {
   isPrivate: boolean;
@@ -20,6 +23,9 @@ const fetchProfile = async (isPrivate: boolean, userId?: string) => {
 };
 
 export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
+  const user = useAuthStore((state) => state.user);
+  const accountOwnerId = isPrivate ? user?._id : userId;
+
   const {
     data: userProfile,
     isLoading,
@@ -33,9 +39,9 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
     data: userLocations,
     isLoading: userLocationsLoading,
     isError: isUserLocationsError,
-  } = useQuery({
+  } = useQuery<UserLocationsResponse>({
     queryKey: ["uaserLocations"],
-    queryFn: () => fetchUserLocations(userId || ""),
+    queryFn: () => fetchUserLocations(accountOwnerId ?? ""),
   });
 
   console.log("userLocations: ", userLocations?.data);
