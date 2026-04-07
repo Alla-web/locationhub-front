@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import {
   HydrationBoundary,
   dehydrate,
@@ -15,7 +14,6 @@ interface FilteredLocationsPageProps {
 }
 
 export default async function FilteredLocationsPage({
-  searchParams,
   params,
 }: FilteredLocationsPageProps) {
   const { slug } = (await params) || {};

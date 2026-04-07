@@ -11,6 +11,7 @@ export async function proxy(request: NextRequest) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
+  const sessionId = cookieStore.get("sessionId")?.value;
 
   const isPublicRoute = publicRoutes.some((route) =>
     pathname.startsWith(route),
@@ -19,11 +20,14 @@ export async function proxy(request: NextRequest) {
   privateRoutes.some((route) => pathname.startsWith(route));
 
   if (!accessToken) {
-    if (refreshToken) {
+    if (refreshToken && sessionId) {
       const data = await checkServerSession();
       const setCookie = data?.headers?.["set-cookie"];
 
       if (setCookie) {
+        const response = isPublicRoute
+          ? NextResponse.redirect(new URL("/", request.url))
+          : NextResponse.next();
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
           const parsed = parse(cookieStr);
@@ -33,31 +37,14 @@ export async function proxy(request: NextRequest) {
             maxAge: Number(parsed["Max-Age"]),
           };
           if (parsed.accessToken)
-            cookieStore.set("accessToken", parsed.accessToken, options);
+            response.cookies.set("accessToken", parsed.accessToken, options);
           if (parsed.refreshToken)
-            cookieStore.set("refreshToken", parsed.refreshToken, options);
+            response.cookies.set("refreshToken", parsed.refreshToken, options);
+          if (parsed.sessionId)
+            response.cookies.set("sessionId", parsed.sessionId, options);
         }
 
-        if (isPublicRoute) {
-          return NextResponse.redirect(new URL("/", request.url), {
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-        }
-
-        if (isPrivateRoute) {
-          return NextResponse.next({
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-        }
-        return NextResponse.next({
-          headers: {
-            Cookie: cookieStore.toString(),
-          },
-        });
+        return response;
       }
     }
 

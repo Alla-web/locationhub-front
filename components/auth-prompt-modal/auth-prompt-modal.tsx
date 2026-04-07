@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './auth-prompt-modal.module.css';
 
@@ -18,14 +18,14 @@ export default function AuthPromptModal({
 }: AuthPromptModalProps) {
   const router = useRouter();
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (closeMode === 'home') {
       router.push('/');
       return;
     }
 
     router.back();
-  };
+  }, [closeMode, router]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -39,7 +39,7 @@ export default function AuthPromptModal({
     return () => {
       window.removeEventListener('keydown', handleEscape);
     };
-  }, []);
+  }, [handleClose]);
 
   const handleBackdropClick = () => {
     handleClose();

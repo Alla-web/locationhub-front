@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { api, ApiError } from "../api";
+import { isAxiosError } from "axios";
 
 export async function GET(req: NextRequest) {
   try {
@@ -46,14 +47,19 @@ export async function POST(req: NextRequest) {
     }
 
     return clientResponse;
-  } catch (error: any) {
-    console.error("Next.js Proxy Error:", error.message);
+  } catch (error: unknown) {
+    console.error(
+      "Next.js Proxy Error:",
+      isAxiosError(error) ? error.message : "Unknown error",
+    );
     return NextResponse.json(
       {
         error:
-          error.response?.data?.error || error.message || "Помилка сервера",
+          (isAxiosError(error) && error.response?.data?.error) ||
+          (error instanceof Error ? error.message : null) ||
+          "Помилка сервера",
       },
-      { status: error.response?.status || 500 },
+      { status: (isAxiosError(error) && error.response?.status) || 500 },
     );
   }
 }

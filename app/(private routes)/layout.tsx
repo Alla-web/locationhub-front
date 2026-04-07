@@ -17,9 +17,6 @@ export default function ProfileLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-     const isPublicProfile =
-     pathname.startsWith("/profile/") && pathname.length > 9;
-
     const isPrivateProfile = pathname === "/profile";
 
     if (isAuthReady && !user && isPrivateProfile) {

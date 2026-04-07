@@ -6,16 +6,16 @@ import Link from "next/link";
 import css from "./LocationCard.module.css";
 
 import type { Location } from "@/types/location";
+import type { UserLocation } from "@/types/user";
 
 interface LocationCardProps {
-  location: Location;
+  location: Location | UserLocation;
 }
 
 export default function LocationCard({ location }: LocationCardProps) {
   const rating = location.rate || 0;
 
   const fullStars = Math.floor(rating);
-  const hasHalfStar = rating - fullStars >= 0.5;
   const totalStars = 5;
 
   return (

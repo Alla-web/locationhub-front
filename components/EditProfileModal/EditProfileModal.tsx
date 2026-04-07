@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { isAxiosError } from "axios";
 
 import { useAuthStore } from "@/lib/store/authStore";
 import { updateProfile } from "@/lib/api/clientApi";
@@ -71,9 +72,10 @@ export default function EditProfileModal() {
 
       toast.success("Профіль успішно оновлено");
       handleClose();
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage =
-        error.response?.data?.error || "Помилка при оновленні";
+        (isAxiosError(error) && error.response?.data?.error) ||
+        "Помилка при оновленні";
       toast.error(errorMessage);
     } finally {
       actions.setSubmitting(false);
@@ -143,7 +145,7 @@ export default function EditProfileModal() {
 
               <div className={css.inputGroup}>
                 <label htmlFor="name" className={css.inputLabel}>
-                  Ім'я
+                  Ім&apos;я
                 </label>
                 <Field
                   id="name"
