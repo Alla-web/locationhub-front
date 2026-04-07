@@ -38,7 +38,12 @@ export default function ProfileLocationsGrid({
   const { totalPages } = data?.pagination || { totalPages: 1 };
 
   if (locations.length === 0 && currentPage === 1) {
-    return <ProfilePlaceholder profileId={targetId || ""} />;
+    return (
+      <ProfilePlaceholder
+        profileId={targetId || ""}
+        userLocations={locations}
+      />
+    );
   }
 
   const getPageNumbers = () => {

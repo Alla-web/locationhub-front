@@ -18,7 +18,7 @@ export interface RegisterPayload {
   password: string;
 }
 
-interface Location {
+export interface Location {
   _id: string;
   image: string;
   name: string;
