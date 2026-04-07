@@ -5,11 +5,16 @@ import Link from "next/link";
 
 import css from "./LocationCard.module.css";
 
-import type { Location } from "@/types/location";
-import type { UserLocation } from "@/types/user";
+import type { LocationType } from "@/types/locationType";
 
 interface LocationCardProps {
-  location: Location | UserLocation;
+  location: {
+    _id: string;
+    image: string;
+    name: string;
+    rate?: number;
+    locationTypeId: LocationType;
+  };
 }
 
 export default function LocationCard({ location }: LocationCardProps) {

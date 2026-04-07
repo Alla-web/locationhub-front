@@ -9,21 +9,7 @@ import Link from "next/link";
 import css from "./ProfileLocationsGrid.module.css";
 
 import { fetchUserLocations } from "@/lib/api/clientApi";
-import { UserLocation, UserLocationsResponse } from "@/types/user";
-
-const toLocationCardData = (location: UserLocation) => ({
-  ...location,
-  regionId: location.regionId ?? { _id: "", name: "" },
-  rate: location.rate ?? 0,
-  description: location.description ?? "",
-  ownerId:
-    location.ownerId ?? {
-      _id: "",
-      email: "",
-      name: "",
-    },
-  feedbacksId: location.feedbacksId ?? [],
-});
+import { UserLocationsResponse } from "@/types/user";
 
 interface ProfileLocationsGridProps {
   isPrivate: boolean;
@@ -81,7 +67,7 @@ export default function ProfileLocationsGrid({
         {locations.map((loc) => {
           return (
             <div key={loc._id} className={css.cardWrapper}>
-              <LocationCard location={toLocationCardData(loc)} />
+              <LocationCard location={loc} />
 
               {isPrivate && (
                 <Link
