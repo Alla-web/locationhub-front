@@ -8,7 +8,6 @@ export default function PrivateProfilePage() {
       <ProfileInfo isPrivate={true} />
 
       <div className={css.contentSection}>
-        <h2 className={css.locationsTitle}>Локації</h2>
         <ProfileLocationsGrid isPrivate={true} />
       </div>
     </main>

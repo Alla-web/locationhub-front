@@ -21,9 +21,13 @@ export default function ProfilePlaceholder({
   return (
     <div className={css.placeholderCard}>
       <p className={css.message}>
-        {isOwner && userLocations.length === 0
-          ? "Ви ще нічого не публікували, поділіться своєю першою локацією!"
-          : "Цей користувач ще не ділився локаціями"}
+        {isOwner
+          ? userLocations.length === 0
+            ? "Ви ще нічого не публікували, поділіться своєю першою локацією!"
+            : "Хочете поділитися ще однією локацією?"
+          : userLocations.length === 0
+            ? "Цей користувач ще не ділився локаціями"
+            : "Перегляньте локації цього користувача"}
       </p>
 
       {isOwner && userLocations.length > 0 ? (
