@@ -95,12 +95,13 @@ export default function ProfileLocationsGrid({
     <div className={css.gridContainer}>
       <div className={css.grid}>
         {locations.map((loc) => {
-          // const adaptedLocation = {
-          //   ...loc,
-          //   locationTypeId: { type: loc.locationType. },
-          // };
+          const adaptedLocation = {
+            ...loc,
+            locationTypeId: { type: loc.locationTypeId },
+          };
 
           console.log(loc);
+          console.log(adaptedLocation);
 
           return (
             <div key={loc._id} className={css.cardWrapper}>
