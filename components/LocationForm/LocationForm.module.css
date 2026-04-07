@@ -64,6 +64,10 @@
   margin-bottom: 24px;
 }
 
+.hiddenFileInput {
+  display: none;
+}
+
 .formikForm {
   display: flex;
   flex-direction: column;

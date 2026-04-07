@@ -27,12 +27,7 @@ export default function UpdateLocation() {
     fetchLocation();
   }, [locationId]);
 
-  if (isLoading)
-    return (
-      <p>
-        <Loader />
-      </p>
-    );
+  if (isLoading) return <Loader />;
 
   if (!location) return <p>Локацію не знайдено</p>;
 
