@@ -198,13 +198,12 @@ export default function CreateLocation() {
                     <svg className={css.selectIcon} aria-hidden="true">
                       <use href="/icons.svg#icon-keyboard_arrow_down" />
                     </svg>
-
-                    <ErrorMessage
-                      name="locationTypeId"
-                      component="p"
-                      className={css.error}
-                    />
                   </div>
+                  <ErrorMessage
+                    name="locationTypeId"
+                    component="p"
+                    className={css.error}
+                  />
                 </label>
 
                 <label>
@@ -222,13 +221,12 @@ export default function CreateLocation() {
                     <svg className={css.selectIcon} aria-hidden="true">
                       <use href="/icons.svg#icon-keyboard_arrow_down" />
                     </svg>
-
-                    <ErrorMessage
-                      name="regionId"
-                      component="p"
-                      className={css.error}
-                    />
                   </div>
+                  <ErrorMessage
+                    name="regionId"
+                    component="p"
+                    className={css.error}
+                  />
                 </label>
 
                 <label>
