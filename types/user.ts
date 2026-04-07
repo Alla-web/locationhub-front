@@ -18,7 +18,7 @@ export interface RegisterPayload {
   password: string;
 }
 
-interface Location {
+export interface UserLocation {
   _id: string;
   image: string;
   name: string;
@@ -33,7 +33,7 @@ interface Location {
 }
 
 export interface UserLocationsResponse {
-  data: Location[];
+  data: UserLocation[];
   pagination: {
     total: number;
     page: number;

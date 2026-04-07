@@ -2,13 +2,17 @@
 
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store/authStore";
+import { UserLocation } from "@/types/user";
+
 import css from "./ProfilePlaceholder.module.css";
 
 interface ProfilePlaceholderProps {
+  userLocations: UserLocation[];
   profileId: string;
 }
 
 export default function ProfilePlaceholder({
+  userLocations,
   profileId,
 }: ProfilePlaceholderProps) {
   const user = useAuthStore((state) => state.user);
@@ -17,12 +21,12 @@ export default function ProfilePlaceholder({
   return (
     <div className={css.placeholderCard}>
       <p className={css.message}>
-        {isOwner
+        {isOwner && userLocations.length === 0
           ? "Ви ще нічого не публікували, поділіться своєю першою локацією!"
           : "Цей користувач ще не ділився локаціями"}
       </p>
 
-      {isOwner ? (
+      {isOwner && userLocations.length > 0 ? (
         <Link href="/locations/create" className={css.actionButton}>
           Поділитись локацією
         </Link>
