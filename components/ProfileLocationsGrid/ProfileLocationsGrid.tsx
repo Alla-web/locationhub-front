@@ -67,7 +67,7 @@ export default function ProfileLocationsGrid({
         {locations.map((loc) => {
           return (
             <div key={loc._id} className={css.cardWrapper}>
-              <LocationCard location={loc as any} />
+              <LocationCard location={loc} />
 
               {isPrivate && (
                 <Link

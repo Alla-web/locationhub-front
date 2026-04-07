@@ -8,6 +8,7 @@ import { LoginRequest } from "@/types/auth";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import { isAxiosError } from "axios";
 
 import css from "./LoginForm.module.css";
 
@@ -33,8 +34,11 @@ const LoginForm = () => {
       setUser(user);
 
       router.push(from || "/");
-    } catch (error: any) {
-      toast.error(error?.response?.data?.error || "Помилка авторизації");
+    } catch (error: unknown) {
+      toast.error(
+        (isAxiosError(error) && error.response?.data?.error) ||
+          "Помилка авторизації",
+      );
     }
   };
 

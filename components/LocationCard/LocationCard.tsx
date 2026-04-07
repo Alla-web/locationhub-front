@@ -5,17 +5,22 @@ import Link from "next/link";
 
 import css from "./LocationCard.module.css";
 
-import type { Location } from "@/types/location";
+import type { LocationType } from "@/types/locationType";
 
 interface LocationCardProps {
-  location: Location;
+  location: {
+    _id: string;
+    image: string;
+    name: string;
+    rate?: number;
+    locationTypeId: LocationType;
+  };
 }
 
 export default function LocationCard({ location }: LocationCardProps) {
   const rating = location.rate || 0;
 
   const fullStars = Math.floor(rating);
-  const hasHalfStar = rating - fullStars >= 0.5;
   const totalStars = 5;
 
   return (

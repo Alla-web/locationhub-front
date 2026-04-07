@@ -10,13 +10,14 @@ export async function POST() {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
     const refreshToken = cookieStore.get("refreshToken")?.value;
+    const sessionId = cookieStore.get("sessionId")?.value;
 
     if (accessToken) {
       return NextResponse.json({ success: true });
     }
 
-    if (refreshToken) {
-      const apiRes = await api.post("/auth/refresh", {
+    if (refreshToken && sessionId) {
+      const apiRes = await api.post("/auth/refresh", null, {
         headers: {
           Cookie: cookieStore.toString(),
         },
@@ -39,6 +40,8 @@ export async function POST() {
             cookieStore.set("accessToken", parsed.accessToken, options);
           if (parsed.refreshToken)
             cookieStore.set("refreshToken", parsed.refreshToken, options);
+          if (parsed.sessionId)
+            cookieStore.set("sessionId", parsed.sessionId, options);
         }
         return NextResponse.json({ success: true }, { status: 200 });
       }

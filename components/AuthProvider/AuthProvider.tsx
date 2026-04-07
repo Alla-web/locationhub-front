@@ -29,7 +29,7 @@ const AuthProvider = ({ children }: Props) => {
         } else {
           clearIsAuthenticated();
         }
-      } catch (error) {
+      } catch {
         clearIsAuthenticated();
       } finally {
         setAuthReady();
