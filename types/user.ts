@@ -1,6 +1,5 @@
 import { LocationType } from "@/types/locationType";
 import { Region } from "@/types/region";
-import { User } from "@/types/user";
 import { Feedback } from "@/types/feedback";
 
 export interface User {

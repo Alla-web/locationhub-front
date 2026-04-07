@@ -10,7 +10,7 @@ import { fetchUserLocations } from "@/lib/api/clientApi";
 
 interface ProfileInfoProps {
   isPrivate: boolean;
-  userId: string;
+  userId?: string;
 }
 
 const fetchProfile = async (isPrivate: boolean, userId?: string) => {
@@ -35,7 +35,7 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
     isError: isUserLocationsError,
   } = useQuery({
     queryKey: ["uaserLocations"],
-    queryFn: () => fetchUserLocations(userId),
+    queryFn: () => fetchUserLocations(userId || ""),
   });
 
   if (isLoading) return <div className={css.loader}>Завантаження...</div>;
