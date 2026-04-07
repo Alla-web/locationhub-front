@@ -6,9 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { nextServer } from "@/lib/api/api";
 import css from "./ProfileInfo.module.css";
 
+import { fetchUserLocations } from "@/lib/api/clientApi";
+
 interface ProfileInfoProps {
   isPrivate: boolean;
-  userId?: string;
+  userId: string;
 }
 
 const fetchProfile = async (isPrivate: boolean, userId?: string) => {
@@ -25,6 +27,15 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
   } = useQuery({
     queryKey: isPrivate ? ["profile", "me"] : ["profile", userId],
     queryFn: () => fetchProfile(isPrivate, userId),
+  });
+
+  const {
+    data: userLocations,
+    isLoading: userLocationsLoading,
+    isError: isUserLocationsError,
+  } = useQuery({
+    queryKey: ["uaserLocations"],
+    queryFn: () => fetchUserLocations(userId),
   });
 
   if (isLoading) return <div className={css.loader}>Завантаження...</div>;
@@ -55,7 +66,8 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
         </div>
 
         <p className={css.userStats}>
-          Статей: {userProfile.articlesAmount || 0}
+          {/* Статей: {userProfile.articlesAmount || 0} */}
+          Статей: {userLocations?.data.length}
         </p>
       </div>
     </section>

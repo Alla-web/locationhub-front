@@ -3,52 +3,18 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
-import { nextServer } from "@/lib/api/api";
 import ProfilePlaceholder from "@/components/ProfilePlaceholder/ProfilePlaceholder";
 import LocationCard from "@/components/LocationCard/LocationCard";
 import Link from "next/link";
 import css from "./ProfileLocationsGrid.module.css";
 
-import { LocationType } from "@/types/locationType";
-import { Region } from "@/types/region";
-import { User } from "@/types/user";
-import { Feedback } from "@/types/feedback";
-
-interface Location {
-  _id: string;
-  image: string;
-  name: string;
-  locationTypeId: LocationType;
-  regionId?: Region;
-  rate?: number;
-  description?: string;
-  ownerId?: User;
-  feedbacksId?: Feedback[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-interface LocationsResponse {
-  data: Location[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
-}
+import { fetchUserLocations } from "@/lib/api/clientApi";
+import { UserLocationsResponse } from "@/types/user";
 
 interface ProfileLocationsGridProps {
   isPrivate: boolean;
   userId?: string;
 }
-
-const fetchLocations = async (targetId: string, page: number) => {
-  const response = await nextServer.get<LocationsResponse>(
-    `/users/${targetId}/places?page=${page}&limit=6`,
-  );
-  return response.data;
-};
 
 export default function ProfileLocationsGrid({
   isPrivate,
@@ -58,9 +24,9 @@ export default function ProfileLocationsGrid({
   const user = useAuthStore((state) => state.user);
   const targetId = isPrivate ? user?._id : userId;
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<UserLocationsResponse>({
     queryKey: ["locations", targetId, currentPage],
-    queryFn: () => fetchLocations(targetId as string, currentPage),
+    queryFn: () => fetchUserLocations(targetId as string, currentPage),
     enabled: !!targetId,
     placeholderData: (previousData) => previousData,
   });
@@ -95,14 +61,6 @@ export default function ProfileLocationsGrid({
     <div className={css.gridContainer}>
       <div className={css.grid}>
         {locations.map((loc) => {
-          const adaptedLocation = {
-            ...loc,
-            locationTypeId: { type: loc.locationTypeId },
-          };
-
-          console.log(loc);
-          console.log(adaptedLocation);
-
           return (
             <div key={loc._id} className={css.cardWrapper}>
               <LocationCard location={loc as any} />

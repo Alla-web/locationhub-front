@@ -12,6 +12,7 @@ import { Region } from "@/types/region";
 import { CreateFeedbackPayload } from "../../types/feedback";
 import { LocationType } from "@/types/locationType";
 import { UpdateLocationPayload } from "@/types/location";
+import { UserLocationsResponse } from "@/types/user";
 
 export async function getLocations(params: GetLocationsParams) {
   const response = await nextServer.get<GetLocationsResponse>("/locations", {
@@ -80,6 +81,13 @@ export const checkSession = async () => {
   } catch {
     return false;
   }
+};
+
+export const fetchUserLocations = async (targetId: string, page?: number) => {
+  const response = await nextServer.get<UserLocationsResponse>(
+    `/users/${targetId}/places?page=${page}&limit=6`,
+  );
+  return response.data;
 };
 
 export const createFeedback = async (
