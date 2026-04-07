@@ -26,35 +26,34 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const cookieHeader = req.headers.get("cookie") || "";
-    const body = await req.json();
 
-    const apiRes = await api.post("/locations", body, {
+    const formData = await req.formData();
+
+    const apiRes = await api.post("/locations", formData, {
       headers: {
         cookie: cookieHeader,
       },
     });
 
-    const res = NextResponse.json(apiRes.data);
+    const clientResponse = NextResponse.json(apiRes.data);
 
     const setCookie = apiRes.headers["set-cookie"];
     if (setCookie) {
       const cookies = Array.isArray(setCookie) ? setCookie : [setCookie];
       cookies.forEach((cookie) => {
-        res.headers.append("set-cookie", cookie);
+        clientResponse.headers.append("set-cookie", cookie);
       });
     }
 
-    return res;
-  } catch (error) {
-    const err = error as ApiError;
-
+    return clientResponse;
+  } catch (error: any) {
+    console.error("Next.js Proxy Error:", error.message);
     return NextResponse.json(
       {
-        error: err.response?.data?.error ?? err.message,
+        error:
+          error.response?.data?.error || error.message || "Помилка сервера",
       },
-      {
-        status: err.response?.status || 500,
-      },
+      { status: error.response?.status || 500 },
     );
   }
 }
