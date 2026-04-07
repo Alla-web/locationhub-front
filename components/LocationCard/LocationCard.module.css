@@ -84,8 +84,20 @@
 }
 
 .schowLocationLinkContainer:hover,
-.schowLocationLinkContainer:focus {
+.schowLocationLinkContainer:focus-within {
   background: rgb(233, 165, 131);
+}
+
+.showLocationLink {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: inherit;
+  text-decoration: none;
 }
 
 @media screen and (min-width: 768px) {

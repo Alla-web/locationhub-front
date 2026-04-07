@@ -9,7 +9,7 @@ export default function RegisterPage() {
   return (
     <>
       <AuthNav />
-      <h1 className={css.loginTitle}>Реєстрація</h1>
+      <h1 className={css.registerTitle}>Реєстрація</h1>
       <Suspense fallback={null}>
         <RegistrationForm />
       </Suspense>
