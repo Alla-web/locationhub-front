@@ -62,8 +62,8 @@ export default function ProfileLocationsGrid({
         />
       )}
 
+      <h2 className={css.locationsTitle}>Локації</h2>
       <div className={css.grid}>
-        <h2 className={css.locationsTitle}>Локації</h2>
         {locations.map((loc) => {
           return (
             <div key={loc._id} className={css.cardWrapper}>
