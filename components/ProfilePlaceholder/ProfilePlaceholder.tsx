@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store/authStore";
-import { Location } from "@/types/user";
+import { UserLocation } from "@/types/user";
 
 import css from "./ProfilePlaceholder.module.css";
 
 interface ProfilePlaceholderProps {
-  userLocations: Location[];
+  userLocations: UserLocation[];
   profileId: string;
 }
 
