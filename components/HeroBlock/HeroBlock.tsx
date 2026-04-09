@@ -10,13 +10,15 @@ export default function HeroBlock() {
   const router = useRouter();
 
   const handleSearch = () => {
-    const trimmed = query.trim();
-    if (!trimmed) {
+    const searchQuery = query;
+    console.log(searchQuery);
+
+    if (!searchQuery) {
       toast("Введіть пошуковий запит");
       return;
     }
 
-    router.push(`/locations/filter/${encodeURIComponent(trimmed)}`);
+    router.push(`/locations/filter/${encodeURIComponent(searchQuery)}`);
   };
 
   return (
@@ -35,7 +37,7 @@ export default function HeroBlock() {
             type="text"
             placeholder="Введіть назву, тип або регіон..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => setQuery(e.target.value.trim())}
           />
           <button
             className={`btn btn-base ${css.searchBtn}`}
