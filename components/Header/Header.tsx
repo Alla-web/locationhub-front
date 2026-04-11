@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/clientApi";
 import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
@@ -14,6 +14,9 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
+
   const { isAuthenticated, user } = useAuthStore();
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated,
@@ -75,6 +78,13 @@ const Header = () => {
     };
   }, []);
 
+  const currentUrl = searchParams.toString()
+    ? `${pathName}?${searchParams.toString()}`
+    : pathName;
+
+  const loginHref = `/login?from=${encodeURIComponent(currentUrl)}`;
+  const registerHref = `/register?from=${encodeURIComponent(currentUrl)}`;
+
   return (
     <header className={css.header}>
       <div className={`container ${css.headerContainer}`}>
@@ -129,11 +139,11 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link href="/login" className="btn-base btn-white">
+                <Link href={loginHref} className="btn-base btn-white">
                   Вхід
                 </Link>
 
-                <Link href="/register" className="btn-base btn">
+                <Link href={registerHref} className="btn-base btn">
                   Реєстрація
                 </Link>
               </>

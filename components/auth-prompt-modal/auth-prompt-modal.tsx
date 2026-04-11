@@ -1,26 +1,29 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from './auth-prompt-modal.module.css';
+import Link from "next/link";
+import { useCallback, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import styles from "./auth-prompt-modal.module.css";
 
 type AuthPromptModalProps = {
   title?: string;
   message?: string;
-  closeMode?: 'back' | 'home';
+  closeMode?: "back" | "home";
 };
 
 export default function AuthPromptModal({
-  title = 'Потрібна авторизація',
-  message = 'Щоб додати це місце до обраних, будь ласка, увійдіть у свій акаунт або зареєструйтеся.',
-  closeMode = 'back',
+  title = "Потрібна авторизація",
+  message = "Щоб додати це місце до обраних, будь ласка, увійдіть у свій акаунт або зареєструйтеся.",
+  closeMode = "back",
 }: AuthPromptModalProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const from = searchParams.get("from");
 
   const handleClose = useCallback(() => {
-    if (closeMode === 'home') {
-      router.push('/');
+    if (closeMode === "home") {
+      router.back();
       return;
     }
 
@@ -29,15 +32,15 @@ export default function AuthPromptModal({
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         handleClose();
       }
     };
 
-    window.addEventListener('keydown', handleEscape);
+    window.addEventListener("keydown", handleEscape);
 
     return () => {
-      window.removeEventListener('keydown', handleEscape);
+      window.removeEventListener("keydown", handleEscape);
     };
   }, [handleClose]);
 
@@ -48,6 +51,12 @@ export default function AuthPromptModal({
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
+
+  const loginHref = from ? `/login?from=${encodeURIComponent(from)}` : "/login";
+
+  const registerHref = from
+    ? `/register?from=${encodeURIComponent(from)}`
+    : "/register";
 
   return (
     <div
@@ -81,11 +90,11 @@ export default function AuthPromptModal({
         </p>
 
         <div className={styles.actions}>
-          <Link href="/login" className={styles.primaryButton}>
+          <Link href={loginHref} className={styles.primaryButton}>
             Увійти
           </Link>
 
-          <Link href="/register" className={styles.secondaryButton}>
+          <Link href={registerHref} className={styles.secondaryButton}>
             Зареєструватися
           </Link>
         </div>
