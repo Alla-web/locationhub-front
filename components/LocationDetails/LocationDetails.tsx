@@ -8,7 +8,7 @@ import { LocationDetails, LocationFeedback } from "@/types/location-details";
 
 import css from "./LocationDetails.module.css";
 
-import AuthPromptModal from "@/components/auth-prompt-modal/auth-prompt-modal";
+import AuthPromptModal from "@/components/AuthPromptModal/AuthPromptModal";
 
 const SEEDED_AUTHOR_IDS = new Set(["69cb86695f62579868ae320c"]);
 

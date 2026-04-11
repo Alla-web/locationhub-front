@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import styles from "./auth-prompt-modal.module.css";
+import css from "./AuthPromptModal.module.css";
 
 type AuthPromptModalProps = {
   title?: string;
@@ -35,9 +35,9 @@ export default function AuthPromptModal({
   const registerHref = `/register?from=${encodeURIComponent(from)}`;
 
   return (
-    <div className={styles.backdrop} onClick={onClose} role="presentation">
+    <div className={css.backdrop} onClick={onClose} role="presentation">
       <div
-        className={styles.modal}
+        className={css.modal}
         onClick={onClose}
         role="dialog"
         aria-modal="true"
@@ -46,27 +46,27 @@ export default function AuthPromptModal({
       >
         <button
           type="button"
-          className={styles.closeButton}
+          className={css.closeButton}
           onClick={onClose}
           aria-label="Закрити модальне вікно"
         >
           ×
         </button>
 
-        <h2 id="auth-prompt-title" className={styles.title}>
+        <h2 id="auth-prompt-title" className={css.title}>
           {title}
         </h2>
 
-        <p id="auth-prompt-description" className={styles.text}>
+        <p id="auth-prompt-description" className={css.text}>
           {message}
         </p>
 
-        <div className={styles.actions}>
-          <Link href={loginHref} className={styles.primaryButton}>
+        <div className={css.actions}>
+          <Link href={loginHref} className={css.primaryButton}>
             Увійти
           </Link>
 
-          <Link href={registerHref} className={styles.secondaryButton}>
+          <Link href={registerHref} className={css.secondaryButton}>
             Зареєструватися
           </Link>
         </div>
