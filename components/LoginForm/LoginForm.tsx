@@ -33,8 +33,7 @@ const LoginForm = () => {
 
       setUser(user);
 
-      // router.push(from || "/");
-      router.back();
+      router.push(from || "/");
     } catch (error: unknown) {
       toast.error(
         (isAxiosError(error) && error.response?.data?.error) ||
