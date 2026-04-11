@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, type RefObject } from "react";
+import { useRef, useState, type RefObject } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
 import { LocationDetails, LocationFeedback } from "@/types/location-details";
+
 import css from "./LocationDetails.module.css";
+
+import AuthPromptModal from "@/components/auth-prompt-modal/auth-prompt-modal";
 
 const SEEDED_AUTHOR_IDS = new Set(["69cb86695f62579868ae320c"]);
 
@@ -151,10 +154,10 @@ export function LocationDetailsView({
   const isAuthReady = useAuthStore((state) => state.isAuthReady);
   const reviewsRailRef = useRef<HTMLUListElement>(null);
   const descriptionParts = splitDescription(location.description);
-  const reviewHref =
-    isAuthReady && isAuthenticated
-      ? `/locations/${locationId}/reviews/new`
-      : `/auth-prompt?from=${encodeURIComponent(`/locations/${locationId}`)}`;
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  const from = `/locations/${locationId}`;
+
   const reviewsSectionLabel =
     reviewsCount > 0 ? `Відгуки (${reviewsCount})` : "Відгуки";
 
@@ -243,13 +246,24 @@ export function LocationDetailsView({
       <section className={css.reviewsSection} aria-label={reviewsSectionLabel}>
         <div className={css.reviewsHeader}>
           <h2 className={css.sectionTitle}>Відгуки</h2>
-          <Link
-            href={reviewHref}
-            scroll={false}
-            className={`${css.primaryButton} ${css.reviewActionButton}`}
-          >
-            Залишити відгук
-          </Link>
+
+          {isAuthenticated ? (
+            <Link
+              href={`/locations/${locationId}/reviews/new`}
+              scroll={false}
+              className={`${css.primaryButton} ${css.reviewActionButton}`}
+            >
+              Залишити відгук
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsAuthModalOpen(true)}
+              className={`${css.primaryButton} ${css.reviewActionButton}`}
+            >
+              Залишити відгук
+            </button>
+          )}
         </div>
 
         <ReviewsBlock reviews={reviews} railRef={reviewsRailRef} />
@@ -280,6 +294,13 @@ export function LocationDetailsView({
           </div>
         ) : null}
       </section>
+
+      {isAuthModalOpen && (
+        <AuthPromptModal
+          from={from}
+          onClose={() => setIsAuthModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

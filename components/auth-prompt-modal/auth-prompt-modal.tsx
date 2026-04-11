@@ -1,72 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import styles from "./auth-prompt-modal.module.css";
 
 type AuthPromptModalProps = {
   title?: string;
   message?: string;
-  closeMode?: "back" | "home";
+  onClose: () => void;
+  from: string;
 };
 
 export default function AuthPromptModal({
   title = "Потрібна авторизація",
   message = "Щоб додати це місце до обраних, будь ласка, увійдіть у свій акаунт або зареєструйтеся.",
-  closeMode = "back",
+  onClose,
+  from,
 }: AuthPromptModalProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const from = searchParams.get("from");
-
-  const handleClose = useCallback(() => {
-    if (closeMode === "home") {
-      router.back();
-      return;
-    }
-
-    router.back();
-  }, [closeMode, router]);
-
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        handleClose();
+        onClose();
       }
+
+      window.addEventListener("keydown", handleEscape);
+
+      return () => {
+        window.removeEventListener("keydown", handleEscape);
+      };
     };
+  }, [onClose]);
 
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, [handleClose]);
-
-  const handleBackdropClick = () => {
-    handleClose();
-  };
-
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-  };
-
-  const loginHref = from ? `/login?from=${encodeURIComponent(from)}` : "/login";
-
-  const registerHref = from
-    ? `/register?from=${encodeURIComponent(from)}`
-    : "/register";
+  const loginHref = `/login?from=${encodeURIComponent(from)}`;
+  const registerHref = `/register?from=${encodeURIComponent(from)}`;
 
   return (
-    <div
-      className={styles.backdrop}
-      onClick={handleBackdropClick}
-      role="presentation"
-    >
+    <div className={styles.backdrop} onClick={onClose} role="presentation">
       <div
         className={styles.modal}
-        onClick={handleModalClick}
+        onClick={onClose}
         role="dialog"
         aria-modal="true"
         aria-labelledby="auth-prompt-title"
@@ -75,7 +47,7 @@ export default function AuthPromptModal({
         <button
           type="button"
           className={styles.closeButton}
-          onClick={handleClose}
+          onClick={onClose}
           aria-label="Закрити модальне вікно"
         >
           ×
