@@ -103,7 +103,10 @@ function getLocationAuthor(location: LocationDetails) {
 }
 
 function hasLocationAuthorProfile(location: LocationDetails) {
-  return Boolean(location.ownerId?._id && getLocationAuthor(location) !== "Автор не вказаний");
+  return Boolean(
+    location.ownerId?._id &&
+    getLocationAuthor(location) !== "Автор не вказаний",
+  );
 }
 
 function ReviewsBlock({
@@ -151,7 +154,7 @@ export function LocationDetailsView({
   const reviewHref =
     isAuthReady && isAuthenticated
       ? `/locations/${locationId}/reviews/new`
-      : "/auth-prompt";
+      : `/auth-prompt?from=${encodeURIComponent(`/locations/${locationId}`)}`;
   const reviewsSectionLabel =
     reviewsCount > 0 ? `Відгуки (${reviewsCount})` : "Відгуки";
 
@@ -190,7 +193,9 @@ export function LocationDetailsView({
         <section className={css.infoSection}>
           <div className={css.ratingInfo}>
             <RatingStars rating={location.rate} />
-            <span className={css.ratingValue}>• {location.rate.toFixed(1)}</span>
+            <span className={css.ratingValue}>
+              • {location.rate.toFixed(1)}
+            </span>
           </div>
 
           <h1 className={css.pageTitle}>{location.name}</h1>
@@ -218,7 +223,9 @@ export function LocationDetailsView({
                   {getLocationAuthor(location)}
                 </Link>
               ) : (
-                <span className={css.metaValue}>{getLocationAuthor(location)}</span>
+                <span className={css.metaValue}>
+                  {getLocationAuthor(location)}
+                </span>
               )}
             </p>
           </div>
