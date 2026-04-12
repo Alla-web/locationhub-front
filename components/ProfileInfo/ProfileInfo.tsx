@@ -48,6 +48,7 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
 
   if (isLoading && userLocationsLoading)
     return <div className={css.loader}>Завантаження...</div>;
+
   if ((isError && isUserLocationsError) || !userProfile)
     return <div className={css.error}>Користувача не знайдено</div>;
 

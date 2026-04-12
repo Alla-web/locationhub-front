@@ -56,10 +56,13 @@
 }
 
 .avatar {
+  position: relative;
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  overflow: hidden;
   background-color: var(--color-neutral-light);
+  border: 1px solid var(--opacity-neutral-darkest-15);
 }
 
 .userName {

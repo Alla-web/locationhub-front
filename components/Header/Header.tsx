@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/clientApi";
 import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
+
 import css from "./Header.module.css";
+
 import MainNavi from "@/components/MainNavi/MainNavi";
 
 const Header = () => {
@@ -119,7 +122,14 @@ const Header = () => {
 
                 <div className={css.desktopProfile}>
                   <div className={css.profileBox}>
-                    <div className={css.avatar}></div>
+                    <div className={css.avatar}>
+                      <Image
+                        src={user?.avatarUrl || "/user-defaul-photo.webp"}
+                        alt={`${user?.name} avatar`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
                     <span className={css.userName}>{user?.name || "Ім’я"}</span>
                   </div>
 
@@ -209,7 +219,14 @@ const Header = () => {
               <div className={css.mobileBottom}>
                 {isAuthenticated ? (
                   <div className={css.mobileProfile}>
-                    <div className={css.avatar}></div>
+                    <div className={css.avatar}>
+                      <Image
+                        src={user?.avatarUrl || "/user-defaul-photo.webp"}
+                        alt={`${user?.name} avatar`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
                     <span className={css.userName}>{user?.name || "Ім’я"}</span>
                     <span className={css.divider}></span>
                     <button
