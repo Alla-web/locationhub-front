@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
 import ProfileLocationsGrid from "@/components/ProfileLocationsGrid/ProfileLocationsGrid";
-import styles from "../../../(private routes)/profile/ProfilePage.module.css";
+import styles from "../../../(private routes)/profile/page.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   return { title: `Профіль користувача | RelaxMap` };
