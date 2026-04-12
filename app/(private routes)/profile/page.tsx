@@ -5,16 +5,14 @@ import css from "./page.module.css";
 
 export default function PrivateProfilePage() {
   return (
-    <div className={css.pageWrapper}>
-      <main className={css.profilePage}>
-        <div className="container">
-          <ProfileInfo isPrivate={true} />
+    <main className={css.profilePage}>
+      <div className="container">
+        <ProfileInfo isPrivate={true} />
 
-          <div className={css.contentSection}>
-            <ProfileLocationsGrid isPrivate={true} />
-          </div>
+        <div className={css.contentSection}>
+          <ProfileLocationsGrid isPrivate={true} />
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
