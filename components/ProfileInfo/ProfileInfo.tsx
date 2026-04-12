@@ -40,8 +40,9 @@ export default function ProfileInfo({ isPrivate, userId }: ProfileInfoProps) {
     isLoading: userLocationsLoading,
     isError: isUserLocationsError,
   } = useQuery<UserLocationsResponse>({
-    queryKey: ["uaserLocations"],
+    queryKey: ["userLocations", accountOwnerId],
     queryFn: () => fetchUserLocations(accountOwnerId ?? ""),
+    enabled: !!accountOwnerId,
   });
 
   console.log("userLocations: ", userLocations?.data);

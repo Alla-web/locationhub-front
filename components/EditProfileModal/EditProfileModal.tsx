@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { isAxiosError } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useAuthStore } from "@/lib/store/authStore";
 import { updateProfile } from "@/lib/api/clientApi";
@@ -28,6 +29,7 @@ interface ProfileFormValues {
 export default function EditProfileModal() {
   const router = useRouter();
   const { user, setUser } = useAuthStore();
+  const queryClient = useQueryClient();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState(user?.avatarUrl || "");
@@ -69,6 +71,13 @@ export default function EditProfileModal() {
 
       const updatedUser = await updateProfile(formData);
       setUser(updatedUser);
+      await queryClient.invalidateQueries({
+        queryKey: ["profile", "me"],
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: ["userLocations"],
+      });
 
       toast.success("Профіль успішно оновлено");
       handleClose();

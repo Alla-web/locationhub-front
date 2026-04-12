@@ -25,7 +25,7 @@ export default function ProfileLocationsGrid({
   const targetId = isPrivate ? user?._id : userId;
 
   const { data, isLoading, isError } = useQuery<UserLocationsResponse>({
-    queryKey: ["locations", targetId, currentPage],
+    queryKey: ["userLocations", targetId, currentPage],
     queryFn: () => fetchUserLocations(targetId as string, currentPage),
     enabled: !!targetId,
     placeholderData: (previousData) => previousData,
