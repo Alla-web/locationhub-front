@@ -16,11 +16,13 @@ export default async function PublicProfilePage({
 
   return (
     <main className={styles.profilePage}>
-      <ProfileInfo isPrivate={false} userId={userId} />
+      <div className="container">
+        <ProfileInfo isPrivate={false} userId={userId} />
 
-      <div className={styles.contentSection}>
-        <h2 className={styles.locationsTitle}>Локації</h2>
-        <ProfileLocationsGrid isPrivate={false} userId={userId} />
+        <div className={styles.contentSection}>
+          <h2 className={styles.locationsTitle}>Локації</h2>
+          <ProfileLocationsGrid isPrivate={false} userId={userId} />
+        </div>
       </div>
     </main>
   );
