@@ -116,6 +116,10 @@ export default function ReviewsBlock() {
                     <p className={css.locationType}>
                       {feedback.locationId?.locationTypeId?.type || "Локація"}
                     </p>
+
+                    <p className={css.locationName}>
+                      {feedback.locationId.name}
+                    </p>
                   </div>
                 </article>
               </SwiperSlide>
