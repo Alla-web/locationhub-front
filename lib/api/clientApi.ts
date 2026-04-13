@@ -9,6 +9,7 @@ import {
 } from "@/types/location";
 import { User } from "@/types/user";
 import { Region } from "@/types/region";
+import { GetFeedbacksResponse } from "../../types/feedback";
 import { CreateFeedbackPayload } from "../../types/feedback";
 import { LocationType } from "@/types/locationType";
 import { UpdateLocationPayload } from "@/types/location";
@@ -123,26 +124,6 @@ export const getMe = async (): Promise<User | null> => {
     return null;
   }
 };
-
-export interface Feedback {
-  _id: string;
-  rate: number;
-  description: string;
-  userName: string;
-  locationId?: {
-    locationTypeId?: {
-      type?: string;
-    };
-  };
-}
-
-interface GetFeedbacksResponse {
-  page: number;
-  perPage: number;
-  totalPages: number;
-  totalFeedbacks: number;
-  feedbacks: Feedback[];
-}
 
 export const getFeedbacks = async () => {
   const response = await nextServer.get<GetFeedbacksResponse>("/feedbacks", {

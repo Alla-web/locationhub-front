@@ -12,7 +12,8 @@ import "swiper/css/pagination";
 
 import css from "./ReviewsBlock.module.css";
 import ErrorBox from "@/components/ErrorBox/ErrorBox";
-import { getFeedbacks, type Feedback } from "@/lib/api/clientApi";
+import type { Feedback } from "@/types/feedback";
+import { getFeedbacks } from "@/lib/api/clientApi";
 
 interface GetFeedbacksResponse {
   page: number;
@@ -25,18 +26,14 @@ interface GetFeedbacksResponse {
 export default function ReviewsBlock() {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const reviewsQuery = useQuery<GetFeedbacksResponse>({
-    queryKey: ["reviews"],
+  const feedbacksQuery = useQuery<GetFeedbacksResponse>({
+    queryKey: ["feedbacks"],
     queryFn: getFeedbacks,
     placeholderData: keepPreviousData,
     staleTime: 60 * 1000,
   });
 
-  const reviews = reviewsQuery.data?.feedbacks ?? [];
-
-  if (reviews.length === 0) {
-    return null;
-  }
+  const feedbacks = feedbacksQuery.data?.feedbacks ?? [];
 
   return (
     <section className={`section ${css.section}`}>
@@ -45,13 +42,17 @@ export default function ReviewsBlock() {
           <h2 className={css.title}>Останні відгуки</h2>
         </div>
 
-        {reviewsQuery.isLoading && <Loader />}
+        {feedbacksQuery.isLoading && <Loader />}
 
-        {reviewsQuery.isError && (
+        {!feedbacksQuery.isLoading && feedbacks.length === 0 && (
+          <p>Поки що немає відгуків на локацї</p>
+        )}
+
+        {feedbacksQuery.isError && (
           <ErrorBox
             query=""
             errorMessage={
-              reviewsQuery.error?.message || "Something went wrong!"
+              feedbacksQuery.error?.message || "Something went wrong!"
             }
           />
         )}
@@ -63,7 +64,7 @@ export default function ReviewsBlock() {
           }}
           spaceBetween={16}
           slidesPerView={1}
-          loop={reviews.length > 3}
+          loop={feedbacks.length > 3}
           breakpoints={{
             768: {
               slidesPerView: 2,
@@ -80,14 +81,16 @@ export default function ReviewsBlock() {
           }}
           className={css.swiper}
         >
-          {reviews.map((review) => {
-            const rating = review.rate || 0;
-            const fullStars = Math.floor(rating);
-            const hasHalfStar = rating - fullStars >= 0.5;
+          {feedbacks.map((feedback) => {
+            console.log(feedback);
+
+            const rate = feedback.rate || 0;
+            const fullStars = Math.floor(rate);
+            const hasHalfStar = rate - fullStars >= 0.5;
             const totalStars = 5;
 
             return (
-              <SwiperSlide key={review._id} className={css.slide}>
+              <SwiperSlide key={feedback._id} className={css.slide}>
                 <article className={css.card}>
                   <div className={css.rating}>
                     {[...Array(totalStars)].map((_, index) => {
@@ -115,12 +118,15 @@ export default function ReviewsBlock() {
                     })}
                   </div>
 
-                  <p className={css.text}>{review.description}</p>
+                  <p className={css.text}>{feedback.description}</p>
 
                   <div className={css.meta}>
-                    <p className={css.author}>{review.userName}</p>
+                    <p className={css.author}>
+                      {feedback.ownerId?.name || "Інкогніто"}
+                    </p>
+
                     <p className={css.locationType}>
-                      {review.locationId?.locationTypeId?.type || "Локація"}
+                      {feedback.locationId?.locationTypeId?.type || "Локація"}
                     </p>
                   </div>
                 </article>
