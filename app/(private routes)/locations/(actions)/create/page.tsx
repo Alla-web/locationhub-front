@@ -101,7 +101,7 @@ export default function CreateLocation() {
 
       const createdLocation = await createLocation(formData);
 
-      toast.success("New locations was successfuly created");
+      toast.success("Нова локація успішно створена");
       router.push(`/locations/${createdLocation._id}`);
       actions.resetForm();
       setSelectedFile(null);
@@ -267,7 +267,7 @@ export default function CreateLocation() {
                     type="submit"
                     disabled={!formikProps.isValid || formikProps.isSubmitting}
                   >
-                    {formikProps.isSubmitting ? "Відправка" : "Опублікувати"}
+                    {formikProps.isSubmitting ? "Відправка..." : "Опублікувати"}
                   </button>
                 </div>
               </Form>
