@@ -114,8 +114,8 @@ const LocationForm = ({ location }: LocationFormProps) => {
       const compressedFile = await imageCompression(file, options);
       toast.success("Фото оптимізовано перед завантаженням");
 
-      console.log("Original:", file.size / 1024 / 1024, "MB");
-      console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
+      // console.log("Original:", file.size / 1024 / 1024, "MB");
+      // console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
 
       if (previewUrl && previewUrl !== location.image) {
         URL.revokeObjectURL(previewUrl);
