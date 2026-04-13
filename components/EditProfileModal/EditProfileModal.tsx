@@ -8,9 +8,11 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { isAxiosError } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
+import imageCompression from "browser-image-compression";
 
 import { useAuthStore } from "@/lib/store/authStore";
 import { updateProfile } from "@/lib/api/clientApi";
+import { MAX_ORIGINAL_FILE_SIZE } from "@/types/location";
 
 import css from "./EditProfileModal.module.css";
 
@@ -49,12 +51,48 @@ export default function EditProfileModal() {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
+    if (!file.type.startsWith("image/")) {
+      toast.error("Можна завантажувати тільки зображення");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > MAX_ORIGINAL_FILE_SIZE) {
+      toast.error("Оригінальний файл занадто великий. Максимум 15 MB");
+      event.target.value = "";
+      return;
+    }
+
+    try {
+      const options = {
+        maxSizeMB: 1, // максимум 1MB
+        maxWidthOrHeight: 1920, // масимальний розмір
+        useWebWorker: true,
+      };
+
+      const compressedFile = await imageCompression(file, options);
+      toast.success("Фото оптимізовано перед завантаженням");
+
+      console.log("Original:", file.size / 1024 / 1024, "MB");
+      console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
+
+      if (previewUrl && previewUrl !== user?.avatarUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+
+      setSelectedFile(compressedFile);
+      setPreviewUrl(URL.createObjectURL(compressedFile));
+    } catch (error) {
+      event.target.value = "";
+      console.error(error);
+      toast.error("Помилка обробки зображення");
+    }
   };
 
   const handleSubmit = async (
