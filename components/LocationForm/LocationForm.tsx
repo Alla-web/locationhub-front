@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import imageCompression from "browser-image-compression";
 
 import { LocationDetails } from "@/types/location-details";
 import { LocationType } from "@/types/locationType";
@@ -86,21 +87,37 @@ const LocationForm = ({ location }: LocationFormProps) => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (!file) return;
     if (file.size > MAX_FILE_SIZE) {
-      toast.error("Файл завеликий. Максимум 5 MB");
+      toast.error("Файл завеликий. Максимум 1 MB");
       return;
     }
 
-    if (previewUrl && previewUrl !== location.image) {
-      URL.revokeObjectURL(previewUrl);
-    }
+    try {
+      const options = {
+        maxSizeMB: MAX_FILE_SIZE, // максимум 1MB
+        maxWidthOrHeigth: 1920, // масимальний розмір
+        useWebWorker: true,
+      };
 
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
+      const compressedFile = await imageCompression(file, options);
+      toast.success("Фото оптимізовано перед завантаженням");
+
+      console.log("Original:", file.size / 1024 / 1024, "MB");
+      console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
+
+      if (previewUrl && previewUrl !== location.image) {
+        URL.revokeObjectURL(previewUrl);
+      }
+
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    } catch {
+      toast.error("Помилка обробки зображення");
+    }
   };
 
   const handleSubmit = async (
