@@ -19,7 +19,7 @@ import {
   getLocationTypes,
   updateLocation,
 } from "@/lib/api/clientApi";
-import { MAX_FILE_SIZE } from "@/types/location";
+import { MAX_ORIGINAL_FILE_SIZE } from "@/types/location";
 
 import css from "./LocationForm.module.css";
 
@@ -91,15 +91,23 @@ const LocationForm = ({ location }: LocationFormProps) => {
     const file = event.target.files?.[0];
 
     if (!file) return;
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error("Файл завеликий. Максимум 1 MB");
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Можна завантажувати тільки зображення");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > MAX_ORIGINAL_FILE_SIZE) {
+      toast.error("Оригінальний файл занадто великий. Максимум 15 MB");
+      event.target.value = "";
       return;
     }
 
     try {
       const options = {
-        maxSizeMB: MAX_FILE_SIZE, // максимум 1MB
-        maxWidthOrHeigth: 1920, // масимальний розмір
+        maxSizeMB: 1, // максимум 1MB
+        maxWidthOrHeight: 1920, // масимальний розмір
         useWebWorker: true,
       };
 
@@ -113,9 +121,11 @@ const LocationForm = ({ location }: LocationFormProps) => {
         URL.revokeObjectURL(previewUrl);
       }
 
-      setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
-    } catch {
+      setSelectedFile(compressedFile);
+      setPreviewUrl(URL.createObjectURL(compressedFile));
+    } catch (error) {
+      event.target.value = "";
+      console.error(error);
       toast.error("Помилка обробки зображення");
     }
   };
