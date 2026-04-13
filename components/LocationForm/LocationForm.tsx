@@ -18,6 +18,7 @@ import {
   getLocationTypes,
   updateLocation,
 } from "@/lib/api/clientApi";
+import { MAX_FILE_SIZE } from "@/types/location";
 
 import css from "./LocationForm.module.css";
 
@@ -89,6 +90,10 @@ const LocationForm = ({ location }: LocationFormProps) => {
     const file = event.target.files?.[0];
 
     if (!file) return;
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error("Файл завеликий. Максимум 5 MB");
+      return;
+    }
 
     if (previewUrl && previewUrl !== location.image) {
       URL.revokeObjectURL(previewUrl);
