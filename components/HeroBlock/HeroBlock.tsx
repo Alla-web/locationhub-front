@@ -9,15 +9,13 @@ export default function HeroBlock() {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
-  const handleSearch = () => {
-    const searchQuery = query;
-    console.log(searchQuery);
-
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const searchQuery = query.trim();
     if (!searchQuery) {
       toast("Введіть пошуковий запит");
       return;
     }
-
     router.push(`/locations/filter/${encodeURIComponent(searchQuery)}`);
   };
 
@@ -32,19 +30,18 @@ export default function HeroBlock() {
           мандрівників.
         </p>
         <div className={css.searchBox}>
-          <input
-            className={`input ${css.input}`}
-            type="text"
-            placeholder="Введіть назву, тип або регіон..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value.trim())}
-          />
-          <button
-            className={`btn btn-base ${css.searchBtn}`}
-            onClick={handleSearch}
-          >
-            Знайти місце
-          </button>
+          <form onSubmit={handleSearch}>
+            <input
+              className={`input ${css.input}`}
+              type="text"
+              placeholder="Введіть назву, тип або регіон..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button type="submit" className={`btn btn-base ${css.searchBtn}`}>
+              Знайти місце
+            </button>
+          </form>
         </div>
       </div>
     </section>
