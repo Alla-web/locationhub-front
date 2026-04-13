@@ -72,8 +72,6 @@ export default function ReviewsBlock() {
           className={css.swiper}
         >
           {feedbacks.map((feedback) => {
-            console.log(feedback);
-
             const rate = feedback.rate || 0;
             const fullStars = Math.floor(rate);
             const hasHalfStar = rate - fullStars >= 0.5;
