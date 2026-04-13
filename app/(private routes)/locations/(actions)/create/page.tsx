@@ -16,7 +16,6 @@ import { Region } from "@/types/region";
 import { CreateLocationPayload } from "@/types/location";
 import { getRegions, getLocationTypes } from "@/lib/api/clientApi";
 import { createLocation } from "@/lib/api/clientApi";
-import { MAX_FILE_SIZE } from "@/types/location";
 
 const defaultValues: CreateLocationPayload = {
   image: "",
@@ -77,10 +76,6 @@ export default function CreateLocation() {
     const file = e.target.files?.[0];
 
     if (!file) return;
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error("Файл завеликий. Максимум 5 MB");
-      return;
-    }
 
     setSelectedFile(file);
     setPreviewUrl(URL.createObjectURL(file));
