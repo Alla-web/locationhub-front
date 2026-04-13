@@ -84,6 +84,13 @@
   color: var(--color-scheme-2-text);
 }
 
+.locationName {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-scheme-2-text);
+}
+
 .bottomControls {
   display: flex;
   justify-content: flex-end;
