@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { isAxiosError } from "axios";
@@ -45,7 +46,12 @@ function apiErrorMessage(error: unknown): string {
     };
 
     if (data?.errors?.[0]?.message) return data.errors[0].message;
-    return data?.message ?? data?.error ?? error.message ?? "Помилка при відправці відгуку";
+    return (
+      data?.message ??
+      data?.error ??
+      error.message ??
+      "Помилка при відправці відгуку"
+    );
   }
 
   if (error instanceof Error && error.message) {
@@ -60,6 +66,8 @@ export const AddReviewForm = ({
   onClose,
   onSuccess,
 }: AddReviewFormProps) => {
+  const queryClient = useQueryClient();
+
   const normalizedLocationId = Array.isArray(locationId)
     ? locationId[0]
     : locationId;
@@ -80,6 +88,7 @@ export const AddReviewForm = ({
             rate: values.rate,
             description: values.description.trim(),
           });
+          await queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
           toast.success("Відгук відправлено на модерацію");
           onSuccess();
         } catch (error) {
@@ -89,7 +98,14 @@ export const AddReviewForm = ({
         }
       }}
     >
-      {({ errors, touched, values, setFieldValue, setFieldTouched, isSubmitting }) => (
+      {({
+        errors,
+        touched,
+        values,
+        setFieldValue,
+        setFieldTouched,
+        isSubmitting,
+      }) => (
         <Form className={css.form} noValidate>
           <div className={css.field}>
             <h3 className={css.subtitle}>Ваш відгук</h3>
@@ -99,7 +115,9 @@ export const AddReviewForm = ({
               name="description"
               placeholder="Напишіть ваш відгук"
               className={`${css.textarea} ${
-                errors.description && touched.description ? css.textareaError : ""
+                errors.description && touched.description
+                  ? css.textareaError
+                  : ""
               }`}
             />
 
