@@ -46,7 +46,6 @@ export interface CreateLocationPayload {
   regionId: string;
   locationTypeId: string;
   description: string;
-
 }
 
 export interface UpdateLocationPayload {
@@ -56,3 +55,5 @@ export interface UpdateLocationPayload {
   regionId?: string;
   locationTypeId?: string;
 }
+
+export const MAX_FILE_SIZE = 5 * 1024 * 1024;
