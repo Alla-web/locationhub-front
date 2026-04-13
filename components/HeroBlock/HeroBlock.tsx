@@ -29,20 +29,19 @@ export default function HeroBlock() {
           Тисячі перевірених локацій з реальними фото та відгуками від
           мандрівників.
         </p>
-        <div className={css.searchBox}>
-          <form onSubmit={handleSearch}>
-            <input
-              className={`input ${css.input}`}
-              type="text"
-              placeholder="Введіть назву, тип або регіон..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button type="submit" className={`btn btn-base ${css.searchBtn}`}>
-              Знайти місце
-            </button>
-          </form>
-        </div>
+
+        <form className={css.searchBox} onSubmit={handleSearch}>
+          <input
+            className={`input ${css.input}`}
+            type="text"
+            placeholder="Введіть назву, тип або регіон..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button type="submit" className={`btn btn-base ${css.searchBtn}`}>
+            Знайти місце
+          </button>
+        </form>
       </div>
     </section>
   );
