@@ -12,28 +12,20 @@ import "swiper/css/pagination";
 
 import css from "./ReviewsBlock.module.css";
 import ErrorBox from "@/components/ErrorBox/ErrorBox";
-import type { Feedback } from "@/types/feedback";
+import type { GetFeedbacksResponse } from "@/types/feedback";
 import { getFeedbacks } from "@/lib/api/clientApi";
-
-interface GetFeedbacksResponse {
-  page: number;
-  perPage: number;
-  totalPages: number;
-  totalFeedbacks: number;
-  feedbacks: Feedback[];
-}
 
 export default function ReviewsBlock() {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const feedbacksQuery = useQuery<GetFeedbacksResponse>({
+  const { data, isLoading, isError, error } = useQuery<GetFeedbacksResponse>({
     queryKey: ["feedbacks"],
     queryFn: getFeedbacks,
     placeholderData: keepPreviousData,
     staleTime: 60 * 1000,
   });
 
-  const feedbacks = feedbacksQuery.data?.feedbacks ?? [];
+  const feedbacks = data?.feedbacks ?? [];
 
   return (
     <section className={`section ${css.section}`}>
@@ -42,18 +34,16 @@ export default function ReviewsBlock() {
           <h2 className={css.title}>Останні відгуки</h2>
         </div>
 
-        {feedbacksQuery.isLoading && <Loader />}
+        {isLoading && <Loader />}
 
-        {!feedbacksQuery.isLoading && feedbacks.length === 0 && (
+        {!isLoading && feedbacks.length === 0 && (
           <p>Поки що немає відгуків на локацї</p>
         )}
 
-        {feedbacksQuery.isError && (
+        {isError && (
           <ErrorBox
             query=""
-            errorMessage={
-              feedbacksQuery.error?.message || "Something went wrong!"
-            }
+            errorMessage={error?.message || "Something went wrong!"}
           />
         )}
 
