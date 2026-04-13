@@ -56,4 +56,4 @@ export interface UpdateLocationPayload {
   locationTypeId?: string;
 }
 
-export const MAX_FILE_SIZE = 1 * 1024 * 1024;
+export const MAX_ORIGINAL_FILE_SIZE = 15 * 1024 * 1024;
