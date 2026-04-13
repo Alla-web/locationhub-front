@@ -115,7 +115,7 @@ const LocationForm = ({ location }: LocationFormProps) => {
 
       setSelectedFile(file);
       setPreviewUrl(URL.createObjectURL(file));
-    } catch (error) {
+    } catch {
       toast.error("Помилка обробки зображення");
     }
   };
