@@ -123,12 +123,19 @@ const LocationForm = ({ location }: LocationFormProps) => {
         const backendErrors = error.response?.data;
         if (backendErrors?.errors) {
           actions.setErrors(backendErrors.errors);
+          toast.error("Перевірте правильність заповнення форми");
         } else {
-          actions.setStatus(backendErrors?.message || "Щось пішло не так");
+          const message = backendErrors?.message || "Щось пішло не так";
+          actions.setStatus(message);
+          toast.error(message);
         }
       } else {
-        actions.setStatus("Unknown issue occured");
+        const message = "Unknown issue occured";
+        actions.setStatus(message);
+        toast.error(message);
       }
+    } finally {
+      actions.setSubmitting(false);
     }
   };
 
@@ -262,12 +269,6 @@ const LocationForm = ({ location }: LocationFormProps) => {
                       : "Зберегти зміни"}
                   </button>
                 </div>
-
-                {formikProps.status && (
-                  <div
-                    className={css.error}
-                  >{`Error: ${formikProps.status}`}</div>
-                )}
               </Form>
             )}
           </Formik>

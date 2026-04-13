@@ -381,7 +381,7 @@ svg {
 
 @media (min-width: 768px) {
   .container {
-    width: 768;
+    width: 768px;
     padding-left: 32px;
     padding-right: 32px;
   }
