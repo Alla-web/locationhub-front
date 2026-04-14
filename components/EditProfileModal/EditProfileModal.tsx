@@ -70,17 +70,11 @@ export default function EditProfileModal() {
     }
 
     try {
-      const options = {
+      const compressedFile = await imageCompression(file, {
         maxSizeMB: 1, // максимум 1MB
         maxWidthOrHeight: 1920, // масимальний розмір
         useWebWorker: true,
-      };
-
-      const compressedFile = await imageCompression(file, options);
-      toast.success("Фото оптимізовано перед завантаженням");
-
-      console.log("Original:", file.size / 1024 / 1024, "MB");
-      console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
+      });
 
       if (previewUrl && previewUrl !== user?.avatarUrl) {
         URL.revokeObjectURL(previewUrl);
@@ -88,6 +82,12 @@ export default function EditProfileModal() {
 
       setSelectedFile(compressedFile);
       setPreviewUrl(URL.createObjectURL(compressedFile));
+
+      event.target.value = "";
+      toast.success("Фото оптимізовано перед завантаженням");
+
+      // console.log("Original:", file.size / 1024 / 1024, "MB");
+      // console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
     } catch (error) {
       event.target.value = "";
       console.error(error);
