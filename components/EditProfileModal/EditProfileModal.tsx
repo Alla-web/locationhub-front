@@ -70,25 +70,34 @@ export default function EditProfileModal() {
     }
 
     try {
-      const compressedBlob = await imageCompression(file, {
-        maxSizeMB: 1, // максимум 1MB
-        maxWidthOrHeight: 1920, // масимальний розмір
-        useWebWorker: true,
-      });
+      if (file.size > 1 * 1024 * 1024) {
+        const compressedBlob = await imageCompression(file, {
+          maxSizeMB: 1, // максимум 1MB
+          maxWidthOrHeight: 1920, // масимальний розмір
+          useWebWorker: true,
+        });
+        toast.success("Фото оптимізовано перед завантаженням");
 
-      const compressedFile = new File([compressedBlob], file.name, {
-        type: compressedBlob.type || file.type,
-      });
+        const compressedFile = new File([compressedBlob], file.name, {
+          type: compressedBlob.type || file.type,
+        });
 
-      if (previewUrl && previewUrl !== user?.avatarUrl) {
-        URL.revokeObjectURL(previewUrl);
+        if (previewUrl && previewUrl !== user?.avatarUrl) {
+          URL.revokeObjectURL(previewUrl);
+        }
+
+        setSelectedFile(compressedFile);
+        setPreviewUrl(URL.createObjectURL(compressedFile));
+      } else {
+        if (previewUrl && previewUrl !== user?.avatarUrl) {
+          URL.revokeObjectURL(previewUrl);
+        }
+
+        setSelectedFile(file);
+        setPreviewUrl(URL.createObjectURL(file));
       }
 
-      setSelectedFile(compressedFile);
-      setPreviewUrl(URL.createObjectURL(compressedFile));
-
       event.target.value = "";
-      toast.success("Фото оптимізовано перед завантаженням");
     } catch (error) {
       event.target.value = "";
       console.error(error);
@@ -107,6 +116,17 @@ export default function EditProfileModal() {
       if (selectedFile) {
         formData.append("avatar", selectedFile);
       }
+
+      //тимчасово
+      if (selectedFile) {
+        console.log("selectedFile", {
+          name: selectedFile.name,
+          size: selectedFile.size,
+          type: selectedFile.type,
+          lastModified: selectedFile.lastModified,
+        });
+      }
+      ////
 
       const updatedUser = await updateProfile(formData);
       setUser(updatedUser);
