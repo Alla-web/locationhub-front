@@ -72,11 +72,15 @@ export default function EditProfileModal() {
     }
 
     try {
+      if (previewUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(previewUrl);
+      }
+
       if (file.size > 1 * 1024 * 1024) {
         const compressedBlob = await imageCompression(file, {
           maxSizeMB: 1,
           maxWidthOrHeight: 1920,
-          useWebWorker: true,
+          useWebWorker: false,
         });
 
         const finalType = compressedBlob.type || file.type;
@@ -111,9 +115,6 @@ export default function EditProfileModal() {
         // if (previewUrl && previewUrl !== user?.avatarUrl) {
         //   URL.revokeObjectURL(previewUrl);
         // }
-        if (previewUrl.startsWith("blob:")) {
-          URL.revokeObjectURL(previewUrl);
-        }
 
         setSelectedFile(compressedFile);
         setPreviewUrl(URL.createObjectURL(compressedFile));
@@ -123,9 +124,6 @@ export default function EditProfileModal() {
         // if (previewUrl && previewUrl !== user?.avatarUrl) {
         //   URL.revokeObjectURL(previewUrl);
         // }
-        if (previewUrl.startsWith("blob:")) {
-          URL.revokeObjectURL(previewUrl);
-        }
 
         setSelectedFile(file);
         setPreviewUrl(URL.createObjectURL(file));
