@@ -70,10 +70,14 @@ export default function EditProfileModal() {
     }
 
     try {
-      const compressedFile = await imageCompression(file, {
+      const compressedBlob = await imageCompression(file, {
         maxSizeMB: 1, // максимум 1MB
         maxWidthOrHeight: 1920, // масимальний розмір
         useWebWorker: true,
+      });
+
+      const compressedFile = new File([compressedBlob], file.name, {
+        type: compressedBlob.type || file.type,
       });
 
       if (previewUrl && previewUrl !== user?.avatarUrl) {
@@ -85,9 +89,6 @@ export default function EditProfileModal() {
 
       event.target.value = "";
       toast.success("Фото оптимізовано перед завантаженням");
-
-      // console.log("Original:", file.size / 1024 / 1024, "MB");
-      // console.log("Compressed:", compressedFile.size / 1024 / 1024, "MB");
     } catch (error) {
       event.target.value = "";
       console.error(error);
