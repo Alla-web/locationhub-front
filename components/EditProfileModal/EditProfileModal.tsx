@@ -72,14 +72,38 @@ export default function EditProfileModal() {
     try {
       if (file.size > 1 * 1024 * 1024) {
         const compressedBlob = await imageCompression(file, {
-          maxSizeMB: 1, // максимум 1MB
-          maxWidthOrHeight: 1920, // масимальний розмір
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
           useWebWorker: true,
         });
-        toast.success("Фото оптимізовано перед завантаженням");
 
-        const compressedFile = new File([compressedBlob], file.name, {
-          type: compressedBlob.type || file.type,
+        const finalType = compressedBlob.type || file.type;
+
+        const extensionMap: Record<string, string> = {
+          "image/jpeg": "jpg",
+          "image/png": "png",
+          "image/webp": "webp",
+        };
+
+        const baseName = file.name.replace(/\.[^.]+$/, "");
+        const finalExtension = extensionMap[finalType] || "jpg";
+        const finalName = `${baseName}.${finalExtension}`;
+
+        const compressedFile = new File([compressedBlob], finalName, {
+          type: finalType,
+          lastModified: Date.now(),
+        });
+
+        console.log("Original file:", {
+          name: file.name,
+          type: file.type,
+          size: file.size,
+        });
+
+        console.log("Compressed file:", {
+          name: compressedFile.name,
+          type: compressedFile.type,
+          size: compressedFile.size,
         });
 
         if (previewUrl && previewUrl !== user?.avatarUrl) {
@@ -88,6 +112,8 @@ export default function EditProfileModal() {
 
         setSelectedFile(compressedFile);
         setPreviewUrl(URL.createObjectURL(compressedFile));
+
+        toast.success("Фото оптимізовано перед завантаженням");
       } else {
         if (previewUrl && previewUrl !== user?.avatarUrl) {
           URL.revokeObjectURL(previewUrl);
