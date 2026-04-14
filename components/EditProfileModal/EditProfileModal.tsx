@@ -76,7 +76,7 @@ export default function EditProfileModal() {
         const compressedBlob = await imageCompression(file, {
           maxSizeMB: 1,
           maxWidthOrHeight: 1920,
-          useWebWorker: true,
+          useWebWorker: false,
         });
 
         const finalType = compressedBlob.type || file.type;
@@ -108,7 +108,10 @@ export default function EditProfileModal() {
           size: compressedFile.size,
         });
 
-        if (previewUrl && previewUrl !== user?.avatarUrl) {
+        // if (previewUrl && previewUrl !== user?.avatarUrl) {
+        //   URL.revokeObjectURL(previewUrl);
+        // }
+        if (previewUrl.startsWith("blob:")) {
           URL.revokeObjectURL(previewUrl);
         }
 
@@ -117,7 +120,10 @@ export default function EditProfileModal() {
 
         toast.success("Фото оптимізовано перед завантаженням");
       } else {
-        if (previewUrl && previewUrl !== user?.avatarUrl) {
+        // if (previewUrl && previewUrl !== user?.avatarUrl) {
+        //   URL.revokeObjectURL(previewUrl);
+        // }
+        if (previewUrl.startsWith("blob:")) {
           URL.revokeObjectURL(previewUrl);
         }
 
