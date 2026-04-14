@@ -108,7 +108,10 @@ export default function EditProfileModal() {
           size: compressedFile.size,
         });
 
-        if (previewUrl && previewUrl !== user?.avatarUrl) {
+        // if (previewUrl && previewUrl !== user?.avatarUrl) {
+        //   URL.revokeObjectURL(previewUrl);
+        // }
+        if (previewUrl.startsWith("blob:")) {
           URL.revokeObjectURL(previewUrl);
         }
 
@@ -117,7 +120,10 @@ export default function EditProfileModal() {
 
         toast.success("Фото оптимізовано перед завантаженням");
       } else {
-        if (previewUrl && previewUrl !== user?.avatarUrl) {
+        // if (previewUrl && previewUrl !== user?.avatarUrl) {
+        //   URL.revokeObjectURL(previewUrl);
+        // }
+        if (previewUrl.startsWith("blob:")) {
           URL.revokeObjectURL(previewUrl);
         }
 
@@ -165,6 +171,7 @@ export default function EditProfileModal() {
 
       const updatedUser = await updateProfile(formData);
       setUser(updatedUser);
+
       await queryClient.invalidateQueries({
         queryKey: ["profile", "me"],
       });
