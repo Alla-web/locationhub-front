@@ -57,14 +57,6 @@ export default function EditProfileModal() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-
-    if (!allowedTypes.includes(file.type)) {
-      toast.error("Дозволені тільки JPG, PNG або WEBP");
-      event.target.value = "";
-      return;
-    }
-
     if (file.size > MAX_ORIGINAL_FILE_SIZE) {
       toast.error("Оригінальний файл занадто великий. Максимум 15 MB");
       event.target.value = "";
@@ -77,54 +69,17 @@ export default function EditProfileModal() {
       }
 
       if (file.size > 1 * 1024 * 1024) {
-        const compressedBlob = await imageCompression(file, {
+        const compressedFile = await imageCompression(file, {
           maxSizeMB: 1,
           maxWidthOrHeight: 1920,
-          useWebWorker: false,
+          useWebWorker: true,
         });
-
-        const finalType = compressedBlob.type || file.type;
-
-        const extensionMap: Record<string, string> = {
-          "image/jpeg": "jpg",
-          "image/png": "png",
-          "image/webp": "webp",
-        };
-
-        const baseName = file.name.replace(/\.[^.]+$/, "");
-        const finalExtension = extensionMap[finalType] || "jpg";
-        const finalName = `${baseName}.${finalExtension}`;
-
-        const compressedFile = new File([compressedBlob], finalName, {
-          type: finalType,
-          lastModified: Date.now(),
-        });
-
-        console.log("Original file:", {
-          name: file.name,
-          type: file.type,
-          size: file.size,
-        });
-
-        console.log("Compressed file:", {
-          name: compressedFile.name,
-          type: compressedFile.type,
-          size: compressedFile.size,
-        });
-
-        // if (previewUrl && previewUrl !== user?.avatarUrl) {
-        //   URL.revokeObjectURL(previewUrl);
-        // }
 
         setSelectedFile(compressedFile);
         setPreviewUrl(URL.createObjectURL(compressedFile));
 
         toast.success("Фото оптимізовано перед завантаженням");
       } else {
-        // if (previewUrl && previewUrl !== user?.avatarUrl) {
-        //   URL.revokeObjectURL(previewUrl);
-        // }
-
         setSelectedFile(file);
         setPreviewUrl(URL.createObjectURL(file));
       }
