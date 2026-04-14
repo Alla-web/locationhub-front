@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, MouseEvent } from "react";
+import { useRef, useState, MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
@@ -37,20 +37,6 @@ export default function EditProfileModal() {
   const [previewUrl, setPreviewUrl] = useState(user?.avatarUrl || "");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (!selectedFile) {
-      setPreviewUrl(user?.avatarUrl || "");
-    }
-  }, [user?.avatarUrl, selectedFile]);
-
-  useEffect(() => {
-    return () => {
-      if (previewUrl.startsWith("blob:")) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
-
   const handleClose = () => {
     router.back();
   };
@@ -86,15 +72,11 @@ export default function EditProfileModal() {
     }
 
     try {
-      if (previewUrl.startsWith("blob:")) {
-        URL.revokeObjectURL(previewUrl);
-      }
-
       if (file.size > 1 * 1024 * 1024) {
         const compressedBlob = await imageCompression(file, {
           maxSizeMB: 1,
           maxWidthOrHeight: 1920,
-          useWebWorker: false,
+          useWebWorker: true,
         });
 
         const finalType = compressedBlob.type || file.type;
@@ -126,18 +108,18 @@ export default function EditProfileModal() {
           size: compressedFile.size,
         });
 
-        // if (previewUrl && previewUrl !== user?.avatarUrl) {
-        //   URL.revokeObjectURL(previewUrl);
-        // }
+        if (previewUrl && previewUrl !== user?.avatarUrl) {
+          URL.revokeObjectURL(previewUrl);
+        }
 
         setSelectedFile(compressedFile);
         setPreviewUrl(URL.createObjectURL(compressedFile));
 
         toast.success("Фото оптимізовано перед завантаженням");
       } else {
-        // if (previewUrl && previewUrl !== user?.avatarUrl) {
-        //   URL.revokeObjectURL(previewUrl);
-        // }
+        if (previewUrl && previewUrl !== user?.avatarUrl) {
+          URL.revokeObjectURL(previewUrl);
+        }
 
         setSelectedFile(file);
         setPreviewUrl(URL.createObjectURL(file));
@@ -167,7 +149,7 @@ export default function EditProfileModal() {
       formData.append("name", values.name);
 
       if (selectedFile) {
-        formData.append("avatar", selectedFile, selectedFile.name);
+        formData.append("avatar", selectedFile);
       }
 
       //тимчасово
@@ -183,10 +165,6 @@ export default function EditProfileModal() {
 
       const updatedUser = await updateProfile(formData);
       setUser(updatedUser);
-      //додала
-      setSelectedFile(null);
-      setPreviewUrl(updatedUser.avatarUrl || "");
-
       await queryClient.invalidateQueries({
         queryKey: ["profile", "me"],
       });
