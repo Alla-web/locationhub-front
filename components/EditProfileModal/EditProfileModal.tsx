@@ -57,8 +57,10 @@ export default function EditProfileModal() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-      toast.error("Можна завантажувати тільки зображення");
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Дозволені тільки JPG, PNG або WEBP");
       event.target.value = "";
       return;
     }
@@ -125,9 +127,16 @@ export default function EditProfileModal() {
 
       event.target.value = "";
     } catch (error) {
+      console.error("Compression error:", error);
+
+      if (error instanceof Error) {
+        console.error("Compression error message:", error.message);
+      }
+
+      toast.error(
+        "Не вдалося оптимізувати фото. Спробуйте інше зображення розміром до 1 MB.",
+      );
       event.target.value = "";
-      console.error(error);
-      toast.error("Помилка обробки зображення");
     }
   };
 
